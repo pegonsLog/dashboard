@@ -1,11 +1,43 @@
+a {
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-family: Montserrat;
+  font-weight: 300;
+  color: #94a3b8;
+  padding-top: 3px;
+
+}
 mat-divider {
   border-top-width: 1px;
-  border-color: white;
+  border-color: #94a3b8;
 }
-h2{
-color: white;
-font-family: Montserrat;
-font-weight: 300;
-text-align: center;
-letter-spacing: 1rem;
+
+h1 {
+  text-align: center;
+  letter-spacing: 1rem;
+  color: #94a3b8;
 }
+h5 {
+  font-family: Montserrat;
+  margin: 15px 0px 40px 22px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+h1 {
+  font-weight: 300;
+  font-family: Montserrat;
+}
+
+#align-list{
+display: flex;
+align-items: center;
+color: #94a3b8;
+text-decoration: none;
+margin-left: 20px;
+margin-bottom: 40px;
+}
+.mat-icon{
+  margin-right: 10px;
+}
+
+
