@@ -1,42 +1,41 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './shared/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
 
   {
+    path: 'login',
+    loadChildren: () =>
+      import('src/app/login/login.module').then((m) => m.LoginModule),
+  },
+  {
     path: 'users',
     loadChildren: () =>
-      import('src/app/users/users.module').then(
-        (m) => m.UsersModule
-      ),
+      import('src/app/users/user.module').then((m) => m.UserModule),
+  },
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('src/app/home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'days',
     loadChildren: () =>
-      import('src/app/day/day.module').then(
-        (m) => m.DayModule
-      ),
+      import('src/app/day/day.module').then((m) => m.DayModule),
   },
   {
     path: 'hours',
     loadChildren: () =>
-      import('src/app/hour/hour.module').then(
-        (m) => m.HourModule
-      ),
+      import('src/app/hour/hour.module').then((m) => m.HourModule),
   },
   {
     path: 'donations',
     loadChildren: () =>
-      import('src/app/donation/donation.module').then(
-        (m) => m.DonationModule
-      ),
+      import('src/app/donation/donation.module').then((m) => m.DonationModule),
   },
-
 ];
 
 @NgModule({

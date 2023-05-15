@@ -1,0 +1,45 @@
+@media (mix-width: 600px) {
+  mat-card {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+@media (min-width: 600px) and (max-width: 2000px) {
+  mat-card {
+    width: 40%;
+    margin: 10% auto;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-card-actions {
+  margin: auto;
+}
+
+mat-toolbar,
+button {
+  margin-bottom: 1em;
+}
+
+#peso-fonte {
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-family: Montserrat;
+}
+
+button {
+  margin-right: 10px;
+}
+#button-atestado{
+  display: block;
+  width: 100%;
+  font-size: 0.9rem;
+  background-color: #3263e9;
+  color: white;
+  font-weight: 300;
+  font-family: Montserrat;
+}
+

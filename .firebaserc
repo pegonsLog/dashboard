@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "atestados-garbo": {
+      "hosting": {
+        "dashboard": [
+          "atestados-garbo"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "atestados-garbo"
+  }
+}
