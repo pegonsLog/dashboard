@@ -12,10 +12,8 @@ import { AuthService } from './auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy {
-  form: FormGroup;
+  control: FormControl;
 
-  user = new FormControl('');
-  password = new FormControl('');
   isAuth: boolean = false;
 
   userAuth: User = {
@@ -35,10 +33,10 @@ export class LoginComponent implements OnDestroy {
     private router: Router,
     private fb: FormBuilder
   ) {
-    this.form = this.fb.group(
-      { user: ['564', Validators.required] },
-      { password: ['564', Validators.required] }
-      );
+    this.control = fb.control([
+      { user: '564', required: true },
+      { password: '564', required: true },
+    ]);
 
     this.subscription = this.authService
       .list()
@@ -46,12 +44,11 @@ export class LoginComponent implements OnDestroy {
   }
 
   query() {
-
-   const userForm = this.form.getRawValue();
-   console.log(userForm)
-
     for (let usr of this.users) {
-      if (usr.user === userForm.user && usr.password === userForm.password) {
+      if (
+        usr.user === this.control.value.user &&
+        usr.password === this.control.value.password
+      ) {
         this.userAuth = usr;
       }
     }
@@ -65,7 +62,7 @@ export class LoginComponent implements OnDestroy {
         },
       });
     }
-    if (userForm.user === '' || userForm.password === '') {
+    if (this.control.value.value === '' || this.control.value.password === '') {
       alert('Usuário e/ou senha inválido(s)!');
       this.router.navigate(['']);
     }

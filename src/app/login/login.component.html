@@ -3,13 +3,14 @@
     <mat-toolbar color="primary" id="peso-fonte"
       >Controle de atestados - GARBO</mat-toolbar
     >
-    <div [formGroup]="form" (ngSubmit)="query()">
+    <div>
       <mat-form-field class="full-width">
         <input
           matInput
           placeholder="Usuário"
           inputmode="numeric"
-          formControlName="user"
+          type="text"
+          name="user"
           pattern="[0-9]*"
         />
       </mat-form-field>
@@ -20,16 +21,16 @@
           placeholder="Senha"
           type="password"
           inputmode="numeric"
-          formControlName="password"
+          name="password"
           pattern="[0-9]*"
         />
       </mat-form-field>
       <mat-card-actions>
         <button
           id="button-atestado"
-          type="submit"
           name="atestado"
           mat-raised-button
+          (click)="query()"
         >
           LOGIN
         </button>
