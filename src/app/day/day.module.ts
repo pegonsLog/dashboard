@@ -16,6 +16,11 @@ import { DayListComponent } from './day-list/day-list.component';
   imports: [
     CommonModule,
     DayRoutingModule
+  ],
+  exports: [
+    DayCreateComponent,
+    DayUpdateComponent,
+    DayListComponent
   ]
 })
 export class DayModule { }

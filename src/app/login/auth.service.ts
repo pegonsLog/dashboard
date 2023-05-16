@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import {
-  collection, DocumentData, getDocs, getFirestore
+  collection,
+  DocumentData,
+  getDocs,
+  getFirestore,
 } from 'firebase/firestore/lite';
 import { map, Observable } from 'rxjs';
 import { User } from 'src/app/shared/models/User';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
 
@@ -19,7 +21,7 @@ export class AuthService {
   role: string = '';
   user: User = {
     id: '',
-    user: '',
+    username: '',
     name: '',
     password: '',
     role: '',
@@ -41,12 +43,4 @@ export class AuthService {
         });
     }).pipe(map((usersList) => usersList as User[]));
   }
-
-  isAuthenticatedAdmDrh() {}
-
-  isAuthenticatedUserDrh() {}
-
-  isAuthenticatedAdmTre() {}
-
-  isAuthenticatedUserTre() {}
 }

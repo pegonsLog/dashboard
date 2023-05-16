@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,16 +12,15 @@ import { AuthService } from './auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy {
-  control: FormControl;
+  loginForm: FormGroup;
 
   isAuth: boolean = false;
 
   userAuth: User = {
     id: '',
-    user: '',
+    username: '',
     name: '',
     password: '',
-    role: '',
   };
 
   users: User[] = [];
@@ -33,10 +32,10 @@ export class LoginComponent implements OnDestroy {
     private router: Router,
     private fb: FormBuilder
   ) {
-    this.control = fb.control([
-      { user: '564', required: true },
-      { password: '564', required: true },
-    ]);
+    this.loginForm = this.fb.group({
+      user: ['564', Validators.required],
+      password: ['564', Validators.required],
+    });
 
     this.subscription = this.authService
       .list()
@@ -44,27 +43,31 @@ export class LoginComponent implements OnDestroy {
   }
 
   query() {
+    console.log(this.users);
+
     for (let usr of this.users) {
       if (
-        usr.user === this.control.value.user &&
-        usr.password === this.control.value.password
+        usr.username === this.loginForm.value.user &&
+        usr.password === this.loginForm.value.password
       ) {
         this.userAuth = usr;
+        this.isAuth = true;
       }
     }
 
-    if (this.userAuth) {
-      this.router.navigate(['/home'], {
+    console.log(this.userAuth);
+
+    if (this.isAuth) {
+      this.router.navigate(['home'], {
         queryParams: {
           name: this.userAuth.name,
-          user: this.userAuth.user,
+          user: this.userAuth.username,
           role: this.userAuth.role,
         },
       });
-    }
-    if (this.control.value.value === '' || this.control.value.password === '') {
-      alert('Usuário e/ou senha inválido(s)!');
+    } else {
       this.router.navigate(['']);
+      this.onError();
     }
   }
 

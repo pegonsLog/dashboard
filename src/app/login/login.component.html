@@ -1,40 +1,40 @@
 <mat-card>
   <mat-card-content>
-    <mat-toolbar color="primary" id="peso-fonte"
-      >Controle de atestados - GARBO</mat-toolbar
-    >
+    <mat-toolbar id="peso-fonte">Controle de atestados - GARBO</mat-toolbar>
     <div>
-      <mat-form-field class="full-width">
-        <input
-          matInput
-          placeholder="Usuário"
-          inputmode="numeric"
-          type="text"
-          name="user"
-          pattern="[0-9]*"
-        />
-      </mat-form-field>
+      <form [formGroup]="loginForm" (ngSubmit)="query()">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Usuário"
+            inputmode="numeric"
+            type="text"
+            formControlName="user"
+            pattern="[0-9]*"
+          />
+        </mat-form-field>
 
-      <mat-form-field class="full-width">
-        <input
-          matInput
-          placeholder="Senha"
-          type="password"
-          inputmode="numeric"
-          name="password"
-          pattern="[0-9]*"
-        />
-      </mat-form-field>
-      <mat-card-actions>
-        <button
-          id="button-atestado"
-          name="atestado"
-          mat-raised-button
-          (click)="query()"
-        >
-          LOGIN
-        </button>
-      </mat-card-actions>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Senha"
+            type="password"
+            inputmode="numeric"
+            formControlName="password"
+            pattern="[0-9]*"
+          />
+        </mat-form-field>
+        <mat-card-actions>
+          <button
+            id="button-atestado"
+            name="atestado"
+            mat-raised-button
+            type="submit"
+          >
+            LOGIN
+          </button>
+        </mat-card-actions>
+      </form>
     </div>
   </mat-card-content>
 </mat-card>
