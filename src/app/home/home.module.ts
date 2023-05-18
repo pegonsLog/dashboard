@@ -7,6 +7,8 @@ import { AngularMaterialModule } from '../shared/angular-material/angular-materi
 import { SidenavModule } from '../sidenav/sidenav.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { HourModule } from '../hour/hour.module';
+import { DonationModule } from '../donation/donation.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -16,7 +18,9 @@ import { HomeComponent } from './home.component';
     AngularMaterialModule,
     SidenavModule,
     HeaderModule,
-    DayModule
+    DayModule,
+    HourModule,
+    DonationModule
   ],
   exports: [HomeComponent],
 })

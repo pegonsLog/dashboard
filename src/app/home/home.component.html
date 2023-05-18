@@ -1,18 +1,29 @@
 <mat-drawer-container>
-  <mat-drawer mode="side" opened="true">
-    <app-sidenav></app-sidenav>
+  <mat-drawer mode="side" opened="opened">
+    <app-sidenav (type)="onType($event)"></app-sidenav>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>
     <div class="background">
       <div class="title">
-        <span>{{titleName}}</span>
+        <span>{{ titleName }}</span>
       </div>
 
-    <div class="main">
-      <router-outlet></router-outlet>
+      <div class="main" *ngIf="isDay; else hour">
+        <app-day-create style="width: 50%"></app-day-create>
+      </div>
+
+      <ng-template #hour>
+        <div class="main" *ngIf="isHour; else donation">
+          <app-hour-create style="width: 50%"></app-hour-create>
+        </div>
+      </ng-template>
+
+      <ng-template #donation>
+        <div class="main">
+          <app-donation-create style="width: 50%"></app-donation-create>
+        </div>
+      </ng-template>
     </div>
-  </div>
   </mat-drawer-content>
 </mat-drawer-container>
-

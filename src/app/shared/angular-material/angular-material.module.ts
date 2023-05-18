@@ -13,6 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   exports: [
@@ -29,6 +30,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatListModule,
     MatSidenavModule,
     MatCardModule,
+    MatMenuModule,
     MatSlideToggleModule
   ],
 })

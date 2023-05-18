@@ -1,1 +1,40 @@
-<p>day-create works!</p>
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar id="peso-fonte">Controle de atestados - GARBO</mat-toolbar>
+    <div>
+      <form>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Usuário"
+            inputmode="numeric"
+            type="text"
+            formControlName="user"
+            pattern="[0-9]*"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Senha"
+            type="password"
+            inputmode="numeric"
+            formControlName="password"
+            pattern="[0-9]*"
+          />
+        </mat-form-field>
+        <mat-card-actions>
+          <button
+            id="button-atestado"
+            name="atestado"
+            mat-raised-button
+            type="submit"
+          >
+            LOGIN
+          </button>
+        </mat-card-actions>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

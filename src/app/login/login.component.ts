@@ -43,8 +43,6 @@ export class LoginComponent implements OnDestroy {
   }
 
   query() {
-    console.log(this.users);
-
     for (let usr of this.users) {
       if (
         usr.username === this.loginForm.value.user &&
@@ -54,8 +52,6 @@ export class LoginComponent implements OnDestroy {
         this.isAuth = true;
       }
     }
-
-    console.log(this.userAuth);
 
     if (this.isAuth) {
       this.router.navigate(['home'], {

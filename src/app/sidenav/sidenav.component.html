@@ -7,20 +7,20 @@
   <h5 class="mt-4">OPÇÕES</h5>
   <div id="align-list">
     <mat-icon>calendar_month</mat-icon>
-    <a routerLink="daynew" routerLinkActive="list-item-active"
+    <a (click)="onDay()" routerLinkActive="list-item-active"
       >ATESTADO DE DIA</a
     >
   </div>
 
   <div id="align-list">
     <mat-icon>schedule</mat-icon
-    ><a routerLink="/hours" routerLinkActive="list-item-active"
+    ><a (click)="onHour()" routerLinkActive="list-item-active"
       >ATESTADO DE HORA</a
     >
   </div>
   <div id="align-list">
     <mat-icon>volunteer_activism</mat-icon>
-    <a routerLink="/donations" routerLinkActive="list-item-active"
+    <a (click)="onDonation()" routerLinkActive="list-item-active"
       >ATESTADO DE DOAÇÃO</a
     >
   </div>

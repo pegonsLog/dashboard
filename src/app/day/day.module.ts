@@ -5,6 +5,7 @@ import { DayRoutingModule } from './day-routing.module';
 import { DayCreateComponent } from './day-create/day-create.component';
 import { DayUpdateComponent } from './day-update/day-update.component';
 import { DayListComponent } from './day-list/day-list.component';
+import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DayListComponent } from './day-list/day-list.component';
   ],
   imports: [
     CommonModule,
-    DayRoutingModule
+    DayRoutingModule,
+    AngularMaterialModule
   ],
   exports: [
     DayCreateComponent,

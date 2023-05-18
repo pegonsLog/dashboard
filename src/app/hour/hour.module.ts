@@ -6,16 +6,9 @@ import { HourCreateComponent } from './hour-create/hour-create.component';
 import { HourUpdateComponent } from './hour-update/hour-update.component';
 import { HourListComponent } from './hour-list/hour-list.component';
 
-
 @NgModule({
-  declarations: [
-    HourCreateComponent,
-    HourUpdateComponent,
-    HourListComponent
-  ],
-  imports: [
-    CommonModule,
-    HourRoutingModule
-  ]
+  declarations: [HourCreateComponent, HourUpdateComponent, HourListComponent],
+  imports: [CommonModule, HourRoutingModule],
+  exports: [HourCreateComponent, HourUpdateComponent, HourListComponent],
 })
-export class HourModule { }
+export class HourModule {}

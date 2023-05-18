@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DayCreateComponent } from '../day/day-create/day-create.component';
 
 const routes: Routes = [
+  
 ];
 
 @NgModule({

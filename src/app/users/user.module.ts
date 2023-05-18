@@ -12,11 +12,13 @@ import { UserListComponent } from './user-list/user-list.component';
     UserListComponent,
     UserCreateComponent,
     UserUpdateComponent,
-    UserListComponent
   ],
   imports: [
     CommonModule,
     UserRoutingModule
-  ]
+  ],
+  exports:[  UserListComponent,
+    UserCreateComponent,
+    UserUpdateComponent]
 })
 export class UserModule { }

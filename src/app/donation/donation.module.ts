@@ -6,16 +6,17 @@ import { DonationCreateComponent } from './donation-create/donation-create.compo
 import { DonationUpdateComponent } from './donation-update/donation-update.component';
 import { DonationListComponent } from './donation-list/donation-list.component';
 
-
 @NgModule({
   declarations: [
     DonationCreateComponent,
     DonationUpdateComponent,
-    DonationListComponent
+    DonationListComponent,
   ],
-  imports: [
-    CommonModule,
-    DonationRoutingModule
-  ]
+  imports: [CommonModule, DonationRoutingModule],
+  exports: [
+    DonationCreateComponent,
+    DonationUpdateComponent,
+    DonationListComponent,
+  ],
 })
-export class DonationModule { }
+export class DonationModule {}
