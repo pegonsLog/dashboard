@@ -7,9 +7,7 @@
   <h5 class="mt-4">OPÇÕES</h5>
   <div id="align-list">
     <mat-icon>calendar_month</mat-icon>
-    <a (click)="onDay()" routerLinkActive="list-item-active"
-      >ATESTADO DE DIA</a
-    >
+    <a (click)="onDay()" routerLinkActive="list-item-active">ATESTADO DE DIA</a>
   </div>
 
   <div id="align-list">
@@ -23,5 +21,17 @@
     <a (click)="onDonation()" routerLinkActive="list-item-active"
       >ATESTADO DE DOAÇÃO</a
     >
+  </div>
+  <div>
+    <form class="search">
+      <label class="textLabel" for="mat">Matrícula</label>
+      <input type="text" name="matricula" id="mat"/>
+    </form>
+  </div>
+  <div >
+    <form class="search">
+      <label class="textLabel" for="ano">Ano aquisitivo</label>
+      <input type="text" name="ano" id="ano"/>
+    </form>
   </div>
 </mat-nav-list>

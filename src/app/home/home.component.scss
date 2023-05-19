@@ -6,9 +6,9 @@
   border-radius: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;
   height: 84%;
   background: white;
+  padding-top: 50px;
 
 }
 
@@ -42,6 +42,7 @@ span {
 mat-drawer {
   width: 260px;
   background: #0f172a;
+  background-image: url('https://www.gstatic.com/mobilesdk/190424_mobilesdk/nav_nachos@2x.png');
 }
 
 mat-drawer-container {

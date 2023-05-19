@@ -19,7 +19,7 @@ h1 {
 }
 h5 {
   font-family: Montserrat;
-  margin: 15px 0px 40px 22px;
+  margin: 15px 0px 30px 22px;
   font-weight: 500;
   color: #94a3b8;
 }
@@ -35,7 +35,28 @@ h1 {
   text-decoration: none;
   margin-left: 20px;
   margin-bottom: 40px;
+  background-color: rgba($color: #f5f4f4, $alpha: 0.05);
+  padding: 10px;
 }
 .mat-icon {
   margin-right: 10px;
 }
+.search {
+  margin: 20px 20px 20px 20px;
+  background-color: rgba($color: #f5f4f4, $alpha: 0.05);
+  padding: 0px 0px 20px 20px;
+}
+
+.textLabel {
+  width: 100%;
+  font-family: Montserrat;
+  color: #94a3b8;
+  margin-top: 12px;
+  margin-bottom: 3px;
+}
+
+input{
+  width: 90%;
+  text-align: center;
+}
+

@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   isHour: boolean = false;
   isDonation: boolean = false;
 
-  titleName: string = 'BEM VINDO!';
+  titleName: string = 'ATESTADO DE DIA';
 
   constructor() {}
 

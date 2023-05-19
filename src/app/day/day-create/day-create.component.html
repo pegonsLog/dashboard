@@ -1,38 +1,56 @@
 <mat-card>
   <mat-card-content>
-    <mat-toolbar id="peso-fonte">Controle de atestados - GARBO</mat-toolbar>
+    <mat-toolbar id="peso-fonte">Adicionar</mat-toolbar>
     <div>
       <form>
         <mat-form-field class="full-width">
           <input
             matInput
-            placeholder="Usuário"
-            inputmode="numeric"
+            placeholder="Matrícula"
             type="text"
-            formControlName="user"
-            pattern="[0-9]*"
+            formControlName="registration"
           />
         </mat-form-field>
 
         <mat-form-field class="full-width">
           <input
             matInput
-            placeholder="Senha"
-            type="password"
-            inputmode="numeric"
-            formControlName="password"
-            pattern="[0-9]*"
+            placeholder="Data de Início"
+            type="text"
+            formControlName="startDay"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Data de término"
+            type="text"
+            formControlName="endDay"
+          />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Tipo de atestado"
+            type="text"
+            formControlName="type"
           />
         </mat-form-field>
         <mat-card-actions>
-          <button
-            id="button-atestado"
-            name="atestado"
-            mat-raised-button
-            type="submit"
-          >
-            LOGIN
-          </button>
+          <div class="container">
+            <button
+              id="button-atestado"
+              name="atestado"
+              mat-raised-button
+              type="submit"
+            >
+              Salvar
+            </button>
+            <button id="button-cancel" name="cancelar" mat-raised-button>
+              Cancelar
+            </button>
+          </div>
         </mat-card-actions>
       </form>
     </div>

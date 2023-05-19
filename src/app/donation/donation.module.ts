@@ -5,6 +5,7 @@ import { DonationRoutingModule } from './donation-routing.module';
 import { DonationCreateComponent } from './donation-create/donation-create.component';
 import { DonationUpdateComponent } from './donation-update/donation-update.component';
 import { DonationListComponent } from './donation-list/donation-list.component';
+import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { DonationListComponent } from './donation-list/donation-list.component';
     DonationUpdateComponent,
     DonationListComponent,
   ],
-  imports: [CommonModule, DonationRoutingModule],
+  imports: [CommonModule, DonationRoutingModule, AngularMaterialModule],
   exports: [
     DonationCreateComponent,
     DonationUpdateComponent,

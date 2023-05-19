@@ -6,4 +6,5 @@ export interface Certificate {
   startHour: Date;
   endHour: Date;
   dayOff: Date;
+  type: string;
 }
