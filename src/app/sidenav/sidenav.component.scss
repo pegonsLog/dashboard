@@ -45,6 +45,13 @@ h1 {
   margin: 20px 20px 20px 20px;
   background-color: rgba($color: #f5f4f4, $alpha: 0.05);
   padding: 0px 0px 20px 20px;
+  button {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 2px 62px 2px 62px;
+    font-size: 0.8rem;
+  }
 }
 
 .textLabel {
@@ -55,8 +62,26 @@ h1 {
   margin-bottom: 3px;
 }
 
-input{
+input {
   width: 90%;
+  height: 30px;
   text-align: center;
+  color: white;
+  background-color: rgba($color: #94a3b8, $alpha: 0.05);
+}
+.select{
+  width: 90%;
+  height: 30px;
+  font-family: Montserrat;
+  color: #94a3b8;
+  margin-bottom: 3px;
+  background-color: rgba($color: #94a3b8, $alpha: 0.05);
+  border: none;
+  font-size: 0.8rem;
+  border-radius: 0%;
+  border-bottom: 1px solid white;
+  border-right: 1px solid white;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
 }
 

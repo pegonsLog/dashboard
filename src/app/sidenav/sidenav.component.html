@@ -25,13 +25,24 @@
   <div>
     <form class="search">
       <label class="textLabel" for="mat">Matrícula</label>
-      <input type="text" name="matricula" id="mat"/>
-    </form>
-  </div>
-  <div >
-    <form class="search">
+      <input type="text" name="matricula" id="mat" />
       <label class="textLabel" for="ano">Ano aquisitivo</label>
-      <input type="text" name="ano" id="ano"/>
+      <input type="text" name="ano" id="ano" />
+      <label class="textLabel" for="tipo">Tipo do atestado</label>
+      <select class="form-select select" aria-label="Default select example">
+        <option selected>Atestado de dia</option>
+        <option value="dia">Atestado de dia</option>
+        <option value="hora">Atestado de hora</option>
+        <option value="doacao">Atestado de doação</option>
+      </select>
+      <label class="textLabel" for="tipo">Modo do atestado</label>
+      <select class="form-select select" aria-label="Default select example">
+        <option selected>Comparecimento</option>
+        <option value="dia">Comparecimento</option>
+        <option value="hora">Acompanhamento</option>
+      </select>
+
+      <button type="button" class="btn btn-outline-secondary btn-sm">buscar</button>
     </form>
   </div>
 </mat-nav-list>
