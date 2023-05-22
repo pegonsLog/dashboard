@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-
   menu: any = false;
 
+  @Output() sidenav: EventEmitter<boolean> = new EventEmitter();
+
+  onOpened() {
+    this.sidenav.emit();
+  }
 }

@@ -10,6 +10,8 @@ export class SidenavComponent {
   day: string = 'day';
   hour: string = 'hour';
   donation: string = 'donation';
+  employees: string = 'employees';
+  users: string = 'users';
   @Output() type: EventEmitter<string> = new EventEmitter();
 
   constructor(private route: Router) {}
@@ -21,5 +23,11 @@ export class SidenavComponent {
   }
   onDonation() {
     this.type.emit(this.donation);
+  }
+  onListEmployees() {
+    this.type.emit(this.employees);
+  }
+  onListUsers() {
+    this.type.emit(this.users);
   }
 }

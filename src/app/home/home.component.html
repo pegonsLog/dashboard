@@ -1,9 +1,9 @@
 <mat-drawer-container>
-  <mat-drawer mode="side" opened="opened">
+  <mat-drawer mode="side" opened={{isOpened}}>
     <app-sidenav (type)="onType($event)"></app-sidenav>
   </mat-drawer>
   <mat-drawer-content>
-    <app-header></app-header>
+    <app-header (sidenav)="onOpened()"></app-header>
     <div class="background">
       <div class="title">
         <span>{{ titleName }}</span>
@@ -20,8 +20,20 @@
       </ng-template>
 
       <ng-template #donation>
-        <div class="main">
+        <div class="main" *ngIf="isDonation; else employees">
           <app-donation-create style="width: 50%"></app-donation-create>
+        </div>
+      </ng-template>
+
+      <ng-template #employees>
+        <div class="main" *ngIf="isEmployees; else users">
+          <app-employees-list style="width: 50%"></app-employees-list>
+        </div>
+      </ng-template>
+
+      <ng-template #users>
+        <div class="main">
+          <app-user-list style="width: 50%"></app-user-list>
         </div>
       </ng-template>
     </div>

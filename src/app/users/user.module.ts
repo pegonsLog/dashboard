@@ -5,17 +5,19 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 
 
 @NgModule({
   declarations: [
     UserListComponent,
     UserCreateComponent,
-    UserUpdateComponent,
+    UserUpdateComponent
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    AngularMaterialModule
   ],
   exports:[  UserListComponent,
     UserCreateComponent,

@@ -7,4 +7,5 @@ export interface Certificate {
   endHour: Date;
   dayOff: Date;
   type: string;
+  mode: string;
 }

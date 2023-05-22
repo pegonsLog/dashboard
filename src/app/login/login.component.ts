@@ -58,7 +58,6 @@ export class LoginComponent implements OnDestroy {
         queryParams: {
           name: this.userAuth.name,
           user: this.userAuth.username,
-          role: this.userAuth.role,
         },
       });
     } else {

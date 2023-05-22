@@ -18,13 +18,11 @@ export class AuthService {
   db = getFirestore(this.app);
 
   users: User[] = [];
-  role: string = '';
   user: User = {
     id: '',
     username: '',
     name: '',
     password: '',
-    role: '',
   };
 
   constructor() {}

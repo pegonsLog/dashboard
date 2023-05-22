@@ -19,9 +19,10 @@ h1 {
 }
 h5 {
   font-family: Montserrat;
-  margin: 15px 0px 30px 22px;
+  margin: 25px 0px 10px 22px;
   font-weight: 500;
   color: #94a3b8;
+  letter-spacing: 0.3rem;
 }
 h1 {
   font-weight: 300;
@@ -34,7 +35,7 @@ h1 {
   color: #94a3b8;
   text-decoration: none;
   margin-left: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   background-color: rgba($color: #f5f4f4, $alpha: 0.05);
   padding: 10px;
 }
@@ -42,14 +43,15 @@ h1 {
   margin-right: 10px;
 }
 .search {
-  margin: 20px 20px 20px 20px;
+  margin: 0px 20px 20px 20px;
   background-color: rgba($color: #f5f4f4, $alpha: 0.05);
   padding: 0px 0px 20px 20px;
   button {
+    width: 90%;
     display: flex;
     align-items: center;
     margin-top: 20px;
-    padding: 2px 62px 2px 62px;
+    padding: 4px 62px 4px 62px;
     font-size: 0.8rem;
   }
 }
@@ -66,22 +68,20 @@ input {
   width: 90%;
   height: 30px;
   text-align: center;
-  color: white;
-  background-color: rgba($color: #94a3b8, $alpha: 0.05);
+  color: #111111;
+   border: none;
+    background-color: rgba(rgb(255, 251, 251), $alpha: 0.65);
 }
-.select{
+.select {
   width: 90%;
   height: 30px;
   font-family: Montserrat;
-  color: #94a3b8;
+  color: #111111;
   margin-bottom: 3px;
-  background-color: rgba($color: #94a3b8, $alpha: 0.05);
+  background-color: rgba(rgb(255, 251, 251), $alpha: 0.65);
   border: none;
   font-size: 0.8rem;
+  font-weight: 500;
   border-radius: 0%;
-  border-bottom: 1px solid white;
-  border-right: 1px solid white;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+   border: none;
 }
-
