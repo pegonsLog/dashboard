@@ -1,6 +1,10 @@
 <mat-drawer-container>
   <mat-drawer mode="side" opened={{isOpened}}>
-    <app-sidenav (type)="onType($event)"></app-sidenav>
+    <app-sidenav
+    (type)="onType($event)">
+    (searchOutput)="onSearch($event)">
+
+  </app-sidenav>
   </mat-drawer>
   <mat-drawer-content>
     <app-header (sidenav)="onOpened()"></app-header>
@@ -32,6 +36,12 @@
       </ng-template>
 
       <ng-template #users>
+        <div class="main" *ngIf="users; else search">
+          <app-user-list style="width: 50%"></app-user-list>
+        </div>
+      </ng-template>
+
+      <ng-template #search>
         <div class="main">
           <app-user-list style="width: 50%"></app-user-list>
         </div>

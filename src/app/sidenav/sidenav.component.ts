@@ -13,17 +13,18 @@ export class SidenavComponent {
   donation: string = 'donation';
   employees: string = 'employees';
   users: string = 'users';
+  search: string = 'search';
 
   //Variáveis para a consulta
   registrationSearch: string = '';
   yearSearch: string = '';
-  @Input() typeSearch: string = '';
+  typeSearch: string = '';
   modeSearch: string = '';
 
-  @Output() registration: EventEmitter<string> = new EventEmitter();
+  @Output() searchOutput: EventEmitter<string> = new EventEmitter();
   @Output() type: EventEmitter<string> = new EventEmitter();
-  @Output() year: EventEmitter<string> = new EventEmitter();
-  @Output() mode: EventEmitter<string> = new EventEmitter();
+  // @Output() year: EventEmitter<string> = new EventEmitter();
+  // @Output() mode: EventEmitter<string> = new EventEmitter();
 
   constructor(private route: Router) {}
   onDay() {
@@ -42,9 +43,8 @@ export class SidenavComponent {
     this.type.emit(this.users);
   }
   onSearch() {
-    console.log(this.registrationSearch);
-    console.log(this.yearSearch);
-    console.log(this.typeSearch);
-    console.log(this.modeSearch);
+
+     this.searchOutput.emit('search');
+
   }
 }

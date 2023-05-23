@@ -11,7 +11,10 @@ export class HomeComponent implements OnInit {
   isDonation: boolean = false;
   isEmployees: boolean = false;
   isUsers: boolean = false;
+  isSearch: boolean = false;
   isOpened: boolean = true;
+
+  searchOutput: string[] = [];
 
   titleName: string = 'ATESTADO DE DIA';
 
@@ -51,10 +54,24 @@ export class HomeComponent implements OnInit {
       this.isUsers = true;
       this.titleName = 'USUÁRIOS';
     }
+    if (option === 'search') {
+      this.isDay = false;
+      this.isHour = false;
+      this.isDonation = false;
+      this.isEmployees = false;
+      this.isUsers = false;
+      this.isSearch = true;
+      this.titleName = 'CONSULTA';
+    }
   }
 
   onOpened() {
     this.isOpened = !this.isOpened;
+  }
+
+  onSearch(event: string) {
+
+    console.log(event);
   }
 
   ngOnInit(): void {}

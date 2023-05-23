@@ -39,20 +39,41 @@
   <h5 class="mt-4">CONSULTA</h5>
   <div class="search">
     <label class="textLabel" for="mat">Matrícula</label>
-    <input type="text" [(ngModel)]="registrationSearch" />
-    <label class="textLabel" for="ano">Ano aquisitivo</label>
-    <input type="text" [(ngModel)]="yearSearch" />
+    <input type="text" [(ngModel)]="registrationSearch"/>
+    <label class="textLabel">Ano aquisitivo</label>
+    <select
+      class="form-select select"
+      aria-label="Ano aquisitivo"
+      [(ngModel)]="yearSearch"
+    >
+      <option selected value="2023">2023</option>
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+      <option value="2029">2029</option>
+      <option value="2030">2030</option>
+    </select>
     <label class="textLabel" for="tipo">Tipo do atestado</label>
-    <select class="form-select select" aria-label="Tipo do atestado" [(ngModel)]="typeSearch">
-      <option selected>Atestado de dia</option>
-      <option>Atestado de hora</option>
-      <option>Atestado de doação</option>
+    <select
+      class="form-select select"
+      aria-label="Tipo do atestado"
+      [(ngModel)]="typeSearch"
+    >
+      <option selected value="Atestado de dia">DIA</option>
+      <option value="Atestado de hora">HORA</option>
+      <option value="Atestado de doação">DOAÇÃO</option>
     </select>
 
     <label class="textLabel" for="tipo">Modo do atestado</label>
-    <select class="form-select select" aria-label="Modo do atestado" [(ngModel)]="modeSearch">
-      <option selected>Comparecimento</option>
-      <option value="Acompanhamento">Acompanhamento</option>
+    <select
+      class="form-select select"
+      aria-label="Modo do atestado"
+      [(ngModel)]="modeSearch"
+    >
+      <option selected value="Comparecimento">COMPARECIMENTO</option>
+      <option value="Acompanhamento">ACOMPANHAMENTO</option>
     </select>
 
     <button
