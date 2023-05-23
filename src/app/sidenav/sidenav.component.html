@@ -37,29 +37,30 @@
     <a (click)="onListUsers()" routerLinkActive="list-item-active">USUÁRIOS</a>
   </div>
   <h5 class="mt-4">CONSULTA</h5>
-  <div>
-    <form class="search">
-      <label class="textLabel" for="mat">Matrícula</label>
-      <input type="text" name="matricula" id="mat" />
-      <label class="textLabel" for="ano">Ano aquisitivo</label>
-      <input type="text" name="ano" id="ano" />
-      <label class="textLabel" for="tipo">Tipo do atestado</label>
-      <select class="form-select select" aria-label="Default select example">
-        <option selected>Atestado de dia</option>
-        <option value="dia">Atestado de dia</option>
-        <option value="hora">Atestado de hora</option>
-        <option value="doacao">Atestado de doação</option>
-      </select>
-      <label class="textLabel" for="tipo">Modo do atestado</label>
-      <select class="form-select select" aria-label="Default select example">
-        <option selected>Comparecimento</option>
-        <option value="dia">Comparecimento</option>
-        <option value="hora">Acompanhamento</option>
-      </select>
+  <div class="search">
+    <label class="textLabel" for="mat">Matrícula</label>
+    <input type="text" [(ngModel)]="registrationSearch" />
+    <label class="textLabel" for="ano">Ano aquisitivo</label>
+    <input type="text" [(ngModel)]="yearSearch" />
+    <label class="textLabel" for="tipo">Tipo do atestado</label>
+    <select class="form-select select" aria-label="Tipo do atestado" [(ngModel)]="typeSearch">
+      <option selected>Atestado de dia</option>
+      <option>Atestado de hora</option>
+      <option>Atestado de doação</option>
+    </select>
 
-      <button type="button" class="btn btn-outline-secondary btn-sm">
-        Buscar
-      </button>
-    </form>
+    <label class="textLabel" for="tipo">Modo do atestado</label>
+    <select class="form-select select" aria-label="Modo do atestado" [(ngModel)]="modeSearch">
+      <option selected>Comparecimento</option>
+      <option value="Acompanhamento">Acompanhamento</option>
+    </select>
+
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      (click)="onSearch()"
+    >
+      Buscar
+    </button>
   </div>
 </mat-nav-list>

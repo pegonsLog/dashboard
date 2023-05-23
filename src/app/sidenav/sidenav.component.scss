@@ -69,8 +69,8 @@ input {
   height: 30px;
   text-align: center;
   color: #111111;
-   border: none;
-    background-color: rgba(rgb(255, 251, 251), $alpha: 0.65);
+  border: none;
+  background-color: rgba(rgb(255, 251, 251), $alpha: 0.65);
 }
 .select {
   width: 90%;
@@ -83,5 +83,5 @@ input {
   font-size: 0.8rem;
   font-weight: 500;
   border-radius: 0%;
-   border: none;
+  border: none;
 }

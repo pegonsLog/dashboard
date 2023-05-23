@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { SidenavRoutingModule } from './sidenav-routing.module';
+import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
+import { SidenavRoutingModule } from './sidenav-routing.module';
 import { SidenavComponent } from './sidenav.component';
 
 
@@ -11,8 +12,9 @@ import { SidenavComponent } from './sidenav.component';
   imports: [
     CommonModule,
     SidenavRoutingModule,
-    AngularMaterialModule
-  ],
+    AngularMaterialModule,
+    FormsModule
+    ],
   exports: [SidenavComponent]
 })
 export class SidenavModule { }

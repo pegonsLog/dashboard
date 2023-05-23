@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,12 +7,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent {
+  //Links para adicionar
   day: string = 'day';
   hour: string = 'hour';
   donation: string = 'donation';
   employees: string = 'employees';
   users: string = 'users';
+
+  //Variáveis para a consulta
+  registrationSearch: string = '';
+  yearSearch: string = '';
+  @Input() typeSearch: string = '';
+  modeSearch: string = '';
+
+  @Output() registration: EventEmitter<string> = new EventEmitter();
   @Output() type: EventEmitter<string> = new EventEmitter();
+  @Output() year: EventEmitter<string> = new EventEmitter();
+  @Output() mode: EventEmitter<string> = new EventEmitter();
 
   constructor(private route: Router) {}
   onDay() {
@@ -29,5 +40,11 @@ export class SidenavComponent {
   }
   onListUsers() {
     this.type.emit(this.users);
+  }
+  onSearch() {
+    console.log(this.registrationSearch);
+    console.log(this.yearSearch);
+    console.log(this.typeSearch);
+    console.log(this.modeSearch);
   }
 }
