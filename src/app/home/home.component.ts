@@ -14,7 +14,10 @@ export class HomeComponent implements OnInit {
   isSearch: boolean = false;
   isOpened: boolean = true;
 
-  searchOutput: string[] = [];
+  registration: string = '';
+  year: string = '';
+  type: string = '';
+  mode: string = '';
 
   titleName: string = 'ATESTADO DE DIA';
 
@@ -62,16 +65,12 @@ export class HomeComponent implements OnInit {
       this.isUsers = false;
       this.isSearch = true;
       this.titleName = 'CONSULTA';
+      
     }
   }
 
   onOpened() {
     this.isOpened = !this.isOpened;
-  }
-
-  onSearch(event: string) {
-
-    console.log(event);
   }
 
   ngOnInit(): void {}

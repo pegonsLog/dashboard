@@ -1,8 +1,12 @@
+
 <mat-drawer-container>
   <mat-drawer mode="side" opened={{isOpened}}>
     <app-sidenav
     (type)="onType($event)">
-    (searchOutput)="onSearch($event)">
+    (registration)="onRegistration($event)">
+    (year)="onYear($event)">
+    (mode)="onMode($event)">
+    (type)="onTypeSearch($event)">
 
   </app-sidenav>
   </mat-drawer>
@@ -11,7 +15,7 @@
     <div class="background">
       <div class="title">
         <span>{{ titleName }}</span>
-      </div>
+       </div>
 
       <div class="main" *ngIf="isDay; else hour">
         <app-day-create style="width: 50%"></app-day-create>

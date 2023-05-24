@@ -7,6 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./day-list.component.scss']
 })
 export class DayListComponent {
+
+  constructor(){
+    
+  }
   displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode'];
   dataSource = new MatTableDataSource([
     { id: '1', registration: '564', startDay: '22/05/2023', endDay: '25/05/2023', mode: 'Comparecimento' },

@@ -21,10 +21,11 @@ export class SidenavComponent {
   typeSearch: string = '';
   modeSearch: string = '';
 
-  @Output() searchOutput: EventEmitter<string> = new EventEmitter();
-  @Output() type: EventEmitter<string> = new EventEmitter();
-  // @Output() year: EventEmitter<string> = new EventEmitter();
-  // @Output() mode: EventEmitter<string> = new EventEmitter();
+  @Output() registration: EventEmitter<string> = new EventEmitter<string>();
+  @Output() type: EventEmitter<string> = new EventEmitter<string>();
+  @Output() year: EventEmitter<string> = new EventEmitter<string>();
+  @Output() mode: EventEmitter<string> = new EventEmitter<string>();
+  @Output() typeCertificate: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private route: Router) {}
   onDay() {
@@ -43,8 +44,10 @@ export class SidenavComponent {
     this.type.emit(this.users);
   }
   onSearch() {
-
-     this.searchOutput.emit('search');
-
+    this.type.emit(this.search);
+    this.registration.emit(this.registrationSearch);
+    this.typeCertificate.emit(this.typeSearch);
+    this.year.emit(this.yearSearch);
+    this.mode.emit(this.modeSearch);
   }
 }
