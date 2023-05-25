@@ -22,9 +22,9 @@ import { HomeComponent } from './home.component';
     HeaderModule,
     DayModule,
     HourModule,
-    DonationModule,
     UserModule,
-    EmployeesModule
+    EmployeesModule,
+    DonationModule
   ],
   exports: [HomeComponent],
 })

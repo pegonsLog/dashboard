@@ -18,10 +18,12 @@ export class HomeComponent implements OnInit {
   year: string = '';
   type: string = '';
   mode: string = '';
+  typeCertificate: string = '';
 
   titleName: string = 'ATESTADO DE DIA';
 
-  constructor() {}
+  constructor() {
+  }
 
   onType(option: string) {
     if (option === 'day') {
@@ -55,8 +57,10 @@ export class HomeComponent implements OnInit {
       this.isDonation = false;
       this.isEmployees = false;
       this.isUsers = true;
+      this.isSearch = false;
       this.titleName = 'USUÁRIOS';
     }
+
     if (option === 'search') {
       this.isDay = false;
       this.isHour = false;
@@ -65,13 +69,27 @@ export class HomeComponent implements OnInit {
       this.isUsers = false;
       this.isSearch = true;
       this.titleName = 'CONSULTA';
-      
     }
+
   }
 
   onOpened() {
     this.isOpened = !this.isOpened;
   }
+  onYear(year: any) {
+    this.year = year;
+  }
+  onMode(mode: any) {
+    this.mode = mode;
+  }
+  onRegistration(registration: any) {
+    this.registration = registration;
+  }
+  onTypeCertificate(typeCertificate: any) {
+    this.typeCertificate = typeCertificate;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 }

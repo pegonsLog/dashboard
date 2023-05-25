@@ -1,1 +1,32 @@
-<p>donation-list works!</p>
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar id="peso-fonte">Atestados de doação</mat-toolbar>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Registration Column -->
+  <ng-container matColumnDef="registration">
+    <th mat-header-cell *matHeaderCellDef>Matrícula</th>
+    <td mat-cell *matCellDef="let element">{{ element.registration }}</td>
+  </ng-container>
+
+  <!-- StartDay Column -->
+  <ng-container matColumnDef="startDay">
+    <th mat-header-cell *matHeaderCellDef>Data</th>
+    <td mat-cell *matCellDef="let element">{{ element.startDay }}</td>
+  </ng-container>
+  <!-- Mode Column -->
+  <ng-container matColumnDef="mode">
+    <th mat-header-cell *matHeaderCellDef>Modo</th>
+    <td mat-cell *matCellDef="let element">{{ element.mode }}</td>
+  </ng-container>
+    <!-- dayOff Column -->
+  <ng-container matColumnDef="dayOff">
+    <th mat-header-cell *matHeaderCellDef>Data da folga</th>
+    <td mat-cell *matCellDef="let element">{{ element.dayOff }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+</table>
+</mat-card-content>
+</mat-card>

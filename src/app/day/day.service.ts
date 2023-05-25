@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { User } from '../shared/models/User';
-import { DocumentData, collection, getDocs, getFirestore } from 'firebase/firestore/lite';
 import { initializeApp } from 'firebase/app';
+import { DocumentData, collection, getDocs, getFirestore } from 'firebase/firestore/lite';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Certificate } from '../shared/models/Certificate';
 

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DonationService } from '../donation.service';
 
 @Component({
   selector: 'app-donation-list',
@@ -6,5 +8,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./donation-list.component.scss']
 })
 export class DonationListComponent {
+  subscription: Subscription = new Subscription();
+  dataSource = [];
+  displayedColumns: string[] = ['registration', 'startDay', 'mode', 'dayOff'];
 
+  constructor(private donationService: DonationService) {
+    this.subscription = donationService.list()
+      .subscribe(
+        (certificates: any) => (this.dataSource = certificates)
+      );
+  }
+
+
+
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }
