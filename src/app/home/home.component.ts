@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
       this.isHour = false;
       this.isDonation = false;
       this.isEmployees = true;
-      this.titleName = 'FUNCIONÁRIOS';
+      this.titleName = 'CADASTRO';
     }
     if (option === 'users') {
       this.isDay = false;
@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
       this.isEmployees = false;
       this.isUsers = true;
       this.isSearch = false;
-      this.titleName = 'USUÁRIOS';
+      this.titleName = 'ADMINISTRAÇÃO';
     }
 
     if (option === 'search') {

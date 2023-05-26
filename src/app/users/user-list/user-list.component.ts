@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -7,14 +8,24 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent {
+  subscription: Subscription = new Subscription();
+  dataSource: any = [];
   displayedColumns: string[] = ['username', 'name', 'password'];
-  dataSource = new MatTableDataSource([
-    { id: '1', username: '564', name: 'Pedro', password: '564' },
-    { id: '2', username: '410', name: 'Amauri', password: '410' }
-  ]);
+
+  constructor(private userService: UserService) {
+    this.subscription = userService.list()
+      .subscribe(
+        (users: any) => (this.dataSource = users)
+      );
+  }
+
 
   applyFilter(event: KeyboardEvent) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
