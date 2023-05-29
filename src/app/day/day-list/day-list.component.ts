@@ -1,8 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { DayService } from '../day.service';
-import { Observable, Subscription } from 'rxjs';
-import { Certificate } from 'src/app/shared/models/Certificate';
+import { Subscription } from 'rxjs';
+import { CertificateService } from 'src/app/service-certificate/certificate.service';
 
 @Component({
   selector: 'app-day-list',
@@ -14,16 +12,12 @@ export class DayListComponent implements OnDestroy {
   dataSource = [];
   displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode'];
 
-  constructor(private dayService: DayService) {
-    this.subscription = dayService.list()
+  constructor(private certificateService: CertificateService) {
+    this.subscription = certificateService.list()
       .subscribe(
         (certificates: any) => (this.dataSource = certificates)
       );
   }
-
-
-
-
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

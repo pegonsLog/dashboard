@@ -2,7 +2,7 @@
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Funcionários</mat-toolbar>
 
-    <mat-form-field class="filter">
+    <!-- <mat-form-field class="filter">
       <mat-label class="montserrat">Filtro</mat-label>
       <input
         style="font-family: Montserrat"
@@ -11,31 +11,35 @@
         placeholder="Ex. ium"
         #input
       />
-    </mat-form-field>
+    </mat-form-field> -->
+    <div *ngIf="dataSource$ | async; else loading">
+      <table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8">
+        <!-- Username Column -->
+        <ng-container matColumnDef="registration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Matrícula</th>
+          <td mat-cell *matCellDef="let element">{{ element.registration }}</td>
+        </ng-container>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Funcionário</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
 
-      <!-- Username Column -->
-      <ng-container matColumnDef="registration">
-        <th mat-header-cell *matHeaderCellDef>Matrícula</th>
-        <td mat-cell *matCellDef="let element">{{ element.registration }}</td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Funcionário</th>
-        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-      Row shown when there is no matching data.
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">
-          Nenhum registro encontrado para esse filtro "{{ input.value }}"
-        </td>
-      </tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+<!--
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            Nenhum registro encontrado para esse filtro "{{ input.value }}"
+          </td>
+        </tr> -->
+      </table>
+    </div>
   </mat-card-content>
+  <ng-template #loading>
+    <div id="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
 </mat-card>

@@ -1,21 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable, Subscription } from 'rxjs';
+import { EmployeesService } from '../employees.service';
 
 @Component({
   selector: 'app-employees-list',
   templateUrl: './employees-list.component.html',
-  styleUrls: ['./employees-list.component.scss']
+  styleUrls: ['./employees-list.component.scss'],
 })
 export class EmployeesListComponent {
   displayedColumns: string[] = ['registration', 'name'];
-  dataSource = new MatTableDataSource([
-    { id: '1', registration: '564', name: 'Pedro' },
-    { id: '2', registration: '410', name: 'Amauri'}
-  ]);
+  subscription: Subscription = new Subscription();
+  dataSource$: Observable<any>;
 
-  applyFilter(event: KeyboardEvent) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  constructor(private employeeService: EmployeesService) {
+    this.dataSource$ = employeeService.list();
   }
+
+  // applyFilter(event: KeyboardEvent) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.dataSource$.filter = filterValue.trim().toLowerCase();
+  // }
 
 }

@@ -22,9 +22,6 @@ export class HomeComponent implements OnInit {
 
   titleName: string = 'ATESTADO DE DIA';
 
-  constructor() {
-  }
-
   onType(option: string) {
     if (option === 'day') {
       this.isDay = true;

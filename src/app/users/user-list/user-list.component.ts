@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserService } from '../user.service';
 
 @Component({
@@ -8,24 +8,10 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent {
-  subscription: Subscription = new Subscription();
-  dataSource: any = [];
+  dataSource$: Observable<any>;
   displayedColumns: string[] = ['username', 'name', 'password'];
 
   constructor(private userService: UserService) {
-    this.subscription = userService.list()
-      .subscribe(
-        (users: any) => (this.dataSource = users)
-      );
-  }
-
-
-  applyFilter(event: KeyboardEvent) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.dataSource$ = userService.list();
   }
 }
