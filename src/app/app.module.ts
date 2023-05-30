@@ -20,7 +20,6 @@ import { environment } from '../environments/environment';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

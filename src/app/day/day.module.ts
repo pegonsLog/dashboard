@@ -6,6 +6,7 @@ import { DayCreateComponent } from './day-create/day-create.component';
 import { DayUpdateComponent } from './day-update/day-update.component';
 import { DayListComponent } from './day-list/day-list.component';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
+import { CertificateService } from '../service-certificate/certificate.service';
 
 
 @NgModule({

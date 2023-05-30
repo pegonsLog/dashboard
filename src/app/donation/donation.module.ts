@@ -6,6 +6,7 @@ import { DonationCreateComponent } from './donation-create/donation-create.compo
 import { DonationUpdateComponent } from './donation-update/donation-update.component';
 import { DonationListComponent } from './donation-list/donation-list.component';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
+import { CertificateService } from '../service-certificate/certificate.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,6 @@ import { AngularMaterialModule } from '../shared/angular-material/angular-materi
     DonationCreateComponent,
     DonationUpdateComponent,
     DonationListComponent,
-  ],
+  ]
 })
 export class DonationModule {}
