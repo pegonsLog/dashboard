@@ -6,9 +6,9 @@ import { environment } from 'src/environments/environment';
 import { Certificate } from '../shared/models/Certificate';
 import { docData } from '@angular/fire/firestore';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable(
+  { providedIn: 'root'}
+    )
 export class CertificateService {
 
   app = initializeApp(environment.firebase);

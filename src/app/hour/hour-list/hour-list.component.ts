@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 

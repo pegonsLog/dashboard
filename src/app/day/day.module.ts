@@ -24,6 +24,6 @@ import { CertificateService } from '../service-certificate/certificate.service';
     DayCreateComponent,
     DayUpdateComponent,
     DayListComponent
-  ]
+  ],
 })
 export class DayModule { }

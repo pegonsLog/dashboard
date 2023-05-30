@@ -24,20 +24,29 @@ export class HomeComponent {
 
   onType(option: string) {
     if (option === 'day') {
-      this.isDay = true;
       this.isHour = false;
       this.isDonation = false;
+      this.isEmployees = false;
+      this.isUsers = false;
+      this.isSearch = false;
+      this.isDay = true;
       this.titleName = 'ATESTADO DE DIA';
     }
     if (option === 'hour') {
       this.isDay = false;
-      this.isHour = true;
       this.isDonation = false;
+      this.isEmployees = false;
+      this.isUsers = false;
+      this.isSearch = false;
+      this.isHour = true;
       this.titleName = 'ATESTADO DE HORA';
     }
     if (option === 'donation') {
       this.isDay = false;
       this.isHour = false;
+      this.isEmployees = false;
+      this.isUsers = false;
+      this.isSearch = false;
       this.isDonation = true;
       this.titleName = 'ATESTADO DE DOAÇÃO DE SANGUE';
     }
@@ -45,6 +54,8 @@ export class HomeComponent {
       this.isDay = false;
       this.isHour = false;
       this.isDonation = false;
+      this.isUsers = false;
+      this.isSearch = false;
       this.isEmployees = true;
       this.titleName = 'CADASTRO';
     }
@@ -53,8 +64,8 @@ export class HomeComponent {
       this.isHour = false;
       this.isDonation = false;
       this.isEmployees = false;
-      this.isUsers = true;
       this.isSearch = false;
+      this.isUsers = true;
       this.titleName = 'ADMINISTRAÇÃO';
     }
 

@@ -25,7 +25,7 @@ export class EmployeesService {
     name: '',
   };
 
-  constructor(private firestore: Firestore) { }
+  constructor() { }
 
   list(): Observable<Employee[]> {
     const employees = collection(this.db, 'employees');
