@@ -1,8 +1,14 @@
 <mat-card>
   <mat-card-content>
-    <mat-toolbar id="peso-fonte">Usuários</mat-toolbar>
+    <mat-toolbar id="peso-fonte"
+      >Usuários <a routerLink="/users/new"><mat-icon>person_add</mat-icon></a></mat-toolbar
+    >
     <div *ngIf="dataSource$ | async; else loading">
-      <table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="dataSource$ | async"
+        class="mat-elevation-z8"
+      >
         <!-- Username Column -->
         <ng-container matColumnDef="username">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuário</th>

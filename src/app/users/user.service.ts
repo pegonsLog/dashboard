@@ -1,22 +1,14 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import {   addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  DocumentData,
-  Firestore,
-  getDocs,
-  getFirestore,
-  setDoc } from 'firebase/firestore/lite';
+import { DocumentData, Firestore, addDoc, collection, deleteDoc, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore/lite';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from '../shared/models/User';
 import { docData } from '@angular/fire/firestore';
+import { User } from '../shared/models/User';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable(
+  { providedIn: 'root'}
+  )
 export class UserService {
 
   app = initializeApp(environment.firebase);
@@ -30,7 +22,6 @@ export class UserService {
     password: ''
   };
 
-  constructor(private firestore: Firestore) { }
 
   list(): Observable<User[]> {
     const users = collection(this.db, 'users');
@@ -48,22 +39,22 @@ export class UserService {
   }
 
   findOne(id: string) {
-    let $userRef = doc(this.firestore, 'users/' + id);
+    let $userRef = doc(this.db, 'users/' + id);
     return docData($userRef, {idField: 'id'}) as Observable<User>;
   }
 
   delete(id: string) {
-    let $userRef = doc(this.firestore, 'users/' + id);
+    let $userRef = doc(this.db, 'users/' + id);
     return deleteDoc($userRef);
   }
 
   addUser(user: User) {
-    let $userRef = collection(this.firestore, 'users');
+    let $userRef = collection(this.db, 'users');
     return addDoc($userRef, user);
   }
 
   update(user: User, id: string) {
-    let $userRef = doc(this.firestore, 'users/' + id);
+    let $userRef = doc(this.db, 'users/' + id);
     return setDoc($userRef, user);
   }
 }

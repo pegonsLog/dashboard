@@ -27,8 +27,6 @@ export class CertificateService {
     mode: '',
   };
 
-  constructor(private firestore: Firestore) { }
-
   list(): Observable<Certificate[]> {
     const certificates = collection(this.db, 'certificate');
     return new Observable<DocumentData[]>((subscriber) => {
@@ -45,22 +43,22 @@ export class CertificateService {
   }
 
   findOne(id: string) {
-    let $certificateRef = doc(this.firestore, 'certificates/' + id);
+    let $certificateRef = doc(this.db, 'certificates/' + id);
     return docData($certificateRef, {idField: 'id'}) as Observable<Certificate>;
   }
 
   delete(id: string) {
-    let $certificateRef = doc(this.firestore, 'certificates/' + id);
+    let $certificateRef = doc(this.db, 'certificates/' + id);
     return deleteDoc($certificateRef);
   }
 
   addUser(certificate: Certificate) {
-    let $certificateRef = collection(this.firestore, 'certificates');
+    let $certificateRef = collection(this.db, 'certificates');
     return addDoc($certificateRef, certificate);
   }
 
   update(certificate: Certificate, id: string) {
-    let $certificateRef = doc(this.firestore, 'certificates/' + id);
+    let $certificateRef = doc(this.db, 'certificates/' + id);
     return setDoc($certificateRef, certificate);
   }
 }

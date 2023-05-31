@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
 })
 export class SidenavComponent {
   //Links para adicionar
-  day: string = 'day';
-  hour: string = 'hour';
-  donation: string = 'donation';
-  employees: string = 'employees';
-  users: string = 'users';
+  day: string = 'dayCreate';
+  hour: string = 'hourCreate';
+  donation: string = 'donationCreate';
+  employees: string = 'employeesList';
+  users: string = 'usersList';
   search: string = 'search';
 
   //Variáveis para a consulta

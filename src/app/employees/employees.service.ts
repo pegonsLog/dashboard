@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import {
   DocumentData,
-  Firestore,
   collection,
   getDocs,
-  getFirestore,
+  getFirestore
 } from 'firebase/firestore/lite';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';

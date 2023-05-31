@@ -1,6 +1,8 @@
 <mat-card>
   <mat-card-content>
-    <mat-toolbar id="peso-fonte">Funcionários</mat-toolbar>
+    <mat-toolbar id="peso-fonte"
+      >Funcionários <a routerLink="/employees/new"><mat-icon>person_add</mat-icon></a></mat-toolbar
+    >
 
     <!-- <mat-form-field class="filter">
       <mat-label class="montserrat">Filtro</mat-label>
@@ -13,7 +15,11 @@
       />
     </mat-form-field> -->
     <div *ngIf="dataSource$ | async; else loading">
-      <table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="dataSource$ | async"
+        class="mat-elevation-z8"
+      >
         <!-- Username Column -->
         <ng-container matColumnDef="registration">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Matrícula</th>
@@ -28,7 +34,7 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-<!--
+        <!--
         <tr class="mat-row" *matNoDataRow>
           <td class="mat-cell" colspan="4">
             Nenhum registro encontrado para esse filtro "{{ input.value }}"
