@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-update.component.scss']
 })
 export class UserUpdateComponent {
+  onClear(){
 
+  }
 }

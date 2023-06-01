@@ -1,15 +1,15 @@
 <mat-card>
   <mat-card-content>
-    <mat-toolbar id="peso-fonte">Adicionar</mat-toolbar>
+    <mat-toolbar id="peso-fonte">Adicionar usuário</mat-toolbar>
     <div>
       <form>
         <mat-form-field class="full-width">
           <input
           style="font-family: Montserrat;"
             matInput
-            placeholder="Matrícula"
+            placeholder="Usuário"
             type="text"
-            formControlName="registration"
+            formControlName="username"
           />
         </mat-form-field>
 
@@ -17,9 +17,9 @@
           <input
           style="font-family: Montserrat;"
             matInput
-            placeholder="Data de Início"
+            placeholder="Nome"
             type="text"
-            formControlName="startDay"
+            formControlName="name"
           />
         </mat-form-field>
 
@@ -27,25 +27,17 @@
           <input
           style="font-family: Montserrat;"
             matInput
-            placeholder="Data de término"
+            placeholder="Senha"
             type="text"
-            formControlName="endDay"
+            formControlName="password"
           />
         </mat-form-field>
-        <mat-form-field class="full-width">
-          <input
-          style="font-family: Montserrat;"
-            matInput
-            placeholder="Tipo de atestado"
-            type="text"
-            formControlName="type"
-          />
-        </mat-form-field>
+
         <mat-card-actions>
           <div class="container">
             <button
-              id="button-atestado"
-              name="atestado"
+              id="button-usuario"
+              name="usuario"
               mat-raised-button
               type="submit"
             >

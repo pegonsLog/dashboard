@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./employees-create.component.scss']
 })
 export class EmployeesCreateComponent {
+  onClear(){
 
+  }
 }

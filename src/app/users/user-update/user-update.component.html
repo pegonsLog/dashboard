@@ -1,1 +1,54 @@
-<p>user-update works!</p>
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar id="peso-fonte">Alterar usuário</mat-toolbar>
+    <div>
+      <form>
+        <mat-form-field class="full-width">
+          <input
+          style="font-family: Montserrat;"
+            matInput
+            placeholder="Usuário"
+            type="text"
+            formControlName="username"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+          style="font-family: Montserrat;"
+            matInput
+            placeholder="Nome"
+            type="text"
+            formControlName="name"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+          style="font-family: Montserrat;"
+            matInput
+            placeholder="Senha"
+            type="text"
+            formControlName="password"
+          />
+        </mat-form-field>
+
+        <mat-card-actions>
+          <div class="container">
+            <button
+              id="button-usuario"
+              name="usuario"
+              mat-raised-button
+              type="submit"
+            >
+              Salvar
+            </button>
+            <button (click)="onClear()" id="button-cancel" name="cancelar" mat-raised-button>
+              Limpar
+            </button>
+          </div>
+        </mat-card-actions>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

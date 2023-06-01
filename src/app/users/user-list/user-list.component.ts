@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '../user.service';
 
@@ -8,10 +8,24 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent {
+  userCreate: string = 'userCreate';
+  userUpdate: string = 'userUpdate';
+
+  @Output() type: EventEmitter<string> = new EventEmitter<string>();
+
   dataSource$: Observable<any>;
-  displayedColumns: string[] = ['username', 'name', 'password'];
+  displayedColumns: string[] = ['username', 'name', 'password', 'actions'];
 
   constructor(private userService: UserService) {
     this.dataSource$ = userService.list();
   }
+
+  onCreateUser() {
+    console.log('Teste');
+    this.type.emit(this.userCreate);
+  }
+  onUpdateUser() {
+    this.type.emit(this.userUpdate);
+  }
+
 }

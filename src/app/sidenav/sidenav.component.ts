@@ -11,8 +11,8 @@ export class SidenavComponent {
   day: string = 'dayCreate';
   hour: string = 'hourCreate';
   donation: string = 'donationCreate';
-  employees: string = 'employeesList';
-  users: string = 'usersList';
+  employees: string = 'employeeList';
+  users: string = 'userList';
   search: string = 'search';
 
   //Variáveis para a consulta

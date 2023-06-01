@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { HomeService } from './home.service';
-import { Menu } from '../shared/models/Menu';
 
 @Component({
   selector: 'app-home',
@@ -8,25 +6,27 @@ import { Menu } from '../shared/models/Menu';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  menuName: Menu = {
-    dayCreate: false,
-    dayUpdate: false,
-    dayList: false,
-    hourCreate: false,
-    hourUpdate: false,
-    hourList: false,
-    donationCreate: false,
-    donationUpdate: false,
-    donationList: false,
-    employeeCreate: false,
-    employeeUpdate: false,
-    employeeList: false,
-    userCreate: false,
-    userUpdate: false,
-    userList: false,
-    search: false,
-  };
+  menuName: string[] = [
+    'dayCreate',
+    'dayUpdate',
+    'dayList',
+    'hourCreate',
+    'hourUpdate',
+    'hourList',
+    'donationCreate',
+    'donationUpdate',
+    'donationList',
+    'employeeCreate',
+    'employeeUpdate',
+    'employeeList',
+    'userCreate',
+    'userUpdate',
+    'userList',
+    'search',
+    '',
+  ];
 
+  typeName: string = '';
   isOpened: boolean = true;
 
   titleName: string = 'ATESTADO DE DIA';
@@ -37,57 +37,53 @@ export class HomeComponent {
   mode: string = '';
   typeCertificate: string = '';
 
-  constructor(private homeService: HomeService) {}
+  constructor() {}
 
   onType(type: string) {
-    switch (type) {
-      case 'dayCreate':
-        this.menuName = this.homeService.dayCreate(true);
-        break;
-      case 'dayUpdate':
-        this.menuName = this.homeService.dayUpdate(true);
-        break;
-      case 'dayList':
-        this.menuName = this.homeService.dayList(true);
-        break;
-      case 'hourCreate':
-        this.menuName = this.homeService.hourCreate(true);
-        break;
-      case 'hourUpdate':
-        this.menuName = this.homeService.hourUpdate(true);
-        break;
-      case 'hourList':
-        this.menuName = this.homeService.hourList(true);
-        break;
-      case 'donationCreate':
-        this.menuName = this.homeService.donationCreate(true);
-        break;
-      case 'donationUpdate':
-        this.menuName = this.homeService.donationUpdate(true);
-        break;
-      case 'donationList':
-        this.menuName = this.homeService.donationList(true);
-        break;
-      case 'employeeCreate':
-        this.menuName = this.homeService.employeeCreate(true);
-        break;
-      case 'employeeUpdate':
-        this.menuName = this.homeService.employeeUpdate(true);
-        break;
-      case 'employeeList':
-        this.menuName = this.homeService.employeeList(true);
-        break;
-      case 'userCreate':
-        this.menuName = this.homeService.userCreate(true);
-        break;
-      case 'userUpdate':
-        this.menuName = this.homeService.userUpdate(true);
-        break;
-      case 'userList':
-        this.menuName = this.homeService.userList(true);
-        break;
-      default:
-        this.menuName = this.homeService.dayCreate(true);
+    if (this.menuName[0] === type) {
+      this.typeName = 'dayCreate';
+    }
+    if (this.menuName[1] === type) {
+      this.typeName = 'dayUpdate';
+    }
+    if (this.menuName[2] === type) {
+      this.typeName = 'dayList';
+    }
+    if (this.menuName[3] === type) {
+      this.typeName = 'hourCreate';
+    }
+    if (this.menuName[4] === type) {
+      this.typeName = 'hourUpdate';
+    }
+    if (this.menuName[5] === type) {
+      this.typeName = 'hourList';
+    }
+    if (this.menuName[6] === type) {
+      this.typeName = 'donationCreate';
+    }
+    if (this.menuName[7] === type) {
+      this.typeName = 'donationUpdate';
+    }
+    if (this.menuName[8] === type) {
+      this.typeName = 'donationList';
+    }
+    if (this.menuName[9] === type) {
+      this.typeName = 'employeeCreate';
+    }
+    if (this.menuName[10] === type) {
+      this.typeName = 'employeeUpdate';
+    }
+    if (this.menuName[11] === type) {
+      this.typeName = 'employeeList';
+    }
+    if (this.menuName[12] === type) {
+      this.typeName = 'userCreate';
+    }
+    if (this.menuName[13] === type) {
+      this.typeName = 'userUpdate';
+    }
+    if (this.menuName[14] === type) {
+      this.typeName = 'userList';
     }
   }
 
