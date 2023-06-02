@@ -15,7 +15,7 @@ export class EmployeesListComponent {
 
   @Output() type: EventEmitter<string> = new EventEmitter<string>();
 
-  displayedColumns: string[] = ['registration', 'name', 'actions'];
+  displayedColumns: string[] = ['registration', 'name', 'birthday', 'actions'];
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
 

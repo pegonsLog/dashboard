@@ -4,7 +4,7 @@ import {
   DocumentData,
   collection,
   getDocs,
-  getFirestore
+  getFirestore,
 } from 'firebase/firestore/lite';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -22,9 +22,10 @@ export class EmployeesService {
     id: '',
     registration: '',
     name: '',
+    birthday: '',
   };
 
-  constructor() { }
+  constructor() {}
 
   list(): Observable<Employee[]> {
     const employees = collection(this.db, 'employees');
