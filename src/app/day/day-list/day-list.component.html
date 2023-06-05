@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Atestados de dia</mat-toolbar>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8">
     <!-- Registration Column -->
   <ng-container matColumnDef="registration">
     <th mat-header-cell *matHeaderCellDef>Matrícula</th>

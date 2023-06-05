@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from 'firebase/app';
-import { DocumentData, Firestore, addDoc, collection, deleteDoc, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore/lite';
-import { Observable, map } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Certificate } from '../shared/models/Certificate';
 import { docData } from '@angular/fire/firestore';
+import { initializeApp } from 'firebase/app';
+import {
+  DocumentData,
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+  setDoc,
+} from 'firebase/firestore/lite';
+import { Observable, Subscription, map } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Certificate } from './../shared/models/Certificate';
 
-@Injectable(
-  { providedIn: 'root'}
-    )
+@Injectable({ providedIn: 'root' })
 export class CertificateService {
-
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
+  subscription: Subscription = new Subscription();
 
   certificates: Certificate[] = [];
   certificate: Certificate = {
     id: '',
     registration: '',
-    startDay: new Date,
-    endDay: new Date,
-    startHour: new Date,
-    endHour: new Date,
-    dayOff: new Date,
+    startDay: new Date(),
+    endDay: new Date(),
+    startHour: new Date(),
+    endHour: new Date(),
+    dayOff: new Date(),
     type: '',
     mode: '',
   };
@@ -32,7 +39,9 @@ export class CertificateService {
     return new Observable<DocumentData[]>((subscriber) => {
       getDocs(certificates)
         .then((certificatesSnapshot) => {
-          const certificatesList = certificatesSnapshot.docs.map((doc) => doc.data());
+          const certificatesList = certificatesSnapshot.docs.map((doc) =>
+            doc.data()
+          );
           subscriber.next(certificatesList);
           subscriber.complete();
         })
@@ -44,7 +53,9 @@ export class CertificateService {
 
   findOne(id: string) {
     let $certificateRef = doc(this.db, 'certificates/' + id);
-    return docData($certificateRef, {idField: 'id'}) as Observable<Certificate>;
+    return docData($certificateRef, {
+      idField: 'id',
+    }) as Observable<Certificate>;
   }
 
   delete(id: string) {

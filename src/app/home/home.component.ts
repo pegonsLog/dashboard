@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CertificateService } from '../service-certificate/certificate.service';
 
 @Component({
   selector: 'app-home',
@@ -37,8 +39,10 @@ export class HomeComponent{
   mode: string = '';
   typeCertificate: string = '';
 
-  constructor() {
+  // dataSource$: Observable<any>;
 
+  constructor(private certificateService: CertificateService) {
+    // this.dataSource$ = certificateService.list();
   }
 
   onType(type: string) {
@@ -103,7 +107,7 @@ export class HomeComponent{
   onMode(mode: any) {
     this.mode = mode;
   }
-  onRegistration(registration: any) {
+  onRegistration(registration: string) {
     this.registration = registration;
   }
   onTypeCertificate(typeCertificate: any) {

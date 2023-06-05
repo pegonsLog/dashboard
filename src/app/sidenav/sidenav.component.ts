@@ -9,8 +9,11 @@ import { Router } from '@angular/router';
 export class SidenavComponent {
   //Links para adicionar
   day: string = 'dayCreate';
+  dayList: string = 'dayList';
   hour: string = 'hourCreate';
+  hourList: string = 'hourList';
   donation: string = 'donationCreate';
+  donationList: string = 'donationList';
   employees: string = 'employeeList';
   users: string = 'userList';
   search: string = 'search';
@@ -44,8 +47,15 @@ export class SidenavComponent {
     this.type.emit(this.users);
   }
   onSearch() {
-    this.type.emit(this.search);
-    this.typeCertificate.emit(this.typeSearch);
+    if(this.typeSearch === 'Atestado de dia'){
+      this.type.emit(this.dayList);
+    }
+    if(this.typeSearch === 'Atestado de hora'){
+      this.type.emit(this.hourList);
+    }
+    if(this.typeSearch === 'Atestado de doação'){
+      this.type.emit(this.donationList);
+    }
     this.registration.emit(this.registrationSearch);
     this.year.emit(this.yearSearch);
     this.mode.emit(this.modeSearch);
