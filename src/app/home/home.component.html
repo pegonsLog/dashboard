@@ -3,6 +3,9 @@
     <app-sidenav
       (type)="onType($event)"
       (typeCertificate)="onTypeCertificate($event)"
+      (registration)="onRegistration($event)"
+      (year)="onYear($event)"
+      (mode)="onMode($event)"
     ></app-sidenav>
   </mat-drawer>
   <mat-drawer-content>
@@ -74,65 +77,3 @@
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
-<!--
-<div class="main" *ngIf="this.menuName.dayCreate; else dayUpdate">
-  <app-day-create style="width: 50%"></app-day-create>
-</div>
-<ng-template #dayUpdate>
-<div class="main" *ngIf="this.menuName.dayUpdate; else dayList">
-  <app-day-update style="width: 50%"></app-day-update>
-</div>
-</ng-template>
-<ng-template #dayList>
-<div class="main" *ngIf="this.menuName.dayList; else hourCreate">
-  <app-day-list style="width: 50%"></app-day-list>
-</div>
-</ng-template>
-<ng-template #hourCreate>
-<div class="main" *ngIf="this.menuName.hourCreate; else hourUpdate">
-  <app-hour-create style="width: 50%"></app-hour-create>
-</div>
-</ng-template>
-<ng-template #hourUpdate>
-<div class="main" *ngIf="this.menuName.hourUpdate">
-  <app-hour-update style="width: 50%"></app-hour-update>
-</div>
-</ng-template>
-<div class="main" *ngIf="this.menuName.hourList">
-  <app-hour-list style="width: 50%"></app-hour-list>
-</div> -->
-
-<!-- <ng-template #searchDay>
-        <div
-          class="main"
-          *ngIf="
-            isSearch && typeCertificate === 'Atestado de dia';
-            else searchHour
-          "
-        >
-          <app-day-list style="width: 50%"></app-day-list>
-        </div>
-      </ng-template>
-      <ng-template #searchHour>
-        <div
-          class="main"
-          *ngIf="
-            isSearch && typeCertificate === 'Atestado de hora';
-            else searchDonation
-          "
-        >
-          <app-hour-list style="width: 50%"></app-hour-list>
-        </div>
-      </ng-template>
-      <ng-template #searchDonation>
-        <div
-          class="main"
-          *ngIf="isSearch && typeCertificate === 'Atestado de doação'"
-        >
-          <app-donation-list style="width: 50%"></app-donation-list>
-        </div>
-      </ng-template>
-
-      <div class="main" *ngIf="isDonation">
-        <app-donation-list style="width: 50%"></app-donation-list>
-      </div> -->

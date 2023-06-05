@@ -44,7 +44,6 @@ export class SidenavComponent {
     this.type.emit(this.users);
   }
   onSearch() {
-
     this.type.emit(this.search);
     this.typeCertificate.emit(this.typeSearch);
     this.registration.emit(this.registrationSearch);

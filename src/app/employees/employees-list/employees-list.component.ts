@@ -26,6 +26,7 @@ export class EmployeesListComponent {
   onCreateUser() {
     this.type.emit(this.employeeCreate);
   }
+  
   onUpdateUser() {
     this.type.emit(this.employeeUpdate);
   }

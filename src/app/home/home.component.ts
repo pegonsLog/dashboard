@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent{
   menuName: string[] = [
     'dayCreate',
     'dayUpdate',
@@ -37,7 +37,9 @@ export class HomeComponent {
   mode: string = '';
   typeCertificate: string = '';
 
-  constructor() {}
+  constructor() {
+
+  }
 
   onType(type: string) {
     if (this.menuName[0] === type) {
@@ -89,6 +91,11 @@ export class HomeComponent {
 
   onOpened() {
     this.isOpened = !this.isOpened;
+
+      console.log(this.typeCertificate);
+      console.log(this.registration);
+      console.log(this.mode);
+      console.log(this.year);
   }
   onYear(year: any) {
     this.year = year;
