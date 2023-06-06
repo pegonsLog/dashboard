@@ -5,9 +5,10 @@
       (registration)="onRegistration($event)"
       (year)="onYear($event)"
       (mode)="onMode($event)"
+
     ></app-sidenav>
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content >
     <app-header (sidenav)="onOpened()"></app-header>
     <div class="background">
       <div class="title">
@@ -24,8 +25,8 @@
       <div class="main" *ngIf="typeName === 'dayUpdate'">
         <app-day-update style="width: 50%"></app-day-update>
       </div>
-      <div class="main" *ngIf="typeName === 'dayList'">
-        <app-day-list style="width: 50%"></app-day-list>
+      <div class="main" *ngIf="typeName === 'dayList'" >
+        <app-day-list (registration)="onRegistrationOut($event)" [registration]="register" style="width: 50%"></app-day-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'hourCreate'">

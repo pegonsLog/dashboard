@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CertificateService } from '../service-certificate/certificate.service';
 
@@ -7,7 +7,7 @@ import { CertificateService } from '../service-certificate/certificate.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent{
+export class HomeComponent {
   menuName: string[] = [
     'dayCreate',
     'dayUpdate',
@@ -37,7 +37,8 @@ export class HomeComponent{
   year: string = '';
   type: string = '';
   mode: string = '';
-  typeCertificate: string = '';
+
+  register: any;
 
   // dataSource$: Observable<any>;
 
@@ -93,14 +94,6 @@ export class HomeComponent{
     }
   }
 
-  onOpened() {
-    this.isOpened = !this.isOpened;
-
-      console.log(this.typeCertificate);
-      console.log(this.registration);
-      console.log(this.mode);
-      console.log(this.year);
-  }
   onYear(year: any) {
     this.year = year;
   }
@@ -110,7 +103,11 @@ export class HomeComponent{
   onRegistration(registration: string) {
     this.registration = registration;
   }
-  onTypeCertificate(typeCertificate: any) {
-    this.typeCertificate = typeCertificate;
+  onRegistrationOut(registration: any) {
+    this.register = registration;
+  }
+
+  onOpened() {
+    this.isOpened = !this.isOpened;
   }
 }

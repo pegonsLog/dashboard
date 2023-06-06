@@ -47,13 +47,13 @@ export class SidenavComponent {
     this.type.emit(this.users);
   }
   onSearch() {
-    if(this.typeSearch === 'Atestado de dia'){
+    if (this.typeSearch === 'Atestado de dia') {
       this.type.emit(this.dayList);
     }
-    if(this.typeSearch === 'Atestado de hora'){
+    if (this.typeSearch === 'Atestado de hora') {
       this.type.emit(this.hourList);
     }
-    if(this.typeSearch === 'Atestado de doação'){
+    if (this.typeSearch === 'Atestado de doação') {
       this.type.emit(this.donationList);
     }
     this.registration.emit(this.registrationSearch);

@@ -14,19 +14,28 @@ export class DayListComponent implements OnDestroy {
 
   year: string = '';
   mode: string = '';
-  registration: string = '';
+  @Input() registration: any;
   typeCertificate: string = '';
 
   displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode'];
 
   constructor(private certificateService: CertificateService) {
-   this.dataSource$ = this.certificateService.list().pipe(map((list: Certificate[])=> list.filter((data: Certificate) => data.registration === this.registration)));
+    console.log(this.registration)
+    this.dataSource$ = this.certificateService
+      .list()
+      .pipe(
+        map((list: Certificate[]) =>
+          list.filter(
+            (data: Certificate) => data.registration === this.registration
+          )
+        )
+      );
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  onRegistration(evento: string){
-    this.registration = evento;
+  onRegistrationOut(evento: any) {
+    console.log(evento);
   }
 }
