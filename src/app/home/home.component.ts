@@ -38,13 +38,24 @@ export class HomeComponent {
   type: string = '';
   mode: string = '';
 
-  register: any;
+  registrationSearch: string = '';
+  yearSearch: string = '';
+  typeSearch: string = '';
+  modeSearch: string = '';
 
-  // dataSource$: Observable<any>;
+  day: string = 'dayCreate';
+  dayList: string = 'dayList';
+  hour: string = 'hourCreate';
+  hourList: string = 'hourList';
+  donation: string = 'donationCreate';
+  donationList: string = 'donationList';
+  employees: string = 'employeeList';
+  users: string = 'userList';
+  search: string = 'search';
 
-  constructor(private certificateService: CertificateService) {
-    // this.dataSource$ = certificateService.list();
-  }
+  dataSource$: Observable<any> | undefined;
+
+  constructor(private certificateService: CertificateService) {}
 
   onType(type: string) {
     if (this.menuName[0] === type) {
@@ -103,11 +114,42 @@ export class HomeComponent {
   onRegistration(registration: string) {
     this.registration = registration;
   }
-  onRegistrationOut(registration: any) {
-    this.register = registration;
-  }
-
   onOpened() {
     this.isOpened = !this.isOpened;
+  }
+  onListUsers(users: string) {
+    this.titleName = 'USUÁRIOS CADASTRADOS';
+    this.onType(users);
+  }
+  onListEmployees(employees: string) {
+    this.titleName = 'FUNCIONÁRIOS CADASTRADOS';
+    this.onType(employees);
+  }
+  onDonation(donation: string) {
+    this.titleName = 'ATESTADO DE DOAÇÃO';
+    this.onType(donation);
+  }
+  onHour(hour: string) {
+    this.titleName = 'ATESTADO DE HORA';
+    this.onType(hour);
+  }
+  onDay(day: string) {
+    this.titleName = 'ATESTADO DE DIA';
+    this.onType(day);
+  }
+
+  onSearch() {
+    if (this.typeSearch === 'Atestado de dia') {
+      this.titleName = 'ATESTADO DE DIA';
+      this.onType(this.dayList);
+    }
+    if (this.typeSearch === 'Atestado de hora') {
+      this.titleName = 'ATESTADO DE HORA';
+      this.onType(this.hourList);
+    }
+    if (this.typeSearch === 'Atestado de doação') {
+      this.titleName = 'ATESTADO DE DOAÇÃO';
+      this.onType(this.donationList);
+    }
   }
 }
