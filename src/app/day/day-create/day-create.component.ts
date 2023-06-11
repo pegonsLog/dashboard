@@ -8,6 +8,7 @@ import { Certificate } from 'src/app/shared/models/Certificate';
   styleUrls: ['./day-create.component.scss'],
 })
 export class DayCreateComponent {
+  form: FormGroup;
 
   form: FormGroup;
 
@@ -41,4 +42,7 @@ export class DayCreateComponent {
     this.certificateDay.registration = this.form.value.registration;
     console.log(this.certificateDay.registration)
   }
+
+  onClear() {}
+  onSubmit() {}
 }
