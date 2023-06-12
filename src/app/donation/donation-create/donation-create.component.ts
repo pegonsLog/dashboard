@@ -43,7 +43,7 @@ export class DonationCreateComponent {
     this.form.reset();
   }
 
-  addCertificateDonation() {
+  certificateDonationAdd() {
     this.certificateDonation.registration = this.form.value.registration;
     this.certificateDonation.startDay = this.form.value.startDay;
     this.certificateDonation.endDay = this.form.value.endDay;
@@ -54,7 +54,7 @@ export class DonationCreateComponent {
     this.certificateDonation.mode = this.form.value.mode;
     console.log(this.certificateDonation);
     return this.certificateService
-      .addCertificate(this.certificateDonation)
+      .certificateAdd(this.certificateDonation)
       .then(() => console.log('Deu Certo'))
       .catch(() => console.log('Deu erro'));
   }

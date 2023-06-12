@@ -8,9 +8,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class HeaderComponent {
   menu: any = false;
 
-  @Output() sidenav: EventEmitter<boolean> = new EventEmitter();
+  @Output() closeSidenav: EventEmitter<boolean> = new EventEmitter();
 
   onOpened() {
-    this.sidenav.emit();
+    this.closeSidenav.emit();
   }
 }

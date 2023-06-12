@@ -2,7 +2,7 @@
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Adicionar</mat-toolbar>
     <div>
-      <form [formGroup]="form" (ngSubmit)="addCertificateHour()">
+      <form [formGroup]="form" (ngSubmit)="certificateHourAdd()">
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Matrícula</mat-label>
           <input
@@ -86,7 +86,13 @@
             >
               Salvar
             </button>
-            <button id="button-cancel" name="cancelar" mat-raised-button>
+            <button
+              mat-raised-button
+              (click)="onClear()"
+              id="button-cancel"
+              name="cancelar"
+              type="button"
+            >
               Limpar
             </button>
           </div>

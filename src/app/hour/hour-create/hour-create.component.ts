@@ -44,7 +44,7 @@ export class HourCreateComponent {
     this.form.reset();
   }
 
-  addCertificateHour() {
+  certificateHourAdd() {
     this.certificateHour.registration = this.form.value.registration;
     this.certificateHour.startDay = this.form.value.startDay;
     this.certificateHour.endDay = this.form.value.endDay;
@@ -55,7 +55,7 @@ export class HourCreateComponent {
     this.certificateHour.mode = this.form.value.mode;
     console.log(this.certificateHour);
     return this.certificateService
-      .addCertificate(this.certificateHour)
+      .certificateAdd(this.certificateHour)
       .then(() => console.log('Deu Certo'))
       .catch(() => console.log('Deu erro'));
   }

@@ -6,6 +6,7 @@ import { EmployeesCreateComponent } from './employees-create/employees-create.co
 import { EmployeesUpdateComponent } from './employees-update/employees-update.component';
 import { EmployeesListComponent } from './employees-list/employees-list.component';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AngularMaterialModule } from '../shared/angular-material/angular-materi
   imports: [
     CommonModule,
     EmployeesRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ReactiveFormsModule
   ],
   exports: [
     EmployeesCreateComponent,

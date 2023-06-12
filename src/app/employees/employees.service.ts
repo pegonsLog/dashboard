@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
+import { docData } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
 import {
   DocumentData,
+  addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   getFirestore,
+  setDoc,
 } from 'firebase/firestore/lite';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -41,4 +46,27 @@ export class EmployeesService {
         });
     }).pipe(map((employeeList) => employeeList as Employee[]));
   }
+
+  findOne(id: string) {
+    let $employeeRef = doc(this.db, 'employees/' + id);
+    return docData($employeeRef, {
+      idField: 'id',
+    }) as Observable<Employee>;
+  }
+
+  delete(id: string) {
+    let $employeeRef = doc(this.db, 'employees/' + id);
+    return deleteDoc($employeeRef);
+  }
+
+  employeeAdd(employee: Employee) {
+    let $employeeRef = collection(this.db, 'employees');
+    return addDoc($employeeRef, employee);
+  }
+
+  update(employee: Employee, id: string) {
+    let $employeeRef = doc(this.db, 'employees/' + id);
+    return setDoc($employeeRef, employee);
+  }
 }
+

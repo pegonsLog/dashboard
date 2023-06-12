@@ -21,7 +21,6 @@ export class UserListComponent {
   }
 
   onCreateUser() {
-    console.log('Teste');
     this.type.emit(this.userCreate);
   }
   onUpdateUser() {

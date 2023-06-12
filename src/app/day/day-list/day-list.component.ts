@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Observable, Subscription, map } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
@@ -14,13 +15,13 @@ export class DayListComponent implements OnDestroy {
 
   year: string = '';
   mode: string = '';
-  @Input() registration: any;
+  registration: string = '';
   typeCertificate: string = '';
 
   displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode'];
 
   constructor(private certificateService: CertificateService) {
-    console.log(this.registration)
+    console.log(this.registration);
     this.dataSource$ = this.certificateService
       .list()
       .pipe(
@@ -35,7 +36,16 @@ export class DayListComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onRegistrationOut(evento: any) {
-    console.log(evento);
+  onRegistration(evento: any) {
+    console.log("evento");
+  }
+
+  onSearch(emit: any) {
+    console.log(emit)
+
+    // console.log(this.registration = emit[0]),
+    // console.log(this.year = emit[1]),
+    // console.log(this.typeCertificate = emit[2]),
+    // console.log(this.mode = emit[3])
   }
 }

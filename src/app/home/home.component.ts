@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { CertificateService } from '../service-certificate/certificate.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { CertificateService } from '../service-certificate/certificate.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent{
   menuName: string[] = [
     'dayCreate',
     'dayUpdate',
@@ -40,8 +40,13 @@ export class HomeComponent {
 
   registrationSearch: string = '';
   yearSearch: string = '';
-  typeSearch: string = '';
   modeSearch: string = '';
+  typeSearch: string = '';
+
+  @Output() registrationEmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() yearEmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() typeEmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() modeEmit: EventEmitter<any> = new EventEmitter<any>();
 
   day: string = 'dayCreate';
   dayList: string = 'dayList';
@@ -142,6 +147,11 @@ export class HomeComponent {
     if (this.typeSearch === 'Atestado de dia') {
       this.titleName = 'ATESTADO DE DIA';
       this.onType(this.dayList);
+      this.registrationEmit.emit('teste');
+      this.yearEmit.emit(this.yearSearch);
+      this.typeEmit.emit(this.typeSearch);
+      this.modeEmit.emit(this.modeSearch);
+
     }
     if (this.typeSearch === 'Atestado de hora') {
       this.titleName = 'ATESTADO DE HORA';

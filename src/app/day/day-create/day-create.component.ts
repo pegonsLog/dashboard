@@ -43,7 +43,7 @@ export class DayCreateComponent {
     this.form.reset();
   }
 
-  addCertificateDay() {
+  certificateDayAdd() {
     this.certificateDay.registration = this.form.value.registration;
     this.certificateDay.startDay = this.form.value.startDay;
     this.certificateDay.endDay = this.form.value.endDay;
@@ -53,7 +53,7 @@ export class DayCreateComponent {
     this.certificateDay.type = this.form.value.type;
     this.certificateDay.mode = this.form.value.mode;
     return this.certificateService
-      .addCertificate(this.certificateDay)
+      .certificateAdd(this.certificateDay)
       .then(() => console.log('Deu Certo'))
       .catch(() => console.log('Deu erro'));
   }
