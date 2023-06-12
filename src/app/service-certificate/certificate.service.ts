@@ -63,7 +63,7 @@ export class CertificateService {
     return deleteDoc($certificateRef);
   }
 
-  addUser(certificate: Certificate) {
+  addCertificate(certificate: Certificate) {
     let $certificateRef = collection(this.db, 'certificates');
     return addDoc($certificateRef, certificate);
   }

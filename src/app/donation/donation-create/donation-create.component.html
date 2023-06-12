@@ -2,8 +2,9 @@
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Adicionar</mat-toolbar>
     <div>
-      <form>
-        <mat-form-field class="full-width">
+      <form [formGroup]="form" (ngSubmit)="addCertificateDonation()">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Matrícula</mat-label>
           <input
           style="font-family: Montserrat"
             matInput
@@ -13,7 +14,8 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Data da doação</mat-label>
           <input
           style="font-family: Montserrat"
             matInput
@@ -23,7 +25,8 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Data da folga</mat-label>
           <input
           style="font-family: Montserrat"
             matInput
@@ -44,7 +47,7 @@
               Salvar
             </button>
             <button id="button-cancel" name="cancelar" mat-raised-button>
-              Cancelar
+              Limpar
             </button>
           </div>
         </mat-card-actions>

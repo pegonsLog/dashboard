@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
 
 @Component({
@@ -10,39 +11,50 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 export class DayCreateComponent {
   form: FormGroup;
 
-  form: FormGroup;
-
   certificateDay: Certificate = {
     id: '',
-    registration:  '',
+    registration: '',
     startDay: new Date(),
     endDay: new Date(),
     startHour: new Date(),
     endHour: new Date(),
     dayOff: new Date(),
     type: '',
-    mode: ''}
+    mode: '',
+  };
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private certificateService: CertificateService
+  ) {
     this.form = this.fb.group({
-      registration: ['564', Validators.required],
-      startDay: ['23/01/2023', Validators.required],
-      endDay: ['23/01/2023', Validators.required],
-      startHour: [this.certificateDay.registration, Validators.required],
-      dayOff: [this.certificateDay.registration, Validators.required],
-      type: ['Atestado de dia', Validators.required],
-      mode: [this.certificateDay.registration, Validators.required],
-
-
+      registration: ['', Validators.required],
+      startDay: ['', Validators.required],
+      endDay: ['', Validators.required],
+      startHour: ['00:00'],
+      endHour: ['00:00'],
+      dayOff: ['00/00/0000'],
+      type: ['', Validators.required],
+      mode: ['', Validators.required],
     });
   }
 
-  onClear() {}
-  addCertificateDay() {
-    this.certificateDay.registration = this.form.value.registration;
-    console.log(this.certificateDay.registration)
+  onClear() {
+    this.form.reset();
   }
 
-  onClear() {}
-  onSubmit() {}
+  addCertificateDay() {
+    this.certificateDay.registration = this.form.value.registration;
+    this.certificateDay.startDay = this.form.value.startDay;
+    this.certificateDay.endDay = this.form.value.endDay;
+    this.certificateDay.startHour = this.form.value.startHour;
+    this.certificateDay.endHour = this.form.value.endHour;
+    this.certificateDay.dayOff = this.form.value.dayOff;
+    this.certificateDay.type = this.form.value.type;
+    this.certificateDay.mode = this.form.value.mode;
+    return this.certificateService
+      .addCertificate(this.certificateDay)
+      .then(() => console.log('Deu Certo'))
+      .catch(() => console.log('Deu erro'));
+  }
 }

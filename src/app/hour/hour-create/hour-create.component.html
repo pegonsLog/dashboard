@@ -2,8 +2,9 @@
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Adicionar</mat-toolbar>
     <div>
-      <form>
-        <mat-form-field class="full-width">
+      <form [formGroup]="form" (ngSubmit)="addCertificateHour()">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Matrícula</mat-label>
           <input
             style="font-family: Montserrat"
             matInput
@@ -13,7 +14,8 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Data de atestado</mat-label>
           <input
             style="font-family: Montserrat"
             matInput
@@ -22,7 +24,8 @@
             formControlName="startDay"
           />
         </mat-form-field>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Hora de início</mat-label>
           <input
             style="font-family: Montserrat"
             matInput
@@ -32,23 +35,46 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Hora de término</mat-label>
           <input
             style="font-family: Montserrat"
             matInput
             placeholder="Hora de término"
             type="text"
-            formControlName="EndHour"
+            formControlName="endHour"
           />
         </mat-form-field>
-        <mat-form-field class="full-width">
-          <input
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Tipo do atestado</mat-label>
+          <mat-select
             style="font-family: Montserrat"
-            matInput
-            placeholder="Tipo de atestado"
-            type="text"
+            id="tipo"
+            class="select"
+            aria-label="Tipo do atestado"
+            placeholder="Tipo"
             formControlName="type"
-          />
+          >
+            <mat-option selected value="Atestado de dia">Dia</mat-option>
+            <mat-option value="Atestado de hora">Hora</mat-option>
+            <mat-option value="Atestado de doação">Doação</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Modo do atestado</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="modo"
+            class="select"
+            aria-label="Modo do atestado"
+            placeholder="Modo"
+            formControlName="mode"
+          >
+            <mat-option selected value="Comparecimento"
+              >Comparecimento</mat-option
+            >
+            <mat-option value="Acompanhamento">Acompanhamento</mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-card-actions>
           <div class="container">
@@ -61,7 +87,7 @@
               Salvar
             </button>
             <button id="button-cancel" name="cancelar" mat-raised-button>
-              Cancelar
+              Limpar
             </button>
           </div>
         </mat-card-actions>

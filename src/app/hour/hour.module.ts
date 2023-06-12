@@ -6,10 +6,11 @@ import { HourCreateComponent } from './hour-create/hour-create.component';
 import { HourUpdateComponent } from './hour-update/hour-update.component';
 import { HourListComponent } from './hour-list/hour-list.component';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HourCreateComponent, HourUpdateComponent, HourListComponent],
-  imports: [CommonModule, HourRoutingModule, AngularMaterialModule],
+  imports: [CommonModule, HourRoutingModule, AngularMaterialModule, ReactiveFormsModule],
   exports: [HourCreateComponent, HourUpdateComponent, HourListComponent],
 })
 export class HourModule {}
