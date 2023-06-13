@@ -162,4 +162,7 @@ export class HomeComponent{
       this.onType(this.donationList);
     }
   }
+  onTeste(){
+    this.registrationEmit.emit('teste');
+  }
 }

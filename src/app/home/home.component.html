@@ -111,7 +111,7 @@
         <app-day-update style="width: 50%"></app-day-update>
       </div>
       <div class="main" *ngIf="typeName === 'dayList'">
-        <app-day-list style="width: 50%"></app-day-list>
+        <app-day-list [teste]="titleName" style="width: 50%"></app-day-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'hourCreate'">

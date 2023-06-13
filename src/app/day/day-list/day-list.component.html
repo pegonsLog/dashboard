@@ -1,8 +1,8 @@
 <mat-card>
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Atestados cadastrados</mat-toolbar>
-    <div (registrationEmit)="onRegistration($event)">
-<table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8">
+
+<table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8"  (registrationEmit)="onSearch($event)">
     <!-- Registration Column -->
   <ng-container matColumnDef="registration">
     <th mat-header-cell *matHeaderCellDef>Matrícula</th>
@@ -28,6 +28,5 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
 </table>
-</div>
 </mat-card-content>
 </mat-card>

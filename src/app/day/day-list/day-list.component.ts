@@ -18,10 +18,12 @@ export class DayListComponent implements OnDestroy {
   registration: string = '';
   typeCertificate: string = '';
 
+  @Input() teste: string = ''
+
   displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode'];
 
   constructor(private certificateService: CertificateService) {
-    console.log(this.registration);
+    console.log(this.teste);
     this.dataSource$ = this.certificateService
       .list()
       .pipe(
