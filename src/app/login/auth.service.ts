@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import {
-  collection,
   DocumentData,
+  collection,
   getDocs,
-  getFirestore,
+  getFirestore
 } from 'firebase/firestore/lite';
-import { map, Observable } from 'rxjs';
-import { User } from 'src/app/shared/models/User';
-import { environment } from '../../environments/environment';
+import { Observable, map } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { User } from '../shared/models/User';
 
 @Injectable({
   providedIn: 'root',

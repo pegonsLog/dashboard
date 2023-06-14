@@ -39,7 +39,7 @@ export class DayListComponent implements OnDestroy {
   }
 
   onRegistration(evento: any) {
-    console.log("evento");
+    console.log(evento);
   }
 
   onSearch(emit: any) {

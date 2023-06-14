@@ -2,7 +2,7 @@
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Atestados cadastrados</mat-toolbar>
 
-<table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8"  (registrationEmit)="onSearch($event)">
+<table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8"  (registrationEmit)="onRegistration($event)">
     <!-- Registration Column -->
   <ng-container matColumnDef="registration">
     <th mat-header-cell *matHeaderCellDef>Matrícula</th>

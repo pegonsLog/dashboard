@@ -11,7 +11,7 @@ import { HomeComponent } from './home.component';
 import { CertificateService } from '../service-certificate/certificate.service';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 import { HourModule } from '../hour/hour.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -25,7 +25,8 @@ import { FormsModule } from '@angular/forms';
     UserModule,
     EmployeesModule,
     DonationModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [HomeComponent],
 })

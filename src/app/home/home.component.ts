@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CertificateService } from '../service-certificate/certificate.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,8 @@ import { CertificateService } from '../service-certificate/certificate.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent{
+
+  form: FormGroup;
   menuName: string[] = [
     'dayCreate',
     'dayUpdate',
@@ -60,7 +63,14 @@ export class HomeComponent{
 
   dataSource$: Observable<any> | undefined;
 
-  constructor(private certificateService: CertificateService) {}
+  constructor(private certificateService: CertificateService, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      registrationSearch: ['', Validators.required],
+      yearSearch: ['2023', Validators.required],
+      modeSearch: ['Comparecimento', Validators.required],
+      typeSearch: ['Atestado de dia', Validators.required]
+    })
+  }
 
   onType(type: string) {
     if (this.menuName[0] === type) {
@@ -147,7 +157,8 @@ export class HomeComponent{
     if (this.typeSearch === 'Atestado de dia') {
       this.titleName = 'ATESTADO DE DIA';
       this.onType(this.dayList);
-      this.registrationEmit.emit('teste');
+
+      this.registrationEmit.emit(this.form.value.registrationSearch);
       this.yearEmit.emit(this.yearSearch);
       this.typeEmit.emit(this.typeSearch);
       this.modeEmit.emit(this.modeSearch);

@@ -42,14 +42,15 @@
       </div>
       <h5 class="mt-4">CONSULTA</h5>
       <div class="search">
+        <form [formGroup]="form" (ngSubmit)="onSearch()">
         <label class="textLabel" for="mat">Matrícula</label>
-        <input type="text" [(ngModel)]="registrationSearch" id="mat" />
+        <input type="text" formControlName="registrationSearch" id="mat" />
         <label class="textLabel" for="ano">Ano aquisitivo</label>
         <select
           id="ano"
           class="form-select select"
           aria-label="Ano aquisitivo"
-          [(ngModel)]="yearSearch"
+          formControlName="yearSearch"
         >
           <option selected value="2023">2023</option>
           <option value="2024">2024</option>
@@ -65,7 +66,7 @@
           id="tipo"
           class="form-select select"
           aria-label="Tipo do atestado"
-          [(ngModel)]="typeSearch"
+          formControlName="typeSearch"
         >
           <option selected value="Atestado de dia">Dia</option>
           <option value="Atestado de hora">Hora</option>
@@ -77,7 +78,7 @@
           id="modo"
           class="form-select select"
           aria-label="Modo do atestado"
-          [(ngModel)]="modeSearch"
+          formControlName="modeSearch"
         >
           <option selected value="Comparecimento">Comparecimento</option>
           <option value="Acompanhamento">Acompanhamento</option>
@@ -90,6 +91,7 @@
         >
           Buscar
         </button>
+      </form>
       </div>
     </mat-nav-list>
   </mat-drawer>
