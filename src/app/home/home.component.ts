@@ -157,11 +157,11 @@ export class HomeComponent{
     if (this.typeSearch === 'Atestado de dia') {
       this.titleName = 'ATESTADO DE DIA';
       this.onType(this.dayList);
-
-      this.registrationEmit.emit(this.form.value.registrationSearch);
-      this.yearEmit.emit(this.yearSearch);
-      this.typeEmit.emit(this.typeSearch);
-      this.modeEmit.emit(this.modeSearch);
+this.registration = this.form.value.registrationSearch
+      this.registrationEmit.emit(this.form.value.registration);
+      // this.yearEmit.emit(this.yearSearch);
+      // this.typeEmit.emit(this.typeSearch);
+      // this.modeEmit.emit(this.modeSearch);
 
     }
     if (this.typeSearch === 'Atestado de hora') {
