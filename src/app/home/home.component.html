@@ -85,9 +85,8 @@
         </select>
 
         <button
-          type="button"
+          type="submit"
           class="btn btn-outline-secondary btn-sm"
-          (click)="onSearch()"
         >
           Buscar
         </button>
@@ -97,6 +96,7 @@
   </mat-drawer>
   <mat-drawer-content>
     <app-header (closeSidenav)="onOpened()"></app-header>
+    <p>{{registration}} </p>
     <div class="background">
       <div class="title">
         <span>{{ titleName }}</span>
@@ -113,7 +113,8 @@
         <app-day-update style="width: 50%"></app-day-update>
       </div>
       <div class="main" *ngIf="typeName === 'dayList'">
-        <app-day-list style="width: 50%"></app-day-list>
+
+        <app-day-list [registration]="registration" style="width: 50%"></app-day-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'hourCreate'">

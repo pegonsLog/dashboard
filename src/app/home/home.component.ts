@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CertificateService } from '../service-certificate/certificate.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-home',
@@ -154,11 +155,12 @@ export class HomeComponent{
   }
 
   onSearch() {
-    if (this.typeSearch === 'Atestado de dia') {
+    if (this.form.value.type === 'Atestado de dia') {
       this.titleName = 'ATESTADO DE DIA';
       this.onType(this.dayList);
 this.registration = this.form.value.registrationSearch
-      this.registrationEmit.emit(this.form.value.registration);
+console.log(this.registration);
+      // this.registrationEmit.emit(this.form.value.registration);
       // this.yearEmit.emit(this.yearSearch);
       // this.typeEmit.emit(this.typeSearch);
       // this.modeEmit.emit(this.modeSearch);
