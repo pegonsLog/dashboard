@@ -42,6 +42,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('src/app/donation/donation.module').then((m) => m.DonationModule),
   },
+  {
+    path: 'search',
+    loadChildren: () =>
+      import('src/app/search/search.module').then((m) => m.SearchModule),
+  },
 ];
 
 @NgModule({

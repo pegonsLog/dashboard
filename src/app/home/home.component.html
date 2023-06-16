@@ -40,17 +40,23 @@
           >USUÁRIOS</a
         >
       </div>
-      <h5 class="mt-4">CONSULTA</h5>
+      <div id="align-list">
+        <mat-icon> manage_search </mat-icon>
+        <a (click)="onSearch(search)" routerLinkActive="list-item-active"
+          >CONSULTA</a
+        >
+      </div>
+      <!-- <h5 class="mt-4">CONSULTA</h5>
       <div class="search">
-        <form [formGroup]="form" (ngSubmit)="onSearch()">
+        <form>
         <label class="textLabel" for="mat">Matrícula</label>
-        <input type="text" formControlName="registrationSearch" id="mat" />
+        <input type="text" [(ngModel)]="registrationSearch" id="mat" />
         <label class="textLabel" for="ano">Ano aquisitivo</label>
         <select
           id="ano"
           class="form-select select"
           aria-label="Ano aquisitivo"
-          formControlName="yearSearch"
+          [(ngModel)]="yearSearch"
         >
           <option selected value="2023">2023</option>
           <option value="2024">2024</option>
@@ -66,7 +72,7 @@
           id="tipo"
           class="form-select select"
           aria-label="Tipo do atestado"
-          formControlName="typeSearch"
+          [(ngModel)]="typeSearch"
         >
           <option selected value="Atestado de dia">Dia</option>
           <option value="Atestado de hora">Hora</option>
@@ -78,25 +84,25 @@
           id="modo"
           class="form-select select"
           aria-label="Modo do atestado"
-          formControlName="modeSearch"
+          [(ngModel)]="modeSearch"
         >
           <option selected value="Comparecimento">Comparecimento</option>
           <option value="Acompanhamento">Acompanhamento</option>
         </select>
 
         <button
-          type="submit"
-          class="btn btn-outline-secondary btn-sm"
+          class="btn btn-outline-secondary btn-sm" (click)="onSearch(registrationSearch)"
         >
           Buscar
         </button>
+
       </form>
-      </div>
+      </div> -->
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
     <app-header (closeSidenav)="onOpened()"></app-header>
-    <p>{{registration}} </p>
+    <p>{{ registration }}</p>
     <div class="background">
       <div class="title">
         <span>{{ titleName }}</span>
@@ -113,8 +119,10 @@
         <app-day-update style="width: 50%"></app-day-update>
       </div>
       <div class="main" *ngIf="typeName === 'dayList'">
-
-        <app-day-list [registration]="registration" style="width: 50%"></app-day-list>
+        <app-day-list
+        (type)="onDayList($event)"
+          style="width: 50%"
+        ></app-day-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'hourCreate'">
@@ -161,6 +169,9 @@
           (type)="onType($event)"
           style="width: 50%"
         ></app-user-list>
+      </div>
+      <div class="main" *ngIf="typeName === 'search'">
+        <app-search style="width: 50%"></app-search>
       </div>
     </div>
   </mat-drawer-content>

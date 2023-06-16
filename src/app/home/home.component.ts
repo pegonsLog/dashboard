@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { CertificateService } from '../service-certificate/certificate.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
+import { Observable } from 'rxjs';
+import { CertificateService } from '../service-certificate/certificate.service';
 
 @Component({
   selector: 'app-home',
@@ -64,7 +63,7 @@ export class HomeComponent{
 
   dataSource$: Observable<any> | undefined;
 
-  constructor(private certificateService: CertificateService, private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       registrationSearch: ['', Validators.required],
       yearSearch: ['2023', Validators.required],
@@ -73,7 +72,7 @@ export class HomeComponent{
     })
   }
 
-  onType(type: string) {
+  onType(type: any) {
     if (this.menuName[0] === type) {
       this.typeName = 'dayCreate';
     }
@@ -119,6 +118,9 @@ export class HomeComponent{
     if (this.menuName[14] === type) {
       this.typeName = 'userList';
     }
+    if (this.menuName[15] === type) {
+      this.typeName = 'search';
+    }
   }
 
   onYear(year: any) {
@@ -153,28 +155,36 @@ export class HomeComponent{
     this.titleName = 'ATESTADO DE DIA';
     this.onType(day);
   }
-
-  onSearch() {
-    if (this.form.value.type === 'Atestado de dia') {
-      this.titleName = 'ATESTADO DE DIA';
-      this.onType(this.dayList);
-this.registration = this.form.value.registrationSearch
-console.log(this.registration);
-      // this.registrationEmit.emit(this.form.value.registration);
-      // this.yearEmit.emit(this.yearSearch);
-      // this.typeEmit.emit(this.typeSearch);
-      // this.modeEmit.emit(this.modeSearch);
-
-    }
-    if (this.typeSearch === 'Atestado de hora') {
-      this.titleName = 'ATESTADO DE HORA';
-      this.onType(this.hourList);
-    }
-    if (this.typeSearch === 'Atestado de doação') {
-      this.titleName = 'ATESTADO DE DOAÇÃO';
-      this.onType(this.donationList);
-    }
+  onDayList(event: any) {
+    this.titleName = 'LISTA DE ATESTADOS';
+    this.onType(event);
   }
+  onSearch(search: string) {
+    this.titleName = 'CONSULTA';
+    this.onType(search);
+  }
+
+ // onSearch() {
+//     if (this.form.value.type === 'Atestado de dia') {
+//       this.titleName = 'ATESTADO DE DIA';
+//       this.onType(this.dayList);
+// this.registration = this.form.value.registrationSearch
+
+//       // this.registrationEmit.emit(this.form.value.registration);
+//       // this.yearEmit.emit(this.yearSearch);
+//       // this.typeEmit.emit(this.typeSearch);
+//       // this.modeEmit.emit(this.modeSearch);
+
+//     }
+//     if (this.typeSearch === 'Atestado de hora') {
+//       this.titleName = 'ATESTADO DE HORA';
+//       this.onType(this.hourList);
+//     }
+//     if (this.typeSearch === 'Atestado de doação') {
+//       this.titleName = 'ATESTADO DE DOAÇÃO';
+//       this.onType(this.donationList);
+//     }
+ // }
   onTeste(){
     this.registrationEmit.emit('teste');
   }

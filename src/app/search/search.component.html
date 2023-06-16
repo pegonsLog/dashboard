@@ -1,0 +1,94 @@
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar id="peso-fonte">Buscar</mat-toolbar>
+    <div>
+      <form [formGroup]="form">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Matrícula</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="Matrícula"
+            type="text"
+            formControlName="registration"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Ano</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="ano"
+            class="select"
+            aria-label="Ano"
+            placeholder="Ano"
+            formControlName="year"
+          >
+            <mat-option selected value="2023">2023</mat-option>
+            <mat-option selected value="2024">2024</mat-option>
+            <mat-option selected value="2025">2025</mat-option>
+            <mat-option selected value="2026">2026</mat-option>
+            <mat-option selected value="2027">2027</mat-option>
+            <mat-option selected value="2028">2028</mat-option>
+            <mat-option selected value="2029">2029</mat-option>
+            <mat-option selected value="2030">2030</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Tipo do atestado</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="tipo"
+            class="select"
+            aria-label="Tipo do atestado"
+            placeholder="Tipo"
+            formControlName="type"
+          >
+            <mat-option selected value="Atestado de dia">Dia</mat-option>
+            <mat-option value="Atestado de hora">Hora</mat-option>
+            <mat-option value="Atestado de doação">Doação</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Modo do atestado</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="modo"
+            class="select"
+            aria-label="Modo do atestado"
+            placeholder="Modo"
+            formControlName="mode"
+          >
+            <mat-option selected value="Comparecimento"
+              >Comparecimento</mat-option
+            >
+            <mat-option value="Acompanhamento">Acompanhamento</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <div class="container">
+            <a
+              id="button-atestado"
+              name="atestado"
+              (click)="onSearch()"
+              mat-raised-button
+            >
+              Buscar
+            </a>
+            <button
+              mat-raised-button
+              id="button-cancel"
+              name="cancelar"
+              type="button"
+              (click)="onClear()"
+            >
+              Limpar
+            </button>
+          </div>
+        </mat-card-actions>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

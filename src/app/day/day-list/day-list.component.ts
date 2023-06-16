@@ -21,7 +21,7 @@ export class DayListComponent implements OnDestroy {
   displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode'];
 
   constructor(private certificateService: CertificateService) {
-   
+
     this.dataSource$ = this.certificateService
       .list()
       .pipe(
