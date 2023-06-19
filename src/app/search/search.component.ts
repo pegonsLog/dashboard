@@ -8,26 +8,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
-  form: FormGroup;
+  // form: FormGroup;
+
+  registrationSearch: string = '';
+  yearSearch: string = '';
+  typeSearch: string = '';
+  modeSearch: string = '';
 
   searchDayList: string = 'dayList';
+  @Output() registratrion: EventEmitter<string> = new EventEmitter<string>();
+  @Output() year: EventEmitter<string> = new EventEmitter<string>();
   @Output() type: EventEmitter<string> = new EventEmitter<string>();
+  @Output() mode: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private fb: FormBuilder, private router: Router) {
-    this.form = this.fb.group({
-      registration: ['', Validators.required],
-      year: ['2023', Validators.required],
-      type: ['Atestado de dia', Validators.required],
-      mode: ['Comparecimento', Validators.required],
-    });
+    this.yearSearch = '2023';
+    this.typeSearch = 'Atestado de dia';
+    this.modeSearch = 'Comparecimento';
   }
-
   onSearch() {
-    console.log(this.form.getRawValue());
-    this.type.emit(this.searchDayList);
+    this.registratrion.emit(this.registrationSearch);
+    this.type.emit(this.typeSearch);
+    this.year.emit(this.yearSearch);
+    this.mode.emit(this.modeSearch);
   }
 
   onClear() {
-    this.form.reset();
+    this.registrationSearch = '';
+    this.yearSearch = '';
+    this.typeSearch = '';
+    this.modeSearch = '';
   }
 }

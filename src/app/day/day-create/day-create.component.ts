@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
@@ -10,6 +10,12 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 })
 export class DayCreateComponent {
   form: FormGroup;
+
+
+  registration: string = '';
+  year: string = '';
+  type: string = '';
+  mode: string = '';
 
   certificateDay: Certificate = {
     id: '',
@@ -26,7 +32,7 @@ export class DayCreateComponent {
   constructor(
     private fb: FormBuilder,
     private certificateService: CertificateService
-  ) {
+    ) {
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
@@ -56,5 +62,9 @@ export class DayCreateComponent {
       .certificateAdd(this.certificateDay)
       .then(() => console.log('Deu Certo'))
       .catch(() => console.log('Deu erro'));
-  }
+    }
+
+    registrationOutput(event: any) {
+    console.log(event);
+    }
 }

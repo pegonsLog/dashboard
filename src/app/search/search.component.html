@@ -2,7 +2,7 @@
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Buscar</mat-toolbar>
     <div>
-      <form [formGroup]="form">
+      <form>
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Matrícula</mat-label>
           <input
@@ -10,19 +10,21 @@
             matInput
             placeholder="Matrícula"
             type="text"
-            formControlName="registration"
+            name="registration"
+            [(ngModel)]="registrationSearch"
           />
         </mat-form-field>
 
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
-          <mat-label>Ano</mat-label>
+          <mat-label for="ano">Ano</mat-label>
           <mat-select
             style="font-family: Montserrat"
             id="ano"
             class="select"
             aria-label="Ano"
             placeholder="Ano"
-            formControlName="year"
+            name="year"
+            [(ngModel)]="yearSearch"
           >
             <mat-option selected value="2023">2023</mat-option>
             <mat-option selected value="2024">2024</mat-option>
@@ -36,14 +38,15 @@
         </mat-form-field>
 
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
-          <mat-label>Tipo do atestado</mat-label>
+          <mat-label for="tipo">Tipo do atestado</mat-label>
           <mat-select
             style="font-family: Montserrat"
             id="tipo"
             class="select"
             aria-label="Tipo do atestado"
             placeholder="Tipo"
-            formControlName="type"
+            name="type"
+            [(ngModel)]="typeSearch"
           >
             <mat-option selected value="Atestado de dia">Dia</mat-option>
             <mat-option value="Atestado de hora">Hora</mat-option>
@@ -51,14 +54,15 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
-          <mat-label>Modo do atestado</mat-label>
+          <mat-label for="modo">Modo do atestado</mat-label>
           <mat-select
             style="font-family: Montserrat"
             id="modo"
             class="select"
             aria-label="Modo do atestado"
             placeholder="Modo"
-            formControlName="mode"
+            name="mode"
+            [(ngModel)]="modeSearch"
           >
             <mat-option selected value="Comparecimento"
               >Comparecimento</mat-option
@@ -72,8 +76,8 @@
             <a
               id="button-atestado"
               name="atestado"
-              (click)="onSearch()"
               mat-raised-button
+              (click)="onSearch()"
             >
               Buscar
             </a>
@@ -90,5 +94,10 @@
         </mat-card-actions>
       </form>
     </div>
+
+    <p>{{ registrationSearch }}</p>
+    <p>{{ yearSearch }}</p>
+    <p>{{ typeSearch }}</p>
+    <p>{{ modeSearch }}</p>
   </mat-card-content>
 </mat-card>
