@@ -52,10 +52,13 @@ export class HomeComponent{
   @Output() modeEmit: EventEmitter<any> = new EventEmitter<any>();
 
   day: string = 'dayCreate';
+  dayUpdate: string = 'dayUpdate';
   dayList: string = 'dayList';
   hour: string = 'hourCreate';
+  hourUpdate: string = 'hourUpdate';
   hourList: string = 'hourList';
   donation: string = 'donationCreate';
+  donationUpdate: string = 'donationUpdate';
   donationList: string = 'donationList';
   employees: string = 'employeeList';
   users: string = 'userList';
@@ -155,9 +158,9 @@ export class HomeComponent{
     this.titleName = 'ATESTADO DE DIA';
     this.onType(day);
   }
-  onDayList(event: any) {
+  onDayList(dayList: any) {
     this.titleName = 'LISTA DE ATESTADOS';
-    this.onType(event);
+    this.onType(dayList);
   }
   onSearch(search: string) {
     this.titleName = 'CONSULTA';
@@ -185,7 +188,4 @@ export class HomeComponent{
 //       this.onType(this.donationList);
 //     }
  // }
-  onTeste(){
-    this.registrationEmit.emit('teste');
-  }
 }

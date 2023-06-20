@@ -27,10 +27,11 @@ export class SearchComponent {
     this.modeSearch = 'Comparecimento';
   }
   onSearch() {
-    this.registratrion.emit(this.registrationSearch);
     this.type.emit(this.typeSearch);
-    this.year.emit(this.yearSearch);
-    this.mode.emit(this.modeSearch);
+    // this.registratrion.emit(this.registrationSearch);
+    // this.type.emit(this.typeSearch);
+    // this.year.emit(this.yearSearch);
+    // this.mode.emit(this.modeSearch);
   }
 
   onClear() {
