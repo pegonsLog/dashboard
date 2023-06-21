@@ -13,10 +13,11 @@ export class DayListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
 
-  year: string = '';
-  mode: string = '';
+
   @Input() registration: string = '';
-  typeCertificate: string = '';
+  @Input() year: string = '';
+  @Input() type: string = '';
+  @Input() mode: string = '';
 
   displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode'];
 

@@ -102,7 +102,6 @@
   </mat-drawer>
   <mat-drawer-content>
     <app-header (closeSidenav)="onOpened()"></app-header>
-    <p>{{ registration }}</p>
     <div class="background">
       <div class="title">
         <span>{{ titleName }}</span>
@@ -119,7 +118,7 @@
         <app-day-update style="width: 50%"></app-day-update>
       </div>
       <div class="main" *ngIf="typeName === 'dayList'">
-        <app-day-list (type)="onType($event)" style="width: 50%"></app-day-list>
+        <app-day-list (type)="onDayList($event)" style="width: 50%"></app-day-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'hourCreate'">
@@ -168,7 +167,9 @@
         ></app-user-list>
       </div>
       <div class="main" *ngIf="typeName === 'search'">
-        <app-search style="width: 50%"></app-search>
+        <app-search (typeName)="onDayList($event)"
+       
+        style="width: 50%"></app-search>
       </div>
     </div>
   </mat-drawer-content>
