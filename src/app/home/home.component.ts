@@ -46,9 +46,9 @@ export class HomeComponent {
   typeSearch: string = '';
 
   @Output() registrationEmit: EventEmitter<any> = new EventEmitter<any>();
-  @Output() yearEmit: EventEmitter<any> = new EventEmitter<any>();
-  @Output() typeEmit: EventEmitter<any> = new EventEmitter<any>();
-  @Output() modeEmit: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() yearEmit: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() typeEmit: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() modeEmit: EventEmitter<any> = new EventEmitter<any>();
 
   day: string = 'dayCreate';
   dayUpdate: string = 'dayUpdate';
@@ -65,7 +65,10 @@ export class HomeComponent {
 
   dataSource$: Observable<any> | undefined;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private certificateService: CertificateService
+  ) {
     this.form = this.fb.group({
       registrationSearch: ['', Validators.required],
       yearSearch: ['2023', Validators.required],
@@ -83,6 +86,7 @@ export class HomeComponent {
     }
     if (this.menuName[2] === type) {
       this.typeName = 'dayList';
+
     }
     if (this.menuName[3] === type) {
       this.typeName = 'hourCreate';
@@ -160,11 +164,8 @@ export class HomeComponent {
   }
   onDayList(dayList: any) {
     this.titleName = 'LISTA DE ATESTADOS';
-    this.onType(dayList);
-    console.log(dayList[0])
-    console.log(dayList[1])
-    console.log(dayList[2])
-    console.log(dayList[3])
+    this.registrationEmit.emit(this.day)
+    this.onType(dayList[0]);
   }
   onSearch(search: string) {
     this.titleName = 'CONSULTA';

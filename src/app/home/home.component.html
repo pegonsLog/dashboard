@@ -118,7 +118,7 @@
         <app-day-update style="width: 50%"></app-day-update>
       </div>
       <div class="main" *ngIf="typeName === 'dayList'">
-        <app-day-list (type)="onDayList($event)" style="width: 50%"></app-day-list>
+        <app-day-list (typeName)="onDayList($event)" style="width: 50%"></app-day-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'hourCreate'">
@@ -168,7 +168,7 @@
       </div>
       <div class="main" *ngIf="typeName === 'search'">
         <app-search (typeName)="onDayList($event)"
-       
+
         style="width: 50%"></app-search>
       </div>
     </div>

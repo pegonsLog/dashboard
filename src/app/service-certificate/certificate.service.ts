@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-import { docData } from '@angular/fire/firestore';
-import { initializeApp } from 'firebase/app';
 import {
-  DocumentData,
+  Firestore,
   addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  getFirestore,
-  setDoc,
-} from 'firebase/firestore/lite';
-import { Observable, Subscription, map } from 'rxjs';
+  collection, collectionData, deleteDoc,
+  doc, docData, getFirestore,
+  setDoc
+} from '@angular/fire/firestore';
+import { initializeApp } from 'firebase/app';
+import { Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Certificate } from './../shared/models/Certificate';
 
@@ -34,22 +30,31 @@ export class CertificateService {
     mode: '',
   };
 
-  list(): Observable<Certificate[]> {
-    const certificates = collection(this.db, 'certificate');
-    return new Observable<DocumentData[]>((subscriber) => {
-      getDocs(certificates)
-        .then((certificatesSnapshot) => {
-          const certificatesList = certificatesSnapshot.docs.map((doc) =>
-            doc.data()
-          );
-          subscriber.next(certificatesList);
-          subscriber.complete();
-        })
-        .catch((error) => {
-          subscriber.error(error);
-        });
-    }).pipe(map((certificatesList) => certificatesList as Certificate[]));
+  constructor(private firestore: Firestore){
+
   }
+
+  list() {
+    let $certificateRef = collection(this.firestore, 'certificates');
+    return collectionData($certificateRef, { idField: 'id' }) as Observable<Certificate[]>;
+  }
+
+  // list(): Observable<Certificate[]> {
+  //   const certificates = collection(this.db, 'certificates');
+  //   return new Observable<DocumentData[]>((subscriber) => {
+  //     getDocs(certificates)
+  //       .then((certificatesSnapshot) => {
+  //         const certificatesList = certificatesSnapshot.docs.map((doc) =>
+  //           doc.data()
+  //         );
+  //         subscriber.next(certificatesList);
+  //         subscriber.complete();
+  //       })
+  //       .catch((error) => {
+  //         subscriber.error(error);
+  //       });
+  //   }).pipe(map((certificatesList) => certificatesList as Certificate[]));
+  // }
 
   findOne(id: string) {
     let $certificateRef = doc(this.db, 'certificates/' + id);

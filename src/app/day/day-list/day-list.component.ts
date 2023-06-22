@@ -1,6 +1,5 @@
-import { INPUT_MODALITY_DETECTOR_OPTIONS } from '@angular/cdk/a11y';
 import { Component, Input, OnDestroy } from '@angular/core';
-import { Observable, Subscription, map } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
 
@@ -13,36 +12,51 @@ export class DayListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
 
+  certificateDay: Certificate = {
+    id: '',
+    registration: '',
+    startDay: new Date(),
+    endDay: new Date(),
+    startHour: new Date(),
+    endHour: new Date(),
+    dayOff: new Date(),
+    type: '',
+    mode: '',
+  };
 
   @Input() registration: string = '';
   @Input() year: string = '';
   @Input() type: string = '';
   @Input() mode: string = '';
 
-  displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode'];
+  displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode', 'actions'];
 
   constructor(private certificateService: CertificateService) {
-
-    this.dataSource$ = this.certificateService
-      .list()
-      .pipe(
-        map((list: Certificate[]) =>
-          list.filter(
-            (data: Certificate) => data.registration === this.registration
-          )
-        )
-      );
+    this.dataSource$ = this.certificateService.list();
+    // .pipe(
+    //   map((list: Certificate[]) =>
+    //     list.filter(
+    //       (data: Certificate) => data.registration === '564'
+    //     )
+    //   )
+    // );
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  onRegistration(evento: any) {
-    console.log(evento);
+  onRegistration(teste: any) {
+    console.log(teste);
+  }
+
+  onUpdateCertificate() {
+  }
+
+  onDeleteCertificate(id: string) {
+   this.certificateService.delete(id).then();
   }
 
   onSearch(emit: any) {
-    console.log(emit);
 
     // console.log(this.registration = emit[0]),
     // console.log(this.year = emit[1]),

@@ -1,6 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -22,25 +20,14 @@ export class SearchComponent {
   @Output() typeName: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() mode: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor() {
     this.yearSearch = '2023';
     this.typeSearch = 'Atestado de dia';
     this.modeSearch = 'Comparecimento';
   }
 
-  onSearch(registration: string) {
-    this.registration.emit(registration);
-    this.year.emit(this.yearSearch);
-    this.mode.emit(this.modeSearch);
-    // switch(type){
-    //   case 'Atestado de dia': this.type.emit(this.searchDayType);
-    //   break;
-    //   case 'Atestado de hora': this.type.emit(this.searchHourType);
-    //   break;
-    //   case 'Atestado de doação': this.type.emit(this.searchDonationType);
-    //   break;
-    // }
-    this.typeName.emit([this.searchDayType, this.yearSearch, this.modeSearch, this.registrationSearch]);
+  onSearch() {
+    this.typeName.emit([this.searchDayType, this.yearSearch, this.modeSearch, this.registrationSearch, this.typeSearch]);
   }
 
   onClear() {
