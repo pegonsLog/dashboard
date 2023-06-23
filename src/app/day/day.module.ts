@@ -7,6 +7,7 @@ import { DayCreateComponent } from './day-create/day-create.component';
 import { DayListComponent } from './day-list/day-list.component';
 import { DayRoutingModule } from './day-routing.module';
 import { DayUpdateComponent } from './day-update/day-update.component';
+import { ConfirmationModule } from '../shared/dialogs/confirmation/confirmation.module';
 
 @NgModule({
   declarations: [DayCreateComponent, DayUpdateComponent, DayListComponent],
@@ -14,7 +15,8 @@ import { DayUpdateComponent } from './day-update/day-update.component';
     CommonModule,
     DayRoutingModule,
     AngularMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ConfirmationModule,
   ],
   exports: [
     DayCreateComponent,

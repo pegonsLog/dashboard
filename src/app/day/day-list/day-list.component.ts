@@ -2,6 +2,8 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-day-list',
@@ -29,9 +31,15 @@ export class DayListComponent implements OnDestroy {
   @Input() type: string = '';
   @Input() mode: string = '';
 
-  displayedColumns: string[] = ['registration', 'startDay', 'endDay', 'mode', 'actions'];
+  displayedColumns: string[] = [
+    'registration',
+    'startDay',
+    'endDay',
+    'mode',
+    'actions',
+  ];
 
-  constructor(private certificateService: CertificateService) {
+  constructor(private certificateService: CertificateService, public dialog: MatDialog,) {
     this.dataSource$ = this.certificateService.list();
     // .pipe(
     //   map((list: Certificate[]) =>
@@ -49,15 +57,20 @@ export class DayListComponent implements OnDestroy {
     console.log(teste);
   }
 
-  onUpdateCertificate() {
-  }
+  onUpdateCertificate() {}
 
   onDeleteCertificate(id: string) {
-   this.certificateService.delete(id).then();
+    const dialogReference = this.dialog.open(ConfirmationDialogComponent);
+    this.subscription = dialogReference
+      .afterClosed()
+      .subscribe((result: any) => {
+        if (result) {
+          this.certificateService.delete(id).then();
+        }
+      });
   }
 
   onSearch(emit: any) {
-
     // console.log(this.registration = emit[0]),
     // console.log(this.year = emit[1]),
     // console.log(this.typeCertificate = emit[2]),

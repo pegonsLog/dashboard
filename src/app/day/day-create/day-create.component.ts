@@ -11,7 +11,6 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 export class DayCreateComponent {
   form: FormGroup;
 
-
   registration: string = '';
   year: string = '';
   type: string = '';
@@ -32,7 +31,7 @@ export class DayCreateComponent {
   constructor(
     private fb: FormBuilder,
     private certificateService: CertificateService
-    ) {
+  ) {
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
@@ -62,9 +61,9 @@ export class DayCreateComponent {
       .certificateAdd(this.certificateDay)
       .then(() => console.log('Deu Certo'))
       .catch(() => console.log('Deu erro'));
-    }
+  }
 
-    registrationOutput(event: any) {
+  registrationOutput(event: any) {
     console.log(event);
-    }
+  }
 }
