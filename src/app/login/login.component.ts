@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { User } from '../shared/models/User';
 import { AuthService } from './auth.service';
 
@@ -12,7 +12,8 @@ import { AuthService } from './auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy {
-  loginForm: FormGroup;
+  username: string = '';
+  password: string = '';
 
   isAuth: boolean = false;
 
@@ -29,39 +30,25 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private router: Router,
-    private fb: FormBuilder
+    private router: Router
   ) {
-    this.loginForm = this.fb.group({
-      user: ['564', Validators.required],
-      password: ['564', Validators.required],
-    });
-
-    this.subscription = this.authService
-      .list()
-      .subscribe((users: User[]) => (this.users = users));
+    // this.subscription = this.authService
+    //   .list(this.username, this.password)
+    //   .subscribe((users: User[]) => (this.users = users));
   }
 
-  query() {
-    for (let usr of this.users) {
-      if (
-        usr.username === this.loginForm.value.user &&
-        usr.password === this.loginForm.value.password
-      ) {
-        this.userAuth = usr;
-        this.isAuth = true;
-      }
-    }
-
-    if (this.isAuth) {
-      this.router.navigate(['home'], {
-        queryParams: {
-          name: this.userAuth.name,
-          user: this.userAuth.username,
-        },
-      });
+  authentication(username: string, password: string) {
+    if (username !== '' || password !== '') {
+      this.subscription = this.authService
+        .authentication(this.username, this.password)
+        .subscribe((user: User) => {
+          if (user.username) {
+            (this.userAuth = user), this.router.navigate(['/home']);
+          } else {
+            this.onError();
+          }
+        });
     } else {
-      this.router.navigate(['']);
       this.onError();
     }
   }

@@ -2,13 +2,19 @@ import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import {
   DocumentData,
+  Firestore,
+  QueryDocumentSnapshot,
+  QuerySnapshot,
   collection,
+  doc,
+  docData,
   getDocs,
-  getFirestore
-} from 'firebase/firestore/lite';
+  getFirestore,
+} from '@angular/fire/firestore';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../shared/models/User';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -25,20 +31,28 @@ export class AuthService {
     password: '',
   };
 
-  constructor() {}
+  constructor(private firestore: Firestore,   private snackBar: MatSnackBar,) {}
 
-  list(): Observable<User[]> {
+  authentication(username: string, password: string): Observable<User> {
     const users = collection(this.db, 'users');
-    return new Observable<DocumentData[]>((subscriber) => {
+    return new Observable<User>((subscriber) => {
       getDocs(users)
-        .then((usersSnapshot) => {
-          const usersList = usersSnapshot.docs.map((doc) => doc.data());
-          subscriber.next(usersList);
-          subscriber.complete();
+        .then((usersSnapshot: QuerySnapshot<DocumentData>) => {
+          const usersList: User[] = usersSnapshot.docs.map(
+            (doc: QueryDocumentSnapshot<DocumentData>) => doc.data() as User
+          );
+          for (let user of usersList) {
+            if (user.username === username && user.password === password) {
+              this.user = user;
+              subscriber.next(this.user);
+              subscriber.complete();
+            }
+          }
         })
         .catch((error) => {
           subscriber.error(error);
-        });
-    }).pipe(map((usersList) => usersList as User[]));
+           });
+    });
   }
+
 }
