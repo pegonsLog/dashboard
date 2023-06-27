@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from 'firebase/app';
 import {
   DocumentData,
   Firestore,
@@ -11,10 +10,11 @@ import {
   getDocs,
   getFirestore,
 } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { initializeApp } from 'firebase/app';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../shared/models/User';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -31,10 +31,11 @@ export class AuthService {
     password: '',
   };
 
-  constructor(private firestore: Firestore,   private snackBar: MatSnackBar,) {}
+  constructor(private firestore: Firestore, private snackBar: MatSnackBar) {}
 
   authentication(username: string, password: string): Observable<User> {
     const users = collection(this.db, 'users');
+
     return new Observable<User>((subscriber) => {
       getDocs(users)
         .then((usersSnapshot: QuerySnapshot<DocumentData>) => {
@@ -51,8 +52,7 @@ export class AuthService {
         })
         .catch((error) => {
           subscriber.error(error);
-           });
+        });
     });
   }
-
 }

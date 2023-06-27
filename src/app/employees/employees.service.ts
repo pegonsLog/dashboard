@@ -69,4 +69,3 @@ export class EmployeesService {
     return setDoc($employeeRef, employee);
   }
 }
-

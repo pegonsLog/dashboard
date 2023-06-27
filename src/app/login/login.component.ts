@@ -42,9 +42,9 @@ export class LoginComponent implements OnDestroy {
       this.subscription = this.authService
         .authentication(this.username, this.password)
         .subscribe((user: User) => {
-          if (user.username) {
+          if (user.username && user.id !== '') {
             (this.userAuth = user), this.router.navigate(['/home']);
-          } else {
+          } else if(user.id === ''){
             this.onError();
           }
         });
