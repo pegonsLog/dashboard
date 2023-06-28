@@ -5,6 +5,7 @@ import {
   QueryDocumentSnapshot,
   QuerySnapshot,
   collection,
+  collectionData,
   doc,
   docData,
   getDocs,
@@ -33,26 +34,8 @@ export class AuthService {
 
   constructor(private firestore: Firestore, private snackBar: MatSnackBar) {}
 
-  authentication(username: string, password: string): Observable<User> {
-    const users = collection(this.db, 'users');
-
-    return new Observable<User>((subscriber) => {
-      getDocs(users)
-        .then((usersSnapshot: QuerySnapshot<DocumentData>) => {
-          const usersList: User[] = usersSnapshot.docs.map(
-            (doc: QueryDocumentSnapshot<DocumentData>) => doc.data() as User
-          );
-          for (let user of usersList) {
-            if (user.username === username && user.password === password) {
-              this.user = user;
-              subscriber.next(this.user);
-              subscriber.complete();
-            }
-          }
-        })
-        .catch((error) => {
-          subscriber.error(error);
-        });
-    });
+  list() {
+    let $userRef = collection(this.firestore, 'users');
+    return collectionData($userRef, { idField: 'id' }) as Observable<User[]>;
   }
 }
