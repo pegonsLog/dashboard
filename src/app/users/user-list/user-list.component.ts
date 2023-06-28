@@ -17,7 +17,7 @@ export class UserListComponent {
   displayedColumns: string[] = ['username', 'name', 'password', 'actions'];
 
   constructor(private userService: UserService) {
-    this.dataSource$ = userService.list();
+    this.dataSource$ = this.userService.list();
   }
 
   onCreateUser() {

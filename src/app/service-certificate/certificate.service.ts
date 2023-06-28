@@ -39,23 +39,6 @@ export class CertificateService {
     return collectionData($certificateRef, { idField: 'id' }) as Observable<Certificate[]>;
   }
 
-  // list(): Observable<Certificate[]> {
-  //   const certificates = collection(this.db, 'certificates');
-  //   return new Observable<DocumentData[]>((subscriber) => {
-  //     getDocs(certificates)
-  //       .then((certificatesSnapshot) => {
-  //         const certificatesList = certificatesSnapshot.docs.map((doc) =>
-  //           doc.data()
-  //         );
-  //         subscriber.next(certificatesList);
-  //         subscriber.complete();
-  //       })
-  //       .catch((error) => {
-  //         subscriber.error(error);
-  //       });
-  //   }).pipe(map((certificatesList) => certificatesList as Certificate[]));
-  // }
-
   findOne(id: string) {
     let $certificateRef = doc(this.db, 'certificates/' + id);
     return docData($certificateRef, {

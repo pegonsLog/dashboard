@@ -6,6 +6,7 @@ import { UserCreateComponent } from './user-create/user-create.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AngularMaterialModule } from '../shared/angular-material/angular-materi
   imports: [
     CommonModule,
     UserRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ReactiveFormsModule
   ],
   exports:[  UserListComponent,
     UserCreateComponent,

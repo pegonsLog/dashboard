@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CertificateService } from '../service-certificate/certificate.service';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -67,7 +68,7 @@ export class HomeComponent {
 
   constructor(
     private fb: FormBuilder,
-    private certificateService: CertificateService
+    private authService: AuthService
   ) {
     this.form = this.fb.group({
       registrationSearch: ['', Validators.required],
@@ -171,6 +172,7 @@ export class HomeComponent {
     this.titleName = 'CONSULTA';
     this.onType(search);
   }
+
 
   // onSearch() {
   //     if (this.form.value.type === 'Atestado de dia') {

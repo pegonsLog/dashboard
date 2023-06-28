@@ -1,8 +1,13 @@
 <mat-toolbar>
-    <mat-toolbar-row>
+  <mat-toolbar-row>
+    <div>
       <button mat-button (click)="onOpened()"><mat-icon>menu</mat-icon></button>
-      <div id="align-header">
+
         <span>CONTROLE DE ATESTADOS</span>
-      </div>
-    </mat-toolbar-row>
+
+    </div>
+    <button mat-button (click)="toUnLogin()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar-row>
 </mat-toolbar>

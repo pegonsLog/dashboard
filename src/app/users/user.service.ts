@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  addDoc,
+  collection, collectionData, deleteDoc,
+  doc, docData, getFirestore,
+  setDoc
+} from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { DocumentData, Firestore, addDoc, collection, deleteDoc, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore/lite';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { docData } from '@angular/fire/firestore';
 import { User } from '../shared/models/User';
 
-@Injectable(
-  { providedIn: 'root'}
-  )
+@Injectable({ providedIn: 'root' })
 export class UserService {
-
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
 
@@ -19,28 +21,19 @@ export class UserService {
     id: '',
     username: '',
     name: '',
-    password: ''
+    password: '',
   };
 
+  constructor(private firestore: Firestore) {}
 
-  list(): Observable<User[]> {
-    const users = collection(this.db, 'users');
-    return new Observable<DocumentData[]>((subscriber) => {
-      getDocs(users)
-        .then((usersSnapshot) => {
-          const userList = usersSnapshot.docs.map((doc) => doc.data());
-          subscriber.next(userList);
-          subscriber.complete();
-        })
-        .catch((error) => {
-          subscriber.error(error);
-        });
-    }).pipe(map((certificatesList) => certificatesList as User[]));
+  list() {
+    let $userRef = collection(this.firestore, 'users');
+    return collectionData($userRef, { idField: 'id' }) as Observable<User[]>;
   }
 
   findOne(id: string) {
     let $userRef = doc(this.db, 'users/' + id);
-    return docData($userRef, {idField: 'id'}) as Observable<User>;
+    return docData($userRef, { idField: 'id' }) as Observable<User>;
   }
 
   delete(id: string) {
@@ -58,4 +51,3 @@ export class UserService {
     return setDoc($userRef, user);
   }
 }
-
