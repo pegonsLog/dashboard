@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CertificateService } from '../../service-certificate/certificate.service';
 
@@ -13,7 +13,8 @@ export class DonationListComponent {
   displayedColumns: string[] = ['registration', 'startDay', 'mode', 'dayOff'];
 
   constructor( private certificateService: CertificateService) {
-    this.subscription = certificateService.list()
+
+    this.subscription = this.certificateService.list()
       .subscribe(
         (certificates: any) => (this.dataSource = certificates)
       );

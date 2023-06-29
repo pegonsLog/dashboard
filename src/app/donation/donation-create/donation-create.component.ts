@@ -21,6 +21,7 @@ export class DonationCreateComponent {
     dayOff: new Date(),
     type: '',
     mode: '',
+    year: ''
   };
 
   constructor(
@@ -34,7 +35,7 @@ export class DonationCreateComponent {
       startHour: ['00:00'],
       endHour: ['00:00'],
       dayOff: [''],
-      type: ['', Validators.required],
+      // type: ['', Validators.required],
       mode: ['', Validators.required],
     });
   }

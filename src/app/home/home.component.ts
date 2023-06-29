@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CertificateService } from '../service-certificate/certificate.service';
-import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +7,6 @@ import { AuthService } from '../login/auth.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  form: FormGroup;
   menuName: string[] = [
     'dayCreate',
     'dayUpdate',
@@ -34,7 +30,8 @@ export class HomeComponent {
   typeName: string = '';
   isOpened: boolean = true;
 
-  titleName: string = 'ATESTADO DE DIA';
+  titleName: string | null = '';
+  titleUser: string | null = '';
 
   @Input() registration: string = '';
   @Input() year: string = '';
@@ -46,10 +43,8 @@ export class HomeComponent {
   modeSearch: string = '';
   typeSearch: string = '';
 
-  @Output() registrationEmit: EventEmitter<any> = new EventEmitter<any>();
-  // @Output() yearEmit: EventEmitter<any> = new EventEmitter<any>();
-  // @Output() typeEmit: EventEmitter<any> = new EventEmitter<any>();
-  // @Output() modeEmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() typeSearchList: EventEmitter<any> = new EventEmitter<any>();
+  @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
 
   day: string = 'dayCreate';
   dayUpdate: string = 'dayUpdate';
@@ -64,18 +59,11 @@ export class HomeComponent {
   users: string = 'userList';
   search: string = 'search';
 
+
   dataSource$: Observable<any> | undefined;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService
-  ) {
-    this.form = this.fb.group({
-      registrationSearch: ['', Validators.required],
-      yearSearch: ['2023', Validators.required],
-      modeSearch: ['Comparecimento', Validators.required],
-      typeSearch: ['Atestado de dia', Validators.required],
-    });
+  constructor() {
+    this.titleUser = localStorage.getItem('user');
   }
 
   onType(type: any) {
@@ -87,7 +75,6 @@ export class HomeComponent {
     }
     if (this.menuName[2] === type) {
       this.typeName = 'dayList';
-
     }
     if (this.menuName[3] === type) {
       this.typeName = 'hourCreate';
@@ -163,36 +150,19 @@ export class HomeComponent {
     this.titleName = 'ATESTADO DE DIA';
     this.onType(day);
   }
-  onDayList(dayList: any) {
+  onTypeList(typeList: any) {
     this.titleName = 'LISTA DE ATESTADOS';
-    this.registrationEmit.emit(this.day)
-    this.onType(dayList[0]);
+    this.typeSearchList.emit(this.day);
+    this.registrationSearch = typeList[0];
+    this.yearSearch = typeList[1];
+    this.typeSearch = typeList[2];
+    this.onType(typeList[4]);
   }
   onSearch(search: string) {
     this.titleName = 'CONSULTA';
     this.onType(search);
   }
-
-
-  // onSearch() {
-  //     if (this.form.value.type === 'Atestado de dia') {
-  //       this.titleName = 'ATESTADO DE DIA';
-  //       this.onType(this.dayList);
-  // this.registration = this.form.value.registrationSearch
-
-  //       // this.registrationEmit.emit(this.form.value.registration);
-  //       // this.yearEmit.emit(this.yearSearch);
-  //       // this.typeEmit.emit(this.typeSearch);
-  //       // this.modeEmit.emit(this.modeSearch);
-
-  //     }
-  //     if (this.typeSearch === 'Atestado de hora') {
-  //       this.titleName = 'ATESTADO DE HORA';
-  //       this.onType(this.hourList);
-  //     }
-  //     if (this.typeSearch === 'Atestado de doação') {
-  //       this.titleName = 'ATESTADO DE DOAÇÃO';
-  //       this.onType(this.donationList);
-  //     }
-  // }
+  registrationOutput(registration: any){
+    this.registrationSearchList.emit(registration);
+  }
 }

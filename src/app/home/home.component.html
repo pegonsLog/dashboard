@@ -105,10 +105,11 @@
     <div class="background">
       <div class="title">
         <span>{{ titleName }}</span>
+        <span>Bem vindo, {{ titleUser }}</span>
       </div>
 
       <div class="main" *ngIf="typeName === ''">
-        <app-day-create style="width: 50%"></app-day-create>
+        <!-- <app-day-create style="width: 50%"></app-day-create> -->
       </div>
       <div class="main" *ngIf="typeName === 'dayCreate'">
         <app-day-create style="width: 50%"></app-day-create>
@@ -118,7 +119,11 @@
         <app-day-update style="width: 50%"></app-day-update>
       </div>
       <div class="main" *ngIf="typeName === 'dayList'">
-        <app-day-list (typeName)="onDayList($event)" style="width: 50%"></app-day-list>
+        <app-day-list
+        [registration]="registrationSearch"
+        [year]="yearSearch"
+        [type]="typeSearch"
+        style="width: 50%"></app-day-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'hourCreate'">
@@ -128,7 +133,7 @@
         <app-hour-update style="width: 50%"></app-hour-update>
       </div>
       <div class="main" *ngIf="typeName === 'hourList'">
-        <app-hour-list style="width: 50%"></app-hour-list>
+        <app-hour-list  style="width: 50%"></app-hour-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'donationCreate'">
@@ -167,7 +172,7 @@
         ></app-user-list>
       </div>
       <div class="main" *ngIf="typeName === 'search'">
-        <app-search (typeName)="onDayList($event)"
+        <app-search (searchTypeName)="onTypeList($event)"
 
         style="width: 50%"></app-search>
       </div>

@@ -1,39 +1,40 @@
 <mat-card>
   <mat-card-content>
-    <mat-toolbar id="peso-fonte">Atestados cadastrados</mat-toolbar>
+    <mat-toolbar id="peso-fonte">Atestados de dia - mat.: {{registration}}</mat-toolbar>
+    <table
+      mat-table
+      [dataSource]="dataSource$ | async"
+      class="mat-elevation-z8"
 
-<table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8">
-    <!-- Registration Column -->
-  <ng-container matColumnDef="registration">
-    <th mat-header-cell *matHeaderCellDef>Matrícula</th>
-    <td mat-cell *matCellDef="let element">{{ element.registration }}</td>
-  </ng-container>
+    >
+      <ng-container matColumnDef="registration">
+        <th mat-header-cell *matHeaderCellDef>Matrícula</th>
+        <td mat-cell *matCellDef="let element">{{ element.registration }}</td>
+      </ng-container>
+      <ng-container matColumnDef="startDay">
+        <th mat-header-cell *matHeaderCellDef>Data de início</th>
+        <td mat-cell *matCellDef="let element">{{ element.startDay }}</td>
+      </ng-container>
+      <ng-container matColumnDef="endDay">
+        <th mat-header-cell *matHeaderCellDef>Data do término</th>
+        <td mat-cell *matCellDef="let element">{{ element.endDay }}</td>
+      </ng-container>
+      <ng-container matColumnDef="mode">
+        <th mat-header-cell *matHeaderCellDef>Modo</th>
+        <td mat-cell *matCellDef="let element">{{ element.mode }}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let element">
+          <a (click)="onUpdateCertificate()"><mat-icon>edit</mat-icon></a>
+          <a (click)="onDeleteCertificate(element.id)"
+            ><mat-icon>delete</mat-icon></a
+          >
+        </td>
+      </ng-container>
 
-  <!-- StartDay Column -->
-  <ng-container matColumnDef="startDay">
-    <th mat-header-cell *matHeaderCellDef>Data de início</th>
-    <td mat-cell *matCellDef="let element">{{ element.startDay }}</td>
-  </ng-container>
-  <!-- EndDay Column -->
-  <ng-container matColumnDef="endDay">
-    <th mat-header-cell *matHeaderCellDef>Data do término</th>
-    <td mat-cell *matCellDef="let element">{{ element.endDay }}</td>
-  </ng-container>
-  <ng-container matColumnDef="mode">
-    <th mat-header-cell *matHeaderCellDef>Modo</th>
-    <td mat-cell *matCellDef="let element">{{ element.mode }}</td>
-  </ng-container>
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Ações</th>
-    <td mat-cell *matCellDef="let element">
-      <a (click)="onUpdateCertificate()"><mat-icon>edit</mat-icon></a>
-      <a (click)="onDeleteCertificate(element.id)"><mat-icon>delete</mat-icon></a>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-</table>
-</mat-card-content>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card-content>
 </mat-card>

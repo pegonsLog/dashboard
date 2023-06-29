@@ -26,6 +26,7 @@ export class DayCreateComponent {
     dayOff: new Date(),
     type: '',
     mode: '',
+    year: ''
   };
 
   constructor(
@@ -39,8 +40,8 @@ export class DayCreateComponent {
       startHour: ['00:00'],
       endHour: ['00:00'],
       dayOff: ['00/00/0000'],
-      type: ['', Validators.required],
-      mode: ['', Validators.required],
+      type: ['Atestado de dia', Validators.required],
+      mode: ['', Validators.required]
     });
   }
 
@@ -49,6 +50,8 @@ export class DayCreateComponent {
   }
 
   certificateDayAdd() {
+
+
     this.certificateDay.registration = this.form.value.registration;
     this.certificateDay.startDay = this.form.value.startDay;
     this.certificateDay.endDay = this.form.value.endDay;
@@ -57,6 +60,7 @@ export class DayCreateComponent {
     this.certificateDay.dayOff = this.form.value.dayOff;
     this.certificateDay.type = this.form.value.type;
     this.certificateDay.mode = this.form.value.mode;
+    this.certificateDay.year = this.form.value.startDay.substring(this.form.value.startDay.length - 4);
     return this.certificateService
       .certificateAdd(this.certificateDay)
       .then(() => console.log('Deu Certo'))

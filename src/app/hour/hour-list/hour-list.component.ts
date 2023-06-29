@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 
@@ -13,7 +13,7 @@ export class HourListComponent {
   displayedColumns: string[] = ['registration', 'startDay', 'startHour', 'endHour', 'mode'];
 
   constructor(private certificateService: CertificateService) {
-    this.subscription = certificateService
+    this.subscription = this.certificateService
       .list()
       .subscribe((certificates: any) => (this.dataSource = certificates));
   }

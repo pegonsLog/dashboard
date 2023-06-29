@@ -22,6 +22,7 @@ export class HourCreateComponent {
     dayOff: new Date(),
     type: '',
     mode: '',
+    year: ''
   };
 
   constructor(
@@ -31,11 +32,11 @@ export class HourCreateComponent {
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
-      endDay: ['00/00/0000', Validators.required],
+      endDay: ['', Validators.required],
       startHour: ['', Validators.required],
       endHour: ['', Validators.required],
       dayOff: ['00/00/0000', Validators.required],
-      type: ['', Validators.required],
+      type: ['Atestado de hora', Validators.required],
       mode: ['', Validators.required],
     });
   }

@@ -28,6 +28,7 @@ export class CertificateService {
     dayOff: new Date(),
     type: '',
     mode: '',
+    year: ''
   };
 
   constructor(private firestore: Firestore){

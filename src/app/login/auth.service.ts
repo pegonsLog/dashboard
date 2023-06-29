@@ -36,6 +36,10 @@ export class AuthService {
     localStorage.setItem('login', 'sim');
   }
 
+  userLogged(user: string) {
+    localStorage.setItem('user', user);
+  }
+
   toUnlogin() {
     localStorage.clear();
   }

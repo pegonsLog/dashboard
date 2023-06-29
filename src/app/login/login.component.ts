@@ -36,6 +36,7 @@ export class LoginComponent implements OnDestroy {
         .subscribe((user: User[]) => {
           if (user[0]) {
             this.router.navigate(['/home']);
+            this.authService.userLogged(username)
             this.authService.toAuth();
           } else {
             this.onError();

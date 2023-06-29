@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
@@ -10,7 +10,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation
   templateUrl: './day-list.component.html',
   styleUrls: ['./day-list.component.scss'],
 })
-export class DayListComponent implements OnDestroy {
+export class DayListComponent implements OnDestroy, OnInit{
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
 
@@ -24,6 +24,7 @@ export class DayListComponent implements OnDestroy {
     dayOff: new Date(),
     type: '',
     mode: '',
+    year: ''
   };
 
   @Input() registration: string = '';
@@ -40,6 +41,7 @@ export class DayListComponent implements OnDestroy {
   ];
 
   constructor(private certificateService: CertificateService, public dialog: MatDialog,) {
+
     this.dataSource$ = this.certificateService.list();
     // .pipe(
     //   map((list: Certificate[]) =>
@@ -49,12 +51,14 @@ export class DayListComponent implements OnDestroy {
     //   )
     // );
   }
+  ngOnInit(): void {
+    console.log(this.registration);
+    console.log(this.year);
+    console.log(this.type);
+    console.log(this.certificateDay.startDay.getFullYear())
+  }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-  }
-
-  onRegistration(teste: any) {
-    console.log(teste);
   }
 
   onUpdateCertificate() {}
