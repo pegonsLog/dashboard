@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { docData } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
 import {
   DocumentData,
+  Firestore,
   addDoc,
   collection,
+  collectionData,
   deleteDoc,
   doc,
-  getDocs,
+  docData,
   getFirestore,
   setDoc,
-} from 'firebase/firestore/lite';
+} from '@angular/fire/firestore';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Employee } from '../shared/models/Employee';
@@ -30,21 +31,13 @@ export class EmployeesService {
     birthday: '',
   };
 
-  constructor() {}
+  constructor(private firestore: Firestore) {}
 
-  list(): Observable<Employee[]> {
-    const employees = collection(this.db, 'employees');
-    return new Observable<DocumentData[]>((subscriber) => {
-      getDocs(employees)
-        .then((employeesSnapshot) => {
-          const employeeList = employeesSnapshot.docs.map((doc) => doc.data());
-          subscriber.next(employeeList);
-          subscriber.complete();
-        })
-        .catch((error) => {
-          subscriber.error(error);
-        });
-    }).pipe(map((employeeList) => employeeList as Employee[]));
+  list() {
+    let $employeeRef = collection(this.firestore, 'employees');
+    return collectionData($employeeRef, { idField: 'id' }) as Observable<
+      Employee[]
+    >;
   }
 
   findOne(id: string) {

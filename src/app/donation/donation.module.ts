@@ -7,6 +7,7 @@ import { DonationListComponent } from './donation-list/donation-list.component';
 import { DonationRoutingModule } from './donation-routing.module';
 import { DonationUpdateComponent } from './donation-update/donation-update.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputMaskModule } from '@ngneat/input-mask';
 
 @NgModule({
   declarations: [
@@ -14,11 +15,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     DonationUpdateComponent,
     DonationListComponent,
   ],
-  imports: [CommonModule, DonationRoutingModule, AngularMaterialModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    DonationRoutingModule,
+    AngularMaterialModule,
+    ReactiveFormsModule,
+    InputMaskModule,
+  ],
   exports: [
     DonationCreateComponent,
     DonationUpdateComponent,
     DonationListComponent,
-  ]
+  ],
 })
 export class DonationModule {}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
+import { User } from 'src/app/shared/models/User';
 
 @Component({
   selector: 'app-user-create',
@@ -10,6 +11,13 @@ import { UserService } from '../user.service';
 export class UserCreateComponent {
   form: FormGroup;
 
+  user: User = {
+    id: '',
+    username: '',
+    name: '',
+    password: '',
+  };
+
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.form = this.fb.group({
       username: ['', Validators.required],
@@ -18,9 +26,15 @@ export class UserCreateComponent {
     });
   }
 
-  onAddUser(){
-    const user = this.form.getRawValue();
-    console.log(user);
+  addUser() {
+    this.user.username = this.form.value.username;
+    this.user.name = this.form.value.name;
+    this.user.password = this.form.value.password;
+
+    return this.userService
+      .addUser(this.user)
+      .then(() => console.log('Deu Certo'))
+      .catch(() => console.log('Deu erro'));
   }
   onClear() {}
 }

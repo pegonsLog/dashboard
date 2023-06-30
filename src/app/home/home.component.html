@@ -120,10 +120,11 @@
       </div>
       <div class="main" *ngIf="typeName === 'dayList'">
         <app-day-list
-        [registration]="registrationSearch"
-        [year]="yearSearch"
-        [type]="typeSearch"
-        style="width: 50%"></app-day-list>
+          [registration]="registrationSearch"
+          [year]="yearSearch"
+          [type]="typeSearch"
+          style="width: 50%"
+        ></app-day-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'hourCreate'">
@@ -133,7 +134,12 @@
         <app-hour-update style="width: 50%"></app-hour-update>
       </div>
       <div class="main" *ngIf="typeName === 'hourList'">
-        <app-hour-list  style="width: 50%"></app-hour-list>
+        <app-hour-list
+          [registration]="registrationSearch"
+          [year]="yearSearch"
+          [type]="typeSearch"
+          style="width: 50%"
+        ></app-hour-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'donationCreate'">
@@ -143,7 +149,12 @@
         <app-donation-update style="width: 50%"></app-donation-update>
       </div>
       <div class="main" *ngIf="typeName === 'donationList'">
-        <app-donation-list style="width: 50%"></app-donation-list>
+        <app-donation-list
+          [registration]="registrationSearch"
+          [year]="yearSearch"
+          [type]="typeSearch"
+          style="width: 50%"
+        ></app-donation-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'employeeCreate'">
@@ -172,9 +183,10 @@
         ></app-user-list>
       </div>
       <div class="main" *ngIf="typeName === 'search'">
-        <app-search (searchTypeName)="onTypeList($event)"
-
-        style="width: 50%"></app-search>
+        <app-search
+          (searchTypeName)="onTypeList($event)"
+          style="width: 50%"
+        ></app-search>
       </div>
     </div>
   </mat-drawer-content>

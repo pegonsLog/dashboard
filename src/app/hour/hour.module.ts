@@ -7,10 +7,17 @@ import { HourUpdateComponent } from './hour-update/hour-update.component';
 import { HourListComponent } from './hour-list/hour-list.component';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputMaskModule } from '@ngneat/input-mask';
 
 @NgModule({
   declarations: [HourCreateComponent, HourUpdateComponent, HourListComponent],
-  imports: [CommonModule, HourRoutingModule, AngularMaterialModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    HourRoutingModule,
+    AngularMaterialModule,
+    ReactiveFormsModule,
+    InputMaskModule,
+  ],
   exports: [HourCreateComponent, HourUpdateComponent, HourListComponent],
 })
 export class HourModule {}
