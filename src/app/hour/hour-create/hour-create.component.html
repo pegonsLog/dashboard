@@ -20,6 +20,7 @@
             style="font-family: Montserrat"
             matInput
             placeholder="Data do atestado"
+            [inputMask]="dateInputMask"
             type="text"
             formControlName="startDay"
           />
@@ -31,6 +32,7 @@
             style="font-family: Montserrat"
             matInput
             placeholder="Hora de Início"
+            [inputMask]="hourInputMask"
             type="text"
             formControlName="startHour"
           />
@@ -42,6 +44,7 @@
             style="font-family: Montserrat"
             matInput
             placeholder="Hora de término"
+            [inputMask]="hourInputMask"
             type="text"
             formControlName="endHour"
           />

@@ -24,7 +24,11 @@ export class DayListComponent implements OnDestroy {
     dayOff: new Date(),
     type: '',
     mode: '',
+<<<<<<< HEAD
     year: '',
+=======
+    year: 0
+>>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
   };
 
   @Input() registration: string = '';
@@ -40,10 +44,15 @@ export class DayListComponent implements OnDestroy {
     'actions',
   ];
 
+<<<<<<< HEAD
   constructor(
     private certificateService: CertificateService,
     public dialog: MatDialog
   ) {
+=======
+  constructor(private certificateService: CertificateService, public dialog: MatDialog) {
+
+>>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
     this.dataSource$ = this.certificateService.list();
   }
 

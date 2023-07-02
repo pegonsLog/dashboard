@@ -8,8 +8,10 @@ import { AppComponent } from './app.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
-import { HomeModule } from './home/home.module';
 import { HeaderModule } from './header/header.module';
+import { HomeModule } from './home/home.module';
+import { InputMaskModule } from '@ngneat/input-mask';
+
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { HeaderModule } from './header/header.module';
     BrowserAnimationsModule,
     HomeModule,
     HeaderModule,
+    InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
   ],

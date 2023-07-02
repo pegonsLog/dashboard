@@ -19,6 +19,7 @@ export class UserListComponent {
   @Output() id: EventEmitter<string> = new EventEmitter<string>();
 
   dataSource$: Observable<any>;
+  subscription: Subscription = new Subscription();
   displayedColumns: string[] = ['username', 'name', 'password', 'actions'];
 
   constructor(private userService: UserService, public dialog: MatDialog) {
@@ -32,7 +33,11 @@ export class UserListComponent {
     this.type.emit(this.userUpdate);
   }
 
+<<<<<<< HEAD
   onDeleteCertificate(id: string) {
+=======
+  onDeleteUser(id: string) {
+>>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);
     this.subscription = dialogReference
       .afterClosed()
@@ -43,7 +48,10 @@ export class UserListComponent {
       });
   }
 
+<<<<<<< HEAD
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+=======
+>>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
 }

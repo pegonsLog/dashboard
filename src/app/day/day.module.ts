@@ -8,6 +8,7 @@ import { DayListComponent } from './day-list/day-list.component';
 import { DayRoutingModule } from './day-routing.module';
 import { DayUpdateComponent } from './day-update/day-update.component';
 import { ConfirmationModule } from '../shared/dialogs/confirmation/confirmation.module';
+import { InputMaskModule } from '@ngneat/input-mask';
 
 @NgModule({
   declarations: [DayCreateComponent, DayUpdateComponent, DayListComponent],
@@ -17,6 +18,7 @@ import { ConfirmationModule } from '../shared/dialogs/confirmation/confirmation.
     AngularMaterialModule,
     ReactiveFormsModule,
     ConfirmationModule,
+    InputMaskModule,
   ],
   exports: [
     DayCreateComponent,

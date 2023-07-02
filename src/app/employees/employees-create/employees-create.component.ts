@@ -35,6 +35,8 @@ export class EmployeesCreateComponent {
 
   employeeAdd() {
     this.employee.registration = this.form.value.registration;
+    this.employee.name = this.form.value.name;
+    this.employee.birthday = this.form.value.birthday;
 
     return this.employeesService
       .employeeAdd(this.employee)

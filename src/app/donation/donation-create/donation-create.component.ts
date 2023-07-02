@@ -1,5 +1,7 @@
+import { formatDate } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { createMask } from '@ngneat/input-mask';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
 
@@ -11,6 +13,18 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 export class DonationCreateComponent {
   form: FormGroup;
 
+  dateInputMask = createMask<Date>({
+    alias: 'datetime',
+    inputFormat: 'dd/mm/yyyy',
+    formatter: (value: string) => {
+      const values = value.split('-');
+      const date = +values[2];
+      const month = +values[1] - 1;
+      const year = +values[0];
+      return formatDate(new Date(year, month, date), 'dd/MM/yyyy', 'en-US');
+    },
+  });
+
   certificateDonation: Certificate = {
     id: '',
     registration: '',
@@ -21,7 +35,7 @@ export class DonationCreateComponent {
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: ''
+    year: 0
   };
 
   constructor(
@@ -31,11 +45,11 @@ export class DonationCreateComponent {
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
-      endDay: ['', Validators.required],
+      endDay: [''],
       startHour: ['00:00'],
       endHour: ['00:00'],
       dayOff: [''],
-      // type: ['', Validators.required],
+      type: ['Atestado de doação'],
       mode: ['', Validators.required],
     });
   }
@@ -45,6 +59,8 @@ export class DonationCreateComponent {
   }
 
   certificateDonationAdd() {
+    const dateInput = new Date(this.form.value.startDay);
+
     this.certificateDonation.registration = this.form.value.registration;
     this.certificateDonation.startDay = this.form.value.startDay;
     this.certificateDonation.endDay = this.form.value.endDay;
@@ -53,7 +69,7 @@ export class DonationCreateComponent {
     this.certificateDonation.dayOff = this.form.value.dayOff;
     this.certificateDonation.type = this.form.value.type;
     this.certificateDonation.mode = this.form.value.mode;
-    console.log(this.certificateDonation);
+    this.certificateDonation.year = dateInput.getFullYear();
     return this.certificateService
       .certificateAdd(this.certificateDonation)
       .then(() => console.log('Deu Certo'))
