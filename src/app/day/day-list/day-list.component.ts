@@ -10,7 +10,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation
   templateUrl: './day-list.component.html',
   styleUrls: ['./day-list.component.scss'],
 })
-export class DayListComponent implements OnDestroy, OnInit{
+export class DayListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
 
@@ -24,7 +24,7 @@ export class DayListComponent implements OnDestroy, OnInit{
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: ''
+    year: '',
   };
 
   @Input() registration: string = '';
@@ -40,23 +40,13 @@ export class DayListComponent implements OnDestroy, OnInit{
     'actions',
   ];
 
-  constructor(private certificateService: CertificateService, public dialog: MatDialog,) {
-
+  constructor(
+    private certificateService: CertificateService,
+    public dialog: MatDialog
+  ) {
     this.dataSource$ = this.certificateService.list();
-    // .pipe(
-    //   map((list: Certificate[]) =>
-    //     list.filter(
-    //       (data: Certificate) => data.registration === '564'
-    //     )
-    //   )
-    // );
   }
-  ngOnInit(): void {
-    console.log(this.registration);
-    console.log(this.year);
-    console.log(this.type);
-    console.log(this.certificateDay.startDay.getFullYear())
-  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -74,10 +64,4 @@ export class DayListComponent implements OnDestroy, OnInit{
       });
   }
 
-  onSearch(emit: any) {
-    // console.log(this.registration = emit[0]),
-    // console.log(this.year = emit[1]),
-    // console.log(this.typeCertificate = emit[2]),
-    // console.log(this.mode = emit[3])
-  }
 }

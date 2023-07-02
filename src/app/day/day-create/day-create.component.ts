@@ -66,8 +66,4 @@ export class DayCreateComponent {
       .then(() => console.log('Deu Certo'))
       .catch(() => console.log('Deu erro'));
   }
-
-  registrationOutput(event: any) {
-    console.log(event);
-  }
 }

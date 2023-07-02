@@ -42,6 +42,7 @@ export class HomeComponent {
   yearSearch: string = '';
   modeSearch: string = '';
   typeSearch: string = '';
+  idUpdate: string = '';
 
   @Output() typeSearchList: EventEmitter<any> = new EventEmitter<any>();
   @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
@@ -58,7 +59,6 @@ export class HomeComponent {
   employees: string = 'employeeList';
   users: string = 'userList';
   search: string = 'search';
-
 
   dataSource$: Observable<any> | undefined;
 
@@ -125,7 +125,6 @@ export class HomeComponent {
   }
   onRegistration(registration: string) {
     this.registration = registration;
-    console.log(this.registration);
   }
   onOpened() {
     this.isOpened = !this.isOpened;
@@ -162,7 +161,10 @@ export class HomeComponent {
     this.titleName = 'CONSULTA';
     this.onType(search);
   }
-  registrationOutput(registration: any){
+  registrationOutput(registration: any) {
     this.registrationSearchList.emit(registration);
+  }
+  onUpdate(event: string) {
+    this.idUpdate = event;
   }
 }

@@ -14,7 +14,7 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-form-field  class="full-width" [hideRequiredMarker]="true">
           <mat-label>Data de atestado</mat-label>
           <input
             style="font-family: Montserrat"
@@ -24,7 +24,8 @@
             formControlName="startDay"
           />
         </mat-form-field>
-        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+
+        <mat-form-field class="half-width start-end" [hideRequiredMarker]="true">
           <mat-label>Hora de início</mat-label>
           <input
             style="font-family: Montserrat"
@@ -35,7 +36,7 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-form-field class="half-width" [hideRequiredMarker]="true">
           <mat-label>Hora de término</mat-label>
           <input
             style="font-family: Montserrat"
@@ -45,6 +46,7 @@
             formControlName="endHour"
           />
         </mat-form-field>
+
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Modo do atestado</mat-label>
           <mat-select

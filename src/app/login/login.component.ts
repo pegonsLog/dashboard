@@ -27,22 +27,23 @@ export class LoginComponent implements OnDestroy {
       this.subscription = this.authService
         .list()
         .pipe(
-          map((user: User[]) =>
-            user.filter(
+          map((users: User[]) =>
+            users.filter(
               (data) => data.username === username && data.password === password
             )
           )
         )
-        .subscribe((user: User[]) => {
-          if (user[0]) {
+        .subscribe((users: User[]) => {
+          for(let u of users){
+          if (u.username === username) {
             this.router.navigate(['/home']);
-            this.authService.userLogged(username)
+            this.authService.userLogged(u.name!)
             this.authService.toAuth();
           } else {
             this.onError();
             this.authService.toUnlogin();
           }
-        });
+        }});
     } else {
       this.onError();
       this.authService.toUnlogin();

@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.half-width {
+  width: 49%;
+}
+
 mat-card-actions {
   padding: 0%;
 }
@@ -41,4 +45,7 @@ button {
 }
 mat-label{
   font-family: Montserrat;
+}
+.start-end{
+margin-right: 2%;
 }

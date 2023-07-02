@@ -46,58 +46,6 @@
           >CONSULTA</a
         >
       </div>
-      <!-- <h5 class="mt-4">CONSULTA</h5>
-      <div class="search">
-        <form>
-        <label class="textLabel" for="mat">Matrícula</label>
-        <input type="text" [(ngModel)]="registrationSearch" id="mat" />
-        <label class="textLabel" for="ano">Ano aquisitivo</label>
-        <select
-          id="ano"
-          class="form-select select"
-          aria-label="Ano aquisitivo"
-          [(ngModel)]="yearSearch"
-        >
-          <option selected value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-          <option value="2026">2026</option>
-          <option value="2027">2027</option>
-          <option value="2028">2028</option>
-          <option value="2029">2029</option>
-          <option value="2030">2030</option>
-        </select>
-        <label class="textLabel" for="tipo">Tipo do atestado</label>
-        <select
-          id="tipo"
-          class="form-select select"
-          aria-label="Tipo do atestado"
-          [(ngModel)]="typeSearch"
-        >
-          <option selected value="Atestado de dia">Dia</option>
-          <option value="Atestado de hora">Hora</option>
-          <option value="Atestado de doação">Doação</option>
-        </select>
-
-        <label class="textLabel" for="modo">Modo do atestado</label>
-        <select
-          id="modo"
-          class="form-select select"
-          aria-label="Modo do atestado"
-          [(ngModel)]="modeSearch"
-        >
-          <option selected value="Comparecimento">Comparecimento</option>
-          <option value="Acompanhamento">Acompanhamento</option>
-        </select>
-
-        <button
-          class="btn btn-outline-secondary btn-sm" (click)="onSearch(registrationSearch)"
-        >
-          Buscar
-        </button>
-
-      </form>
-      </div> -->
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
@@ -168,6 +116,7 @@
       <div class="main" *ngIf="typeName === 'userList'">
         <app-user-list
           (type)="onType($event)"
+          (id)="onUpdate($event)"
           style="width: 50%"
         ></app-user-list>
       </div>
