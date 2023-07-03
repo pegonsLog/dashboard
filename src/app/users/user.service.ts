@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
-import {
-  Firestore,
-  addDoc,
-  collection, collectionData, deleteDoc,
-  doc, docData, getFirestore,
-  setDoc
-} from '@angular/fire/firestore';
+
 import { initializeApp } from 'firebase/app';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../shared/models/User';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  docData,
+  getFirestore,
+  setDoc,
+} from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -22,6 +27,7 @@ export class UserService {
     username: '',
     name: '',
     password: '',
+    gender: '',
   };
 
   constructor(private firestore: Firestore) {}

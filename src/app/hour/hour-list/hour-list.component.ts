@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
@@ -9,11 +9,15 @@ import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation
   templateUrl: './hour-list.component.html',
   styleUrls: ['./hour-list.component.scss'],
 })
-export class HourListComponent {
+export class HourListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
   dataSource = [];
 
-  registration: string = '';
+  @Input() registration: string = '';
+  @Input() year: string = '';
+  @Input() type: string = '';
+  @Input() mode: string = '';
+
   displayedColumns: string[] = ['registration', 'startDay', 'startHour', 'endHour', 'mode', 'actions'];
 
   constructor(private certificateService: CertificateService, public dialog: MatDialog) {

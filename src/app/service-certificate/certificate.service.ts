@@ -2,9 +2,13 @@ import { Injectable } from '@angular/core';
 import {
   Firestore,
   addDoc,
-  collection, collectionData, deleteDoc,
-  doc, docData, getFirestore,
-  setDoc
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  docData,
+  getFirestore,
+  setDoc,
 } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
 import { Observable, Subscription } from 'rxjs';
@@ -28,16 +32,16 @@ export class CertificateService {
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: 0
+    year: 0,
   };
 
-  constructor(private firestore: Firestore){
-
-  }
+  constructor(private firestore: Firestore) {}
 
   list() {
     let $certificateRef = collection(this.firestore, 'certificates');
-    return collectionData($certificateRef, { idField: 'id' }) as Observable<Certificate[]>;
+    return collectionData($certificateRef, { idField: 'id' }) as Observable<
+      Certificate[]
+    >;
   }
 
   findOne(id: string) {

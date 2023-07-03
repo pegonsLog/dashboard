@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { UserService } from '../user.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +9,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent {
+export class UserListComponent implements OnDestroy {
   userCreate: string = 'userCreate';
   userUpdate: string = 'userUpdate';
 

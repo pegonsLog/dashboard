@@ -12,20 +12,17 @@ import { HeaderModule } from './header/header.module';
 import { HomeModule } from './home/home.module';
 import { InputMaskModule } from '@ngneat/input-mask';
 
-
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HomeModule,
     HeaderModule,
+    InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-    InputMaskModule,
   ],
   bootstrap: [AppComponent],
 })

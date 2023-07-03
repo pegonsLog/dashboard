@@ -1,32 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { UserRoutingModule } from './user-routing.module';
-import { UserCreateComponent } from './user-create/user-create.component';
-import { UserUpdateComponent } from './user-update/user-update.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InputMaskModule } from '@ngneat/input-mask';
-import { ConfirmationModule } from '../shared/dialogs/confirmation/confirmation.module';
-
+import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
+import { UserCreateComponent } from './user-create/user-create.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserRoutingModule } from './user-routing.module';
+import { UserUpdateComponent } from './user-update/user-update.component';
 
 @NgModule({
-  declarations: [
-    UserListComponent,
-    UserCreateComponent,
-    UserUpdateComponent
-  ],
+  declarations: [UserListComponent, UserCreateComponent, UserUpdateComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    InputMaskModule,
-    ConfirmationModule,
   ],
-  exports:[  UserListComponent,
-    UserCreateComponent,
-    UserUpdateComponent]
+  exports: [UserListComponent, UserCreateComponent, UserUpdateComponent],
 })
-export class UserModule { }
+export class UserModule {}

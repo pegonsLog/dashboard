@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
@@ -9,10 +9,15 @@ import { CertificateService } from '../../service-certificate/certificate.servic
   templateUrl: './donation-list.component.html',
   styleUrls: ['./donation-list.component.scss'],
 })
-export class DonationListComponent {
+export class DonationListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
   dataSource = [];
   displayedColumns: string[] = ['registration', 'startDay', 'mode', 'dayOff', 'actions'];
+
+  @Input() registration: string = '';
+  @Input() year: string = '';
+  @Input() type: string = '';
+  @Input() mode: string = '';
 
   constructor(
     private certificateService: CertificateService,

@@ -21,8 +21,7 @@ import { HomeModule } from '../home/home.module';
     DonationRoutingModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    InputMaskModule,
-    HomeModule
+    InputMaskModule
   ],
   exports: [
     DonationCreateComponent,

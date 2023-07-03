@@ -16,7 +16,7 @@ export class UserCreateComponent {
     username: '',
     name: '',
     password: '',
-    gender: ''
+    gender: '',
   };
 
   constructor(private fb: FormBuilder, private userService: UserService) {
@@ -29,17 +29,16 @@ export class UserCreateComponent {
     });
   }
 
-
   addUser() {
     this.user.username = this.form.value.username;
     this.user.name = this.form.value.name;
     this.user.password = this.form.value.password;
+    this.user.gender = this.form.value.gender;
 
     return this.userService
       .addUser(this.user)
       .then(() => console.log('Deu Certo'))
       .catch(() => console.log('Deu erro'));
-
   }
   onClear() {}
 }
