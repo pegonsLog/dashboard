@@ -23,9 +23,9 @@ import { InputMaskModule } from '@ngneat/input-mask';
     BrowserAnimationsModule,
     HomeModule,
     HeaderModule,
-    InputMaskModule.forRoot({ inputSelector: 'input', isAsync: true }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    InputMaskModule,
   ],
   bootstrap: [AppComponent],
 })
