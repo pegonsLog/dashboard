@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { CertificateService } from '../../service-certificate/certificate.service';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
+import { CertificateService } from '../../service-certificate/certificate.service';
 
 @Component({
   selector: 'app-donation-list',
@@ -14,7 +14,6 @@ export class DonationListComponent {
   dataSource = [];
   displayedColumns: string[] = ['registration', 'startDay', 'mode', 'dayOff', 'actions'];
 
-<<<<<<< HEAD
   constructor(
     private certificateService: CertificateService,
     public dialog: MatDialog
@@ -23,14 +22,6 @@ export class DonationListComponent {
       .list()
       .subscribe((certificates: any) => (this.dataSource = certificates));
   }
-=======
-  @Input() registration: string = '';
-  @Input() year: string = '';
-  @Input() type: string = '';
-  @Input() mode: string = '';
-
-  constructor( private certificateService: CertificateService) {
->>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
 
   onDeleteCertificate(id: string) {
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);

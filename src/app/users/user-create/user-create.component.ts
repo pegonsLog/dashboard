@@ -16,10 +16,7 @@ export class UserCreateComponent {
     username: '',
     name: '',
     password: '',
-<<<<<<< HEAD
     gender: ''
-=======
->>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
   };
 
   constructor(private fb: FormBuilder, private userService: UserService) {
@@ -32,11 +29,7 @@ export class UserCreateComponent {
     });
   }
 
-<<<<<<< HEAD
-  onAddUser(){
-    this.user = this.form.getRawValue();
-    this.userService.addUser(this.user);
-=======
+
   addUser() {
     this.user.username = this.form.value.username;
     this.user.name = this.form.value.name;
@@ -46,7 +39,7 @@ export class UserCreateComponent {
       .addUser(this.user)
       .then(() => console.log('Deu Certo'))
       .catch(() => console.log('Deu erro'));
->>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
+
   }
   onClear() {}
 }

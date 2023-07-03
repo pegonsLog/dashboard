@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { createMask } from '@ngneat/input-mask';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';

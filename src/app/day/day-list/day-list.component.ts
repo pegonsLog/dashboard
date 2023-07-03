@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
@@ -24,11 +24,7 @@ export class DayListComponent implements OnDestroy {
     dayOff: new Date(),
     type: '',
     mode: '',
-<<<<<<< HEAD
-    year: '',
-=======
     year: 0
->>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
   };
 
   @Input() registration: string = '';
@@ -44,20 +40,11 @@ export class DayListComponent implements OnDestroy {
     'actions',
   ];
 
-<<<<<<< HEAD
   constructor(
     private certificateService: CertificateService,
     public dialog: MatDialog
   ) {
-=======
-  constructor(private certificateService: CertificateService, public dialog: MatDialog) {
-
->>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
     this.dataSource$ = this.certificateService.list();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   onUpdateCertificate() {}
@@ -72,5 +59,8 @@ export class DayListComponent implements OnDestroy {
         }
       });
   }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    }
 
 }

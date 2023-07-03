@@ -34,14 +34,8 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>Ações</th>
           <td mat-cell *matCellDef="let element">
-<<<<<<< HEAD
             <a (click)="onUpdateUser(element.id)"><mat-icon>edit</mat-icon></a>
-            <a (click)="onDeleteCertificate(element.id)"><mat-icon>delete</mat-icon></a>
-=======
-            <a (click)="onUpdateUser()"><mat-icon>edit</mat-icon></a>
-
-           <a (click)="onDeleteUser(element.id)"><mat-icon>delete</mat-icon></a>
->>>>>>> f9e8d2e7be0dfa117eb5ad7543dc4311d9f58ce1
+            <a (click)="onDeleteUser(element.id)"><mat-icon>delete</mat-icon></a>
           </td>
         </ng-container>
 

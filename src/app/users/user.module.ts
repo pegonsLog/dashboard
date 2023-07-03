@@ -7,6 +7,8 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputMaskModule } from '@ngneat/input-mask';
+import { ConfirmationModule } from '../shared/dialogs/confirmation/confirmation.module';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     UserRoutingModule,
     AngularMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputMaskModule,
+    ConfirmationModule,
   ],
   exports:[  UserListComponent,
     UserCreateComponent,
