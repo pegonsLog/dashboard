@@ -39,7 +39,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-
             "outputPath": "dist/dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -47,9 +46,8 @@
               "zone.js"
             ],
             "allowedCommonJsDependencies": [
-              "lodash"
-           ],
-
+              "inputmask"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [

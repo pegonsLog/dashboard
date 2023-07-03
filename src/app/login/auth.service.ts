@@ -23,6 +23,7 @@ export class AuthService {
     username: '',
     name: '',
     password: '',
+    gender: ''
   };
 
   constructor(private firestore: Firestore) {}
@@ -38,6 +39,9 @@ export class AuthService {
 
   userLogged(user: string) {
     localStorage.setItem('user', user);
+  }
+  genderLogged(gender: string) {
+    localStorage.setItem('gender', gender);
   }
 
   toUnlogin() {

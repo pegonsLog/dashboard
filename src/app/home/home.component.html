@@ -53,7 +53,10 @@
     <div class="background">
       <div class="title">
         <span>{{ titleName }}</span>
+        <div *ngIf="gender==='Masculino'; else female">
         <span>Bem vindo, {{ titleUser }}</span>
+      </div>
+      <ng-template #female><span>Bem vinda, {{ titleUser }}</span></ng-template>
       </div>
 
       <div class="main" *ngIf="typeName === ''">

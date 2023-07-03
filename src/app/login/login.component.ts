@@ -38,6 +38,7 @@ export class LoginComponent implements OnDestroy {
           if (u.username === username) {
             this.router.navigate(['/home']);
             this.authService.userLogged(u.name!)
+            this.authService.genderLogged(u.gender!)
             this.authService.toAuth();
           } else {
             this.onError();

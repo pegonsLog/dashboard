@@ -32,6 +32,7 @@ export class HomeComponent {
 
   titleName: string | null = '';
   titleUser: string | null = '';
+  gender: string | null = '';
 
   @Input() registration: string = '';
   @Input() year: string = '';
@@ -64,6 +65,7 @@ export class HomeComponent {
 
   constructor() {
     this.titleUser = localStorage.getItem('user');
+    this.gender = localStorage.getItem('gender');
   }
 
   onType(type: any) {
