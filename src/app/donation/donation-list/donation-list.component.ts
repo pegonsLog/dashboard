@@ -12,7 +12,7 @@ import { CertificateService } from '../../service-certificate/certificate.servic
 export class DonationListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
   dataSource = [];
-  displayedColumns: string[] = ['registration', 'startDay', 'mode', 'dayOff', 'actions'];
+  displayedColumns: string[] = ['registration', 'startDay', 'dayOff', 'actions'];
 
   @Input() registration: string = '';
   @Input() year: string = '';

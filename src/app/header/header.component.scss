@@ -4,6 +4,7 @@ span {
   font-weight: 400;
   letter-spacing: 1px;
   word-spacing: 0.3rem;
+  margin-left: 15px;
 }
 
 button {
@@ -15,4 +16,16 @@ mat-toolbar-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+#align{
+  display: flex;
+  align-items: center;
+}
+
+mat-icon{
+  padding-top: 4px;
+}
+#logout{
+padding: 0px;;
 }

@@ -47,6 +47,7 @@ export class HomeComponent {
 
   @Output() typeSearchList: EventEmitter<any> = new EventEmitter<any>();
   @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
+  @Output() updateUser: EventEmitter<any> = new EventEmitter<any>();
 
   day: string = 'dayCreate';
   dayUpdate: string = 'dayUpdate';
@@ -166,7 +167,7 @@ export class HomeComponent {
   registrationOutput(registration: any) {
     this.registrationSearchList.emit(registration);
   }
-  onUpdate(event: string) {
-    this.idUpdate = event;
+  onUpdate(event: any) {
+    this.updateUser.emit(event);
   }
 }

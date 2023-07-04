@@ -62,11 +62,11 @@ export class DayCreateComponent implements OnDestroy{
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
       endDay: ['', Validators.required],
-      startHour: ['00:00'],
-      endHour: ['00:00'],
-      dayOff: [''],
+      startHour: ['******************'],
+      endHour: ['******************'],
+      dayOff: ['******************'],
       type: ['Atestado de dia', Validators.required],
-      mode: ['', Validators.required],
+      mode: ['******************', Validators.required],
       year: ['']
     });
   }
@@ -79,7 +79,6 @@ export class DayCreateComponent implements OnDestroy{
   certificateDayAdd() {
     const dateInput = new Date(this.form.value.startDay);
     const year = dateInput.getFullYear();
-    console.log(year);
 
     this.certificateDay.registration = this.form.value.registration;
     this.certificateDay.startDay = this.form.value.startDay;

@@ -5,14 +5,11 @@
       <form>
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Matrícula</mat-label>
-          <input
-            style="font-family: Montserrat"
-            matInput
-            placeholder="Matrícula"
-            type="text"
-            name="registration"
-            [(ngModel)]="registrationSearch"
-          />
+          <mat-select formControlName="registration" style="font-family: Montserrat">
+            <mat-option *ngFor="let registration of registrations" [value]="registration.registration">
+             {{registration.registration}} - {{registration.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
@@ -64,7 +61,7 @@
             name="mode"
             [(ngModel)]="modeSearch"
           >
-            <mat-option selected value="Comparecimento"
+            <mat-option value="Comparecimento"
               >Comparecimento</mat-option
             >
             <mat-option value="Acompanhamento">Acompanhamento</mat-option>

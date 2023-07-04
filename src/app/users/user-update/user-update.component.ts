@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserService } from '../user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/models/User';
@@ -19,6 +19,8 @@ export class UserUpdateComponent {
     gender: '',
   };
 
+  @Input() id: string = '';
+
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.form = this.fb.group({
       id: [''],
@@ -29,9 +31,10 @@ export class UserUpdateComponent {
     });
   }
 
-  onUpdateUser() {
+  onUpdate() {
     this.user = this.form.getRawValue();
   //  this.userService.update();
+
   }
 
   onClear() {}

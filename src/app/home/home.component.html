@@ -125,7 +125,7 @@
         <app-user-create style="width: 50%"></app-user-create>
       </div>
       <div class="main" *ngIf="typeName === 'userUpdate'">
-        <app-user-update style="width: 50%"></app-user-update>
+        <app-user-update (id)="onUpdate($event)" style="width: 50%"></app-user-update>
       </div>
       <div class="main" *ngIf="typeName === 'userList'">
         <app-user-list

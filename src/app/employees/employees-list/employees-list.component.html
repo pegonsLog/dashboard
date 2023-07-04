@@ -7,16 +7,6 @@
       ></mat-toolbar
     >
 
-    <!-- <mat-form-field class="filter">
-      <mat-label class="montserrat">Filtro</mat-label>
-      <input
-        style="font-family: Montserrat"
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Ex. ium"
-        #input
-      />
-    </mat-form-field> -->
     <div *ngIf="dataSource$ | async; else loading">
       <table
         mat-table

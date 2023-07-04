@@ -56,10 +56,10 @@ export class HourCreateComponent {
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
-      endDay: ['-', Validators.required],
+      endDay: ['******************', Validators.required],
       startHour: ['', Validators.required],
       endHour: ['', Validators.required],
-      dayOff: ['-', Validators.required],
+      dayOff: ['******************', Validators.required],
       type: ['Atestado de hora', Validators.required],
       mode: ['', Validators.required],
     });

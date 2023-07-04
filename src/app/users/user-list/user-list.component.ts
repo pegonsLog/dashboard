@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { UserService } from '../user.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,7 +29,8 @@ export class UserListComponent implements OnDestroy {
     this.type.emit(this.userCreate);
   }
   onUpdateUser(id: string) {
-    this.type.emit(this.userUpdate);
+    this.type.emit(this.userCreate);
+    this.id.emit(id);
   }
 
   onDeleteUser(id: string) {

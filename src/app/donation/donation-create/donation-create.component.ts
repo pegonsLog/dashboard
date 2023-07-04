@@ -45,12 +45,12 @@ export class DonationCreateComponent {
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
-      endDay: [''],
-      startHour: ['00:00'],
-      endHour: ['00:00'],
+      endDay: ['******************'],
+      startHour: ['******************'],
+      endHour: ['******************'],
       dayOff: [''],
       type: ['Atestado de doação'],
-      mode: ['', Validators.required],
+      mode: ['******************', Validators.required],
     });
   }
 
