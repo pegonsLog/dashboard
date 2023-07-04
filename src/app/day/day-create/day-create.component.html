@@ -6,13 +6,11 @@
       (ngSubmit)="certificateDayAdd()">
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Matrícula</mat-label>
-          <input
-            style="font-family: Montserrat"
-            matInput
-            placeholder="Matrícula"
-            type="text"
-            formControlName="registration"
-          />
+          <mat-select>
+            <mat-option *ngFor="let registration of registrations" [value]="registration.registration">
+             {{registration.registration}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field class="full-width" [hideRequiredMarker]="true">

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from 'firebase/app';
 import {
-  DocumentData,
   Firestore,
   addDoc,
   collection,
@@ -10,9 +8,10 @@ import {
   doc,
   docData,
   getFirestore,
-  setDoc,
+  setDoc
 } from '@angular/fire/firestore';
-import { Observable, map } from 'rxjs';
+import { initializeApp } from 'firebase/app';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Employee } from '../shared/models/Employee';
 

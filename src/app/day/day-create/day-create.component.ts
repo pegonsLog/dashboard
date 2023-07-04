@@ -1,17 +1,25 @@
 import { formatDate } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { createMask } from '@ngneat/input-mask';
+import { Observable, Subscription, map, pluck } from 'rxjs';
+import { EmployeesService } from 'src/app/employees/employees.service';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
+import { Employee } from 'src/app/shared/models/Employee';
+import { User } from 'src/app/shared/models/User';
+import { UserService } from 'src/app/users/user.service';
 
 @Component({
   selector: 'app-day-create',
   templateUrl: './day-create.component.html',
   styleUrls: ['./day-create.component.scss'],
 })
-export class DayCreateComponent {
+export class DayCreateComponent implements OnDestroy{
   form: FormGroup;
+
+  registrations: Employee[] = [];
+  subscription: Subscription = new Subscription();
 
   dateInputMask = createMask<Date>({
     alias: 'datetime',
@@ -45,8 +53,11 @@ export class DayCreateComponent {
 
   constructor(
     private fb: FormBuilder,
-    private certificateService: CertificateService
+    private certificateService: CertificateService,
+    private employeesService: EmployeesService
   ) {
+
+    this.subscription = this.employeesService.list().subscribe((data: Employee[]) => this.registrations = data);
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
@@ -64,6 +75,7 @@ export class DayCreateComponent {
     this.form.reset();
   }
 
+
   certificateDayAdd() {
     const dateInput = new Date(this.form.value.startDay);
     const year = dateInput.getFullYear();
@@ -79,8 +91,12 @@ export class DayCreateComponent {
     this.certificateDay.mode = this.form.value.mode;
     this.certificateDay.year = year;
     return this.certificateService
-      .certificateAdd(this.certificateDay)
-      .then(() => console.log('Deu Certo'))
+    .certificateAdd(this.certificateDay)
+    .then(() => console.log('Deu Certo'))
       .catch(() => console.log('Deu erro'));
+    }
+
+    ngOnDestroy(): void {
+      this.subscription.unsubscribe();
+    }
   }
-}
