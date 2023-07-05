@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { EmployeesService } from '../employees.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
+import { Employee } from 'src/app/shared/models/Employee';
 
 @Component({
   selector: 'app-employees-list',
@@ -16,6 +17,7 @@ export class EmployeesListComponent {
   employeeUpdate: string = 'employeeUpdate';
 
   @Output() type: EventEmitter<string> = new EventEmitter<string>();
+  @Output() employeeEmit: EventEmitter<any> = new EventEmitter<string>();
 
   displayedColumns: string[] = ['registration', 'name', 'birthday', 'actions'];
   subscription: Subscription = new Subscription();
@@ -29,8 +31,10 @@ export class EmployeesListComponent {
     this.type.emit(this.employeeCreate);
   }
 
-  onUpdateUser() {
-    this.type.emit(this.employeeUpdate);
+  onUpdateUser(id: string) {
+    this.subscription = this.employeeService.findOne(id).subscribe((result: Employee) => {this.employeeEmit.emit(result), this.type.emit(this.employeeUpdate)});
+    
+   
   }
 
   onDeleteEmployee(id: string) {

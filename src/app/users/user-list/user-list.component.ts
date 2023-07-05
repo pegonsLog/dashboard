@@ -3,6 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { UserService } from '../user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
+import { User } from 'src/app/shared/models/User';
 
 @Component({
   selector: 'app-user-list',
@@ -15,8 +16,16 @@ export class UserListComponent implements OnDestroy {
 
   subscription: Subscription = new Subscription();
 
+  user: User = {
+    id: '',
+    username: '',
+    name: '',
+    password: '',
+    gender: '',
+  };
+
   @Output() type: EventEmitter<string> = new EventEmitter<string>();
-  @Output() id: EventEmitter<string> = new EventEmitter<string>();
+  @Output() userEmit: EventEmitter<any> = new EventEmitter<string>();
 
   dataSource$: Observable<any>;
   displayedColumns: string[] = ['username', 'name', 'password', 'actions'];
@@ -29,8 +38,9 @@ export class UserListComponent implements OnDestroy {
     this.type.emit(this.userCreate);
   }
   onUpdateUser(id: string) {
-    this.type.emit(this.userUpdate);
-    this.id.emit(id);
+    this.subscription = this.userService.findOne(id).subscribe((result: User) => {this.userEmit.emit(result), this.type.emit(this.userUpdate)});
+    
+   
   }
 
   onDeleteUser(id: string) {

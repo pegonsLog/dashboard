@@ -7,10 +7,10 @@ import { AppComponent } from './app.component';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { InputMaskModule } from '@ngneat/input-mask';
 import { environment } from '../environments/environment';
 import { HeaderModule } from './header/header.module';
 import { HomeModule } from './home/home.module';
-import { InputMaskModule } from '@ngneat/input-mask';
 
 @NgModule({
   declarations: [AppComponent],

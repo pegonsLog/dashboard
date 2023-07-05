@@ -1,8 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UserService } from '../user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/models/User';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
 
 @Component({
   selector: 'app-user-update',
@@ -10,8 +19,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-update.component.scss'],
 })
 export class UserUpdateComponent implements OnInit, OnDestroy {
-  form: FormGroup;
-subscription: Subscription = new Subscription();
+  form!: FormGroup;
+  subscription: Subscription = new Subscription();
   user: User = {
     id: '',
     username: '',
@@ -20,37 +29,45 @@ subscription: Subscription = new Subscription();
     gender: '',
   };
 
-  username: string = 'teste';
+  @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
+  userList: string = 'userList';
 
-  @Input() id: string = '';
+  @Input() userUpdate: User = {
+    id: '',
+    username: '',
+    name: '',
+    password: '',
+    gender: '',
+  };
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
- 
-    this.form = this.fb.group({
-      id: [''],
-      username: [this.username, Validators.required],
-      name: [this.user.name, Validators.required],
-      password: [this.user.password, Validators.required],
-      gender: [this.user.gender, Validators.required],
-    });
-  }
-  
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    public dialog: MatDialog
+  ) {}
+
   onUpdate() {
-    // this.user = this.form.getRawValue();
-    //  this.userService.update();
-    
+    this.user = this.form.getRawValue();
+    this.userService.update(this.user, this.user.id).then();
+    this.typeList.emit(this.userList);
+
+    const dialogReference = this.dialog.open(DialogUpdatedComponent);
+    this.subscription = dialogReference.afterClosed().subscribe();
   }
-  
+
   onClear() {}
-  
+
   ngOnInit(): void {
-    this.subscription = this.userService.findOne(this.id).subscribe((user: User) => {
-      this.user.username = user.username,
-      this.user.name = user.name;
+    this.form = this.fb.group({
+      id: [this.userUpdate.id],
+      username: [this.userUpdate.username, Validators.required],
+      name: [this.userUpdate.name, Validators.required],
+      password: [this.userUpdate.password, Validators.required],
+      gender: [this.userUpdate.gender, Validators.required],
     });
-    
   }
+  
   ngOnDestroy(): void {
-  this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

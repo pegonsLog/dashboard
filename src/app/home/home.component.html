@@ -29,7 +29,7 @@
       <div id="align-list">
         <mat-icon>group</mat-icon>
         <a
-          (click)="onListEmployees(employees)"
+          (click)="onListEmployees(employeeList)"
           routerLinkActive="list-item-active"
           >FUNCIONÁRIOS</a
         >
@@ -112,11 +112,12 @@
         <app-employees-create style="width: 50%"></app-employees-create>
       </div>
       <div class="main" *ngIf="typeName === 'employeeUpdate'">
-        <app-employees-update style="width: 50%"></app-employees-update>
+        <app-employees-update [employeeUpdate]="employeeUpdate"  (typeList)="onListUsers($event)" style="width: 50%"></app-employees-update>
       </div>
       <div class="main" *ngIf="typeName === 'employeeList'">
         <app-employees-list
           (type)="onType($event)"
+          (employeeEmit)="onUpdateEmployee($event)"
           style="width: 50%"
         ></app-employees-list>
       </div>
@@ -125,12 +126,12 @@
         <app-user-create style="width: 50%"></app-user-create>
       </div>
       <div class="main" *ngIf="typeName === 'userUpdate'">
-        <app-user-update [id]="idUpdate" style="width: 50%"></app-user-update>
+        <app-user-update [userUpdate]="userUpdate"  (typeList)="onListUsers($event)" style="width: 50%"></app-user-update>
       </div>
       <div class="main" *ngIf="typeName === 'userList'">
         <app-user-list
-          (type)="onType($event)"
-          (id)="onUpdate($event)"
+          (type)="onType($event)" 
+          (userEmit)="onUpdate($event)"
           style="width: 50%"
         ></app-user-list>
       </div>

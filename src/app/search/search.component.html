@@ -5,7 +5,7 @@
       <form>
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Matrícula</mat-label>
-          <mat-select formControlName="registration" style="font-family: Montserrat">
+          <mat-select style="font-family: Montserrat">
             <mat-option *ngFor="let registration of registrations" [value]="registration.registration">
              {{registration.registration}} - {{registration.name}}
             </mat-option>

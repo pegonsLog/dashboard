@@ -1,44 +1,66 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee } from 'src/app/shared/models/Employee';
 import { EmployeesService } from '../employees.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-employees-update',
   templateUrl: './employees-update.component.html',
-  styleUrls: ['./employees-update.component.scss']
+  styleUrls: ['./employees-update.component.scss'],
 })
-export class EmployeesUpdateComponent {
-  form: FormGroup;
+export class EmployeesUpdateComponent implements OnInit{
+  form!: FormGroup;
 
   employee: Employee = {
     id: '',
     registration: '',
     name: '',
-    birthday: ''
+    birthday: '',
   };
+
+  @Input() employeeUpdate: Employee = {
+    id: '',
+    registration: '',
+    name: '',
+    birthday: '',
+  };
+
+  @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
+  employeeList: string = 'employeeList';
+  subscription: Subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
-    private employeesService: EmployeesService
-  ) {
-    this.form = this.fb.group({
-      registration: ['', Validators.required],
-      name: ['', Validators.required],
-      birthday: [''],
-    });
-  }
+    private employeesService: EmployeesService,
+    public dialog: MatDialog
+  ) {}
 
   onClear() {
     this.form.reset();
   }
 
-  employeeUpdate() {
-    this.employee.registration = this.form.value.registration;
+  onUpdate() {
+    this.employee = this.form.getRawValue();
+    this.employeesService.update(this.employee, this.employee.id).then();
+    this.typeList.emit(this.employeeList);
 
-    return this.employeesService
-      .employeeAdd(this.employee)
-      .then(() => console.log('Deu Certo'))
-      .catch(() => console.log('Deu erro'));
+    const dialogReference = this.dialog.open(DialogUpdatedComponent);
+    this.subscription = dialogReference.afterClosed().subscribe();
+  }
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      id: [this.employeeUpdate.id],
+      registration: [this.employeeUpdate.registration, Validators.required],
+      name: [this.employeeUpdate.name, Validators.required],
+      birthday: [this.employeeUpdate.birthday],
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

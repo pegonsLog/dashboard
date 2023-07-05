@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../shared/models/User';
+import { Employee } from '../shared/models/Employee';
 
 @Component({
   selector: 'app-home',
@@ -43,7 +45,19 @@ export class HomeComponent {
   yearSearch: string = '';
   modeSearch: string = '';
   typeSearch: string = '';
-  idUpdate: string = '';
+  userUpdate: User = {
+    id: '',
+    username: '',
+    name: '',
+    password: '',
+    gender: '',
+  };
+  employeeUpdate: Employee = {
+    id: '',
+    registration: '',
+    name: '',
+    birthday: '',
+  };
 
   @Output() typeSearchList: EventEmitter<any> = new EventEmitter<any>();
   @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
@@ -58,7 +72,7 @@ export class HomeComponent {
   donation: string = 'donationCreate';
   donationUpdate: string = 'donationUpdate';
   donationList: string = 'donationList';
-  employees: string = 'employeeList';
+  employeeList: string = 'employeeList';
   users: string = 'userList';
   search: string = 'search';
 
@@ -132,11 +146,11 @@ export class HomeComponent {
   onOpened() {
     this.isOpened = !this.isOpened;
   }
-  onListUsers(users: string) {
+  onListUsers(users: any) {
     this.titleName = 'USUÁRIOS CADASTRADOS';
     this.onType(users);
   }
-  onListEmployees(employees: string) {
+  onListEmployees(employees: any) {
     this.titleName = 'FUNCIONÁRIOS CADASTRADOS';
     this.onType(employees);
   }
@@ -168,6 +182,10 @@ export class HomeComponent {
     this.registrationSearchList.emit(registration);
   }
   onUpdate(event: any) {
-    this.idUpdate = event;
+    this.userUpdate = event;
+  }
+  onUpdateEmployee(event: any) {
+    this.employeeUpdate = event;
+   
   }
 }
