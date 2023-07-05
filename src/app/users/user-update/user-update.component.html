@@ -10,7 +10,7 @@
             matInput
             placeholder="Usuário"
             type="text"
-            formControlName="username"
+            formControlName="user.username"
           />
         </mat-form-field>
 
@@ -21,7 +21,7 @@
             matInput
             placeholder="Nome"
             type="text"
-            formControlName="name"
+            [(ngModel)]="user.name"
           />
         </mat-form-field>
         <mat-form-field class="full-width">
@@ -32,7 +32,7 @@
             class="select"
             aria-label="Sexo"
             placeholder="Sexo"
-            formControlName="gender"
+            [(ngModel)]="user.gender"
           >
             <mat-option selected value="Masculino"
               >Masculino</mat-option
@@ -48,7 +48,7 @@
             matInput
             placeholder="Senha"
             type="text"
-            formControlName="password"
+            [(ngModel)]="user.password"
           />
         </mat-form-field>
 

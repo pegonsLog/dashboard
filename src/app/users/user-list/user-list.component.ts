@@ -29,7 +29,7 @@ export class UserListComponent implements OnDestroy {
     this.type.emit(this.userCreate);
   }
   onUpdateUser(id: string) {
-    this.type.emit(this.userCreate);
+    this.type.emit(this.userUpdate);
     this.id.emit(id);
   }
 
@@ -47,4 +47,5 @@ export class UserListComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+  
 }

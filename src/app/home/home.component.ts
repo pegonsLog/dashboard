@@ -168,6 +168,6 @@ export class HomeComponent {
     this.registrationSearchList.emit(registration);
   }
   onUpdate(event: any) {
-    this.updateUser.emit(event);
+    this.idUpdate = event;
   }
 }
