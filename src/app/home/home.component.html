@@ -60,20 +60,25 @@
       </div>
 
       <div class="main" *ngIf="typeName === ''">
-        <!-- <app-day-create style="width: 50%"></app-day-create> -->
+   
+      </div>
+      <div class="main" *ngIf="typeName === 'main'">
+     
       </div>
       <div class="main" *ngIf="typeName === 'dayCreate'">
         <app-day-create style="width: 50%"></app-day-create>
       </div>
 
       <div class="main" *ngIf="typeName === 'dayUpdate'">
-        <app-day-update style="width: 50%"></app-day-update>
+        <app-day-update [certificateUpdate]="certificateUpdate" (typeList)="onUpdateDay($event)" style="width: 50%"></app-day-update>
       </div>
       <div class="main" *ngIf="typeName === 'dayList'">
         <app-day-list
           [registration]="registrationSearch"
           [year]="yearSearch"
-          [type]="typeSearch"
+          [typeDay]="typeSearch"
+          (type)="onType($event)" 
+          (certificateEmit)="onUpdate($event)"
           style="width: 50%"
         ></app-day-list>
       </div>
@@ -82,13 +87,15 @@
         <app-hour-create style="width: 50%"></app-hour-create>
       </div>
       <div class="main" *ngIf="typeName === 'hourUpdate'">
-        <app-hour-update style="width: 50%"></app-hour-update>
+        <app-hour-update [certificateUpdate]="certificateUpdate" (typeList)="onUpdateDay($event)" style="width: 50%"></app-hour-update>
       </div>
       <div class="main" *ngIf="typeName === 'hourList'">
         <app-hour-list
           [registration]="registrationSearch"
           [year]="yearSearch"
-          [type]="typeSearch"
+          [typeHour]="typeSearch"
+          (type)="onType($event)" 
+          (certificateEmit)="onUpdate($event)"
           style="width: 50%"
         ></app-hour-list>
       </div>
@@ -97,13 +104,15 @@
         <app-donation-create style="width: 50%"></app-donation-create>
       </div>
       <div class="main" *ngIf="typeName === 'donationUpdate'">
-        <app-donation-update style="width: 50%"></app-donation-update>
+        <app-donation-update [certificateUpdate]="certificateUpdate" (typeList)="onUpdateDay($event)"  style="width: 50%"></app-donation-update>
       </div>
       <div class="main" *ngIf="typeName === 'donationList'">
         <app-donation-list
           [registration]="registrationSearch"
           [year]="yearSearch"
-          [type]="typeSearch"
+          [typeDonation]="typeSearch"
+          (type)="onType($event)" 
+          (certificateEmit)="onUpdate($event)"
           style="width: 50%"
         ></app-donation-list>
       </div>
@@ -112,7 +121,7 @@
         <app-employees-create style="width: 50%"></app-employees-create>
       </div>
       <div class="main" *ngIf="typeName === 'employeeUpdate'">
-        <app-employees-update [employeeUpdate]="employeeUpdate"  (typeList)="onListUsers($event)" style="width: 50%"></app-employees-update>
+        <app-employees-update [employeeUpdate]="employeeUpdate"  (typeList)="onListEmployees($event)" style="width: 50%"></app-employees-update>
       </div>
       <div class="main" *ngIf="typeName === 'employeeList'">
         <app-employees-list

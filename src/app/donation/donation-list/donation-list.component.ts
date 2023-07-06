@@ -1,8 +1,15 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
 import { CertificateService } from '../../service-certificate/certificate.service';
+import { Certificate } from 'src/app/shared/models/Certificate';
 
 @Component({
   selector: 'app-donation-list',
@@ -12,12 +19,21 @@ import { CertificateService } from '../../service-certificate/certificate.servic
 export class DonationListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
   dataSource = [];
-  displayedColumns: string[] = ['registration', 'startDay', 'dayOff', 'actions'];
+  displayedColumns: string[] = [
+    'registration',
+    'startDay',
+    'dayOff',
+    'actions',
+  ];
+
+  certificateUpdate: string = 'donationUpdate';
 
   @Input() registration: string = '';
   @Input() year: string = '';
-  @Input() type: string = '';
-  @Input() mode: string = '';
+  @Input() typeDonation: string = '';
+
+  @Output() type: EventEmitter<string> = new EventEmitter<string>();
+  @Output() certificateEmit: EventEmitter<any> = new EventEmitter<string>();
 
   constructor(
     private certificateService: CertificateService,
@@ -26,6 +42,15 @@ export class DonationListComponent implements OnDestroy {
     this.subscription = this.certificateService
       .list()
       .subscribe((certificates: any) => (this.dataSource = certificates));
+  }
+
+  onUpdateCertificate(id: string) {
+    this.subscription = this.certificateService
+      .findOne(id)
+      .subscribe((result: Certificate) => {
+        this.certificateEmit.emit(result),
+          this.type.emit(this.certificateUpdate);
+      });
   }
 
   onDeleteCertificate(id: string) {

@@ -12,7 +12,6 @@ import { Employee } from 'src/app/shared/models/Employee';
   styleUrls: ['./employees-list.component.scss'],
 })
 export class EmployeesListComponent {
-
   employeeCreate: string = 'employeeCreate';
   employeeUpdate: string = 'employeeUpdate';
 
@@ -23,7 +22,10 @@ export class EmployeesListComponent {
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
 
-  constructor(private employeeService: EmployeesService, public dialog: MatDialog) {
+  constructor(
+    private employeeService: EmployeesService,
+    public dialog: MatDialog
+  ) {
     this.dataSource$ = employeeService.list();
   }
 
@@ -32,9 +34,11 @@ export class EmployeesListComponent {
   }
 
   onUpdateUser(id: string) {
-    this.subscription = this.employeeService.findOne(id).subscribe((result: Employee) => {this.employeeEmit.emit(result), this.type.emit(this.employeeUpdate)});
-    
-   
+    this.subscription = this.employeeService
+      .findOne(id)
+      .subscribe((result: Employee) => {
+        this.employeeEmit.emit(result), this.type.emit(this.employeeUpdate);
+      });
   }
 
   onDeleteEmployee(id: string) {
@@ -51,5 +55,4 @@ export class EmployeesListComponent {
   //   const filterValue = (event.target as HTMLInputElement).value;
   //   this.dataSource$.filter = filterValue.trim().toLowerCase();
   // }
-
 }

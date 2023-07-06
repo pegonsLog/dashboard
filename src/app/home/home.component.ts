@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/User';
 import { Employee } from '../shared/models/Employee';
+import { Certificate } from '../shared/models/Certificate';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,7 @@ export class HomeComponent {
     'userUpdate',
     'userList',
     'search',
-    '',
+    'main',
   ];
 
   typeName: string = '';
@@ -58,6 +59,18 @@ export class HomeComponent {
     name: '',
     birthday: '',
   };
+  certificateUpdate: Certificate = {
+    id: '',
+    registration: '',
+    startDay: new Date(),
+    endDay: new Date(),
+    startHour: new Date(),
+    endHour: new Date(),
+    dayOff: new Date(),
+    type: '',
+    mode: '',
+    year: 0,
+  };
 
   @Output() typeSearchList: EventEmitter<any> = new EventEmitter<any>();
   @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
@@ -75,6 +88,7 @@ export class HomeComponent {
   employeeList: string = 'employeeList';
   users: string = 'userList';
   search: string = 'search';
+  main: string = 'main';
 
   dataSource$: Observable<any> | undefined;
 
@@ -132,6 +146,9 @@ export class HomeComponent {
     if (this.menuName[15] === type) {
       this.typeName = 'search';
     }
+    if (this.menuName[16] === type) {
+      this.typeName = 'main';
+    }
   }
 
   onYear(year: any) {
@@ -166,6 +183,10 @@ export class HomeComponent {
     this.titleName = 'ATESTADO DE DIA';
     this.onType(day);
   }
+  onUpdateDay(main: string) {
+    this.titleName = '';
+    this.onType(main);
+  }
   onTypeList(typeList: any) {
     this.titleName = 'LISTA DE ATESTADOS';
     this.typeSearchList.emit(this.day);
@@ -182,7 +203,7 @@ export class HomeComponent {
     this.registrationSearchList.emit(registration);
   }
   onUpdate(event: any) {
-    this.userUpdate = event;
+    this.certificateUpdate = event;
   }
   onUpdateEmployee(event: any) {
     this.employeeUpdate = event;

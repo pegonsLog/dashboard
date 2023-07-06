@@ -18,7 +18,7 @@ import { InputMaskModule } from '@ngneat/input-mask';
     AngularMaterialModule,
     ReactiveFormsModule,
     ConfirmationModule,
-    InputMaskModule
+    InputMaskModule,
   ],
   exports: [HourCreateComponent, HourUpdateComponent, HourListComponent],
 })

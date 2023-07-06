@@ -1,14 +1,12 @@
 import { formatDate } from '@angular/common';
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { createMask } from '@ngneat/input-mask';
-import { Observable, Subscription, map, pluck } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { EmployeesService } from 'src/app/employees/employees.service';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
 import { Employee } from 'src/app/shared/models/Employee';
-import { User } from 'src/app/shared/models/User';
-import { UserService } from 'src/app/users/user.service';
 
 @Component({
   selector: 'app-day-create',

@@ -22,7 +22,7 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Ações</th>
     <td mat-cell *matCellDef="let element">
-      <a ><mat-icon>edit</mat-icon></a>
+      <a (click)="onUpdateCertificate(element.id)"><mat-icon>edit</mat-icon></a>
       <a (click)="onDeleteCertificate(element.id)"
         ><mat-icon>delete</mat-icon></a
       >

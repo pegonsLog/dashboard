@@ -30,6 +30,7 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
   };
 
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
+  @Output() type: EventEmitter<string> = new EventEmitter<string>();
   userList: string = 'userList';
 
   @Input() userUpdate: User = {
