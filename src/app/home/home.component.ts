@@ -72,8 +72,12 @@ export class HomeComponent {
     year: 0,
   };
 
-  @Output() typeSearchList: EventEmitter<any> = new EventEmitter<any>();
+  searchList: any[] = [];
+
   @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
+  @Output() searchListDay: EventEmitter<any> = new EventEmitter<any>();
+  @Output() searchListHour: EventEmitter<any> = new EventEmitter<any>();
+  @Output() searchListDonation: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateUser: EventEmitter<any> = new EventEmitter<any>();
 
   day: string = 'dayCreate';
@@ -183,17 +187,21 @@ export class HomeComponent {
     this.titleName = 'ATESTADO DE DIA';
     this.onType(day);
   }
-  onUpdateDay(main: string) {
+  onUpdateAllType(main: string) {
     this.titleName = '';
     this.onType(main);
   }
   onTypeList(typeList: any) {
+
     this.titleName = 'LISTA DE ATESTADOS';
-    this.typeSearchList.emit(this.day);
+    this.onType(typeList[4]);
     this.registrationSearch = typeList[0];
     this.yearSearch = typeList[1];
     this.typeSearch = typeList[2];
-    this.onType(typeList[4]);
+    this.modeSearch = typeList[3];
+
+    this.searchList = [this.registrationSearch, this.yearSearch, this.typeSearch, this.modeSearch];
+    
   }
   onSearch(search: string) {
     this.titleName = 'CONSULTA';

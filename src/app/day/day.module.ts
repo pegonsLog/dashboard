@@ -18,7 +18,7 @@ import { DayUpdateComponent } from './day-update/day-update.component';
     AngularMaterialModule,
     ReactiveFormsModule,
     ConfirmationModule,
-    InputMaskModule
+    InputMaskModule,
   ],
   exports: [DayCreateComponent, DayUpdateComponent, DayListComponent],
 })

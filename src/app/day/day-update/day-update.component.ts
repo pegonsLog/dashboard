@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -13,28 +13,11 @@ import { Employee } from 'src/app/shared/models/Employee';
   templateUrl: './day-update.component.html',
   styleUrls: ['./day-update.component.scss'],
 })
-export class DayUpdateComponent implements OnInit {
+export class DayUpdateComponent implements OnInit, OnDestroy {
   form!: FormGroup;
 
   registrations: Employee[] = [];
   subscription: Subscription = new Subscription();
-
-  // dateInputMask = createMask<Date>({
-  //   alias: 'datetime',
-  //   inputFormat: 'dd/mm/yyyy',
-  //   formatter: (value: string) => {
-  //     const values = value.split('-');
-  //     const date = +values[2];
-  //     const month = +values[1] - 1;
-  //     const year = +values[0];
-  //     return formatDate(new Date(year, month, date), 'dd/MM/yyyy', 'en-US');
-  //   },
-  // });
-
-  registration: string = '';
-  year: string = '';
-  type: string = '';
-  mode: string = '';
 
   certificateDay: Certificate = {
     id: '',
@@ -74,10 +57,6 @@ export class DayUpdateComponent implements OnInit {
     this.subscription = this.employeesService
       .list()
       .subscribe((data: Employee[]) => (this.registrations = data));
-  }
-
-  onClear() {
-    this.form.reset();
   }
 
   certificateDayUpdate() {

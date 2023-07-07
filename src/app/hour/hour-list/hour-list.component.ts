@@ -22,9 +22,8 @@ export class HourListComponent implements OnDestroy {
 
   certificateUpdate: string = 'hourUpdate';
 
-  @Input() registration: string = '';
-  @Input() year: string = '';
-  @Input() mode: string = '';
+  @Input() searchListHour: any[] = [];
+
   @Input() typeHour: string = '';
 
   @Output() type: EventEmitter<string> = new EventEmitter<string>();
@@ -44,8 +43,13 @@ export class HourListComponent implements OnDestroy {
     public dialog: MatDialog
   ) {
     this.subscription = this.certificateService
-      .list()
-      .subscribe((certificates: any) => (this.dataSource = certificates));
+    .list()
+    .subscribe((certificates: Certificate[]) =>
+    certificates.filter((result: Certificate) => {
+      result.registration === this.searchListHour[0] &&
+      result.type === this.searchListHour[2]
+      })
+    );
   }
   
   onUpdateCertificate(id: string) {
@@ -71,4 +75,5 @@ export class HourListComponent implements OnDestroy {
     ngOnDestroy(): void {
       this.subscription.unsubscribe();
     }
+
 }

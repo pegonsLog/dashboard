@@ -16,19 +16,6 @@ export class HourUpdateComponent implements OnInit, OnDestroy {
 
   subscription: Subscription = new Subscription();
 
-  certificateHour: Certificate = {
-    id: '',
-    registration: '',
-    startDay: new Date(),
-    endDay: new Date(),
-    startHour: new Date(),
-    endHour: new Date(),
-    dayOff: new Date(),
-    type: '',
-    mode: '',
-    year: 0,
-  };
-
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
   main: string = 'main';
 
@@ -51,24 +38,21 @@ export class HourUpdateComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   ) {}
 
-  onClear() {
-    this.form.reset();
-  }
-
   certificateHourUpdate() {
     const dateInput = new Date(this.form.value.startDay);
+    const year = dateInput.getFullYear();
 
-    this.certificateHour.registration = this.form.value.registration;
-    this.certificateHour.startDay = this.form.value.startDay;
-    this.certificateHour.endDay = this.form.value.endDay;
-    this.certificateHour.startHour = this.form.value.startHour;
-    this.certificateHour.endHour = this.form.value.endHour;
-    this.certificateHour.dayOff = this.form.value.dayOff;
-    this.certificateHour.type = this.form.value.type;
-    this.certificateHour.mode = this.form.value.mode;
-    this.certificateHour.year = dateInput.getFullYear();
+    this.certificateUpdate.registration = this.form.value.registration;
+    this.certificateUpdate.startDay = this.form.value.startDay;
+    this.certificateUpdate.endDay = this.form.value.endDay;
+    this.certificateUpdate.startHour = this.form.value.startHour;
+    this.certificateUpdate.endHour = this.form.value.endHour;
+    this.certificateUpdate.dayOff = this.form.value.dayOff;
+    this.certificateUpdate.type = this.form.value.type;
+    this.certificateUpdate.mode = this.form.value.mode;
+    this.certificateUpdate.year = year;
     return this.certificateService
-      .update(this.certificateHour, this.certificateHour.id)
+      .update(this.certificateUpdate, this.certificateUpdate.id)
       .then(() => {
         const dialogReference = this.dialog.open(DialogUpdatedComponent);
         this.subscription = dialogReference.afterClosed().subscribe();

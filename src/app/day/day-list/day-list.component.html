@@ -1,9 +1,9 @@
 <mat-card>
   <mat-card-content>
-    <mat-toolbar id="peso-fonte">Atestados de dia - mat.: {{registration}}</mat-toolbar>
+    <mat-toolbar id="peso-fonte">Atestados de dia - mat.: {{searchListDay[0]}}</mat-toolbar>
     <table
       mat-table
-      [dataSource]="dataSource$ | async"
+      [dataSource]="dataSource"
       class="mat-elevation-z8"
 
     >

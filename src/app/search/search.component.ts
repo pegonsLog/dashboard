@@ -25,38 +25,42 @@ export class SearchComponent implements OnDestroy {
   >();
 
   constructor(private employeesService: EmployeesService) {
+    this.registrationSearch = '';
     this.yearSearch = '2023';
     this.typeSearch = 'Atestado de dia';
     this.modeSearch = '';
 
-    this.subscription = this.employeesService.list().subscribe((data: Employee[]) => this.registrations = data);
+    this.subscription = this.employeesService
+      .list()
+      .subscribe((data: Employee[]) => (this.registrations = data));
   }
-  
-  onSearch(search: string) {
-    switch (search) {
+
+  onSearch(typeSearch: string) {
+    switch (typeSearch) {
       case 'Atestado de dia':
         this.searchType = 'dayList';
         break;
-        case 'Atestado de hora':
-          this.searchType = 'hourList';
-          break;
-          case 'Atestado de doação':
-            this.searchType = 'donationList';
-            break;
-          }
-          this.searchTypeName.emit([
-            this.registrationSearch,
-            this.yearSearch,
-            this.typeSearch,
-            this.modeSearch,
-            this.searchType,
-          ]);
-        }
-        
-        onClear() {
-          this.registrationSearch = '';
-          this.yearSearch = '';
-          this.typeSearch = '';
+      case 'Atestado de hora':
+        this.searchType = 'hourList';
+        break;
+      case 'Atestado de doação':
+        this.searchType = 'donationList';
+        break;
+    }
+
+    this.searchTypeName.emit([
+      this.registrationSearch,
+      this.yearSearch,
+      this.typeSearch,
+      this.modeSearch,
+      this.searchType,
+    ]);
+  }
+
+  onClear() {
+    this.registrationSearch = '';
+    this.yearSearch = '';
+    this.typeSearch = '';
     this.modeSearch = '';
   }
 

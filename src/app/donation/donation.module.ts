@@ -9,6 +9,7 @@ import { DonationUpdateComponent } from './donation-update/donation-update.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputMaskModule } from '@ngneat/input-mask';
 import { HomeModule } from '../home/home.module';
+import { ConfirmationModule } from '../shared/dialogs/confirmation/confirmation.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HomeModule } from '../home/home.module';
     DonationRoutingModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    InputMaskModule
+    ConfirmationModule,
+    InputMaskModule,
   ],
   exports: [
     DonationCreateComponent,
