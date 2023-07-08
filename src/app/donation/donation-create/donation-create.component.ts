@@ -1,8 +1,11 @@
 import { formatDate } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { createMask } from '@ngneat/input-mask';
+import { Subscription } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
+import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
 
 @Component({
@@ -25,6 +28,11 @@ export class DonationCreateComponent {
     },
   });
 
+  subscription: Subscription = new Subscription();
+
+  @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
+  main: string = 'main';
+
   certificateDonation: Certificate = {
     id: '',
     registration: '',
@@ -40,8 +48,9 @@ export class DonationCreateComponent {
 
   constructor(
     private fb: FormBuilder,
-    private certificateService: CertificateService
-  ) {
+    private certificateService: CertificateService,
+    public dialog: MatDialog
+  ){
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
@@ -72,7 +81,14 @@ export class DonationCreateComponent {
     this.certificateDonation.year = dateInput.getFullYear();
     return this.certificateService
       .certificateAdd(this.certificateDonation)
-      .then(() => console.log('Deu Certo'))
+      .then(() => {
+        const dialogReference = this.dialog.open(DialogUpdatedComponent);
+        this.subscription = dialogReference.afterClosed().subscribe();
+        this.typeList.emit(this.main)})
       .catch(() => console.log('Deu erro'));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

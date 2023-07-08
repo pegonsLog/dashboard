@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { Certificate } from 'src/app/shared/models/Certificate';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,9 +20,8 @@ import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/di
 })
 export class DayListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
-  dataSource!: Observable<any>;
+  dataSource$: Observable<any>;
   certificateUpdate: string = 'dayUpdate';
-
 
   @Input() searchListDay: any[] = [];
 
@@ -40,14 +39,18 @@ export class DayListComponent implements OnDestroy {
     private certificateService: CertificateService,
     public dialog: MatDialog
   ) {
-    this.subscription = this.certificateService
+    this.dataSource$ = this.certificateService
       .list()
-      .subscribe((certificates: Certificate[]) =>
-      certificates.filter((result: Certificate) => {
-        result.registration === this.searchListDay[0] &&
-        result.type === this.searchListDay[2]
-        })
-      );
+      .pipe(
+        map((data: Certificate[]) =>
+          data.filter(
+            (result: Certificate) =>
+              result.registration === this.searchListDay[0] &&
+              result.year === this.searchListDay[1] &&
+              result.type === this.searchListDay[2]
+          )
+        )
+      )
   }
 
   onUpdateCertificate(id: string) {

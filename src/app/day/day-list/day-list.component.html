@@ -3,7 +3,7 @@
     <mat-toolbar id="peso-fonte">Atestados de dia - mat.: {{searchListDay[0]}}</mat-toolbar>
     <table
       mat-table
-      [dataSource]="dataSource"
+      [dataSource]="dataSource$ | async"
       class="mat-elevation-z8"
 
     >

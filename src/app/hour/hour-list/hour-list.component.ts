@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
@@ -18,7 +18,7 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 })
 export class HourListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
-  dataSource = [];
+  dataSource$: Observable<any>;
 
   certificateUpdate: string = 'hourUpdate';
 
@@ -42,16 +42,20 @@ export class HourListComponent implements OnDestroy {
     private certificateService: CertificateService,
     public dialog: MatDialog
   ) {
-    this.subscription = this.certificateService
+    this.dataSource$ = this.certificateService
     .list()
-    .subscribe((certificates: Certificate[]) =>
-    certificates.filter((result: Certificate) => {
-      result.registration === this.searchListHour[0] &&
-      result.type === this.searchListHour[2]
-      })
-    );
+    .pipe(
+      map((data: Certificate[]) =>
+        data.filter(
+          (result: Certificate) =>
+            result.registration === this.searchListHour[0] &&
+            result.year === this.searchListHour[1] &&
+            result.type === this.searchListHour[2]
+        )
+      )
+    )
   }
-  
+
   onUpdateCertificate(id: string) {
     this.subscription = this.certificateService
     .findOne(id)
@@ -60,7 +64,7 @@ export class HourListComponent implements OnDestroy {
       this.type.emit(this.certificateUpdate);
     });
   }
-  
+
   onDeleteCertificate(id: string) {
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);
     this.subscription = dialogReference
@@ -71,7 +75,7 @@ export class HourListComponent implements OnDestroy {
       }
     });
   }
-  
+
     ngOnDestroy(): void {
       this.subscription.unsubscribe();
     }

@@ -1,10 +1,12 @@
 import { formatDate } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { createMask } from '@ngneat/input-mask';
 import { Subscription } from 'rxjs';
 import { EmployeesService } from 'src/app/employees/employees.service';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
+import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
 import { Employee } from 'src/app/shared/models/Employee';
 
@@ -18,6 +20,8 @@ export class DayCreateComponent implements OnDestroy{
 
   registrations: Employee[] = [];
   subscription: Subscription = new Subscription();
+  @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
+  main: string = 'main';
 
   dateInputMask = createMask<Date>({
     alias: 'datetime',
@@ -52,7 +56,8 @@ export class DayCreateComponent implements OnDestroy{
   constructor(
     private fb: FormBuilder,
     private certificateService: CertificateService,
-    private employeesService: EmployeesService
+    private employeesService: EmployeesService,
+    public dialog: MatDialog 
   ) {
 
     this.subscription = this.employeesService.list().subscribe((data: Employee[]) => this.registrations = data);
@@ -89,7 +94,10 @@ export class DayCreateComponent implements OnDestroy{
     this.certificateDay.year = year;
     return this.certificateService
     .certificateAdd(this.certificateDay)
-    .then(() => console.log('Deu Certo'))
+    .then(() => () => {
+      const dialogReference = this.dialog.open(DialogUpdatedComponent);
+      this.subscription = dialogReference.afterClosed().subscribe();
+      this.typeList.emit(this.main)})
       .catch(() => console.log('Deu erro'));
     }
 
