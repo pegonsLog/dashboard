@@ -28,6 +28,7 @@ export class HomeComponent {
     'userList',
     'search',
     'main',
+    'birthday'
   ];
 
   typeName: string = '';
@@ -92,6 +93,7 @@ export class HomeComponent {
   users: string = 'userList';
   search: string = 'search';
   main: string = 'main';
+  birthday: string = 'birthday';
 
   dataSource$: Observable<any> | undefined;
 
@@ -152,6 +154,9 @@ export class HomeComponent {
     if (this.menuName[16] === type) {
       this.typeName = 'main';
     }
+    if (this.menuName[17] === type) {
+      this.typeName = 'birthday';
+    }
   }
 
   onYear(year: any) {
@@ -191,7 +196,6 @@ export class HomeComponent {
     this.onType(main);
   }
   onTypeList(typeList: any) {
-
     this.titleName = 'LISTA DE ATESTADOS';
     this.onType(typeList[4]);
     this.registrationSearch = typeList[0];
@@ -199,8 +203,12 @@ export class HomeComponent {
     this.typeSearch = typeList[2];
     this.modeSearch = typeList[3];
 
-    this.searchList = [this.registrationSearch, this.yearSearch, this.typeSearch, this.modeSearch];
-
+    this.searchList = [
+      this.registrationSearch,
+      this.yearSearch,
+      this.typeSearch,
+      this.modeSearch,
+    ];
   }
   onSearch(search: string) {
     this.titleName = 'CONSULTA';
@@ -214,6 +222,9 @@ export class HomeComponent {
   }
   onUpdateEmployee(event: any) {
     this.employeeUpdate = event;
-
+  }
+  onBirthday(birthday: any) {
+    this.titleName = 'ANIVERSARIANTES';
+    this.onType(birthday);
   }
 }

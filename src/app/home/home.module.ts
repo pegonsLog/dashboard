@@ -12,6 +12,7 @@ import { AngularMaterialModule } from '../shared/angular-material/angular-materi
 import { UserModule } from '../users/user.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { BirthdayModule } from '../birthday/birthday.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -28,6 +29,7 @@ import { HomeComponent } from './home.component';
     FormsModule,
     ReactiveFormsModule,
     SearchModule,
+    BirthdayModule
   ],
   exports: [HomeComponent],
 })

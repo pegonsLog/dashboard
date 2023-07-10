@@ -8,10 +8,10 @@ import {
   doc,
   docData,
   getFirestore,
-  setDoc
+  setDoc,
 } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { Observable } from 'rxjs';
+import { Observable, first, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Employee } from '../shared/models/Employee';
 
@@ -37,6 +37,17 @@ export class EmployeesService {
     return collectionData($employeeRef, { idField: 'id' }) as Observable<
       Employee[]
     >;
+  }
+  listForMonth(birthdayMonth: string): Observable<Employee[]> {
+    return this.list()
+      .pipe(
+        map((result: Employee[]) =>
+          result.filter(
+            (data: Employee) => data.birthday.substring(3) === birthdayMonth
+          )
+        )
+      )
+      .pipe(first());
   }
 
   findOne(id: string) {

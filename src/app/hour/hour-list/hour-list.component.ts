@@ -43,42 +43,45 @@ export class HourListComponent implements OnDestroy {
     public dialog: MatDialog
   ) {
     this.dataSource$ = this.certificateService
-    .list()
-    .pipe(
-      map((data: Certificate[]) =>
-        data.filter(
-          (result: Certificate) =>
-    this.searchListHour[0] === result.registration &&
-    this.searchListHour[1] ===
-      result.startDay.toString().substring(6) &&
-    this.searchListHour[2] === result.type
+      .list()
+      .pipe(
+        map((data: Certificate[]) =>
+          data
+            .filter(
+              (result: Certificate) =>
+                this.searchListHour[0] === result.registration &&
+                this.searchListHour[1] ===
+                  result.startDay.toString().substring(6) &&
+                this.searchListHour[2] === result.type
+            )
+            .sort((a, b) =>
+              b.startDay!.toString().localeCompare(a.startDay!.toString())
+            )
         )
-      )
-    )
+      );
   }
 
   onUpdateCertificate(id: string) {
     this.subscription = this.certificateService
-    .findOne(id)
-    .subscribe((result: Certificate) => {
-      this.certificateEmit.emit(result),
-      this.type.emit(this.certificateUpdate);
-    });
+      .findOne(id)
+      .subscribe((result: Certificate) => {
+        this.certificateEmit.emit(result),
+          this.type.emit(this.certificateUpdate);
+      });
   }
 
   onDeleteCertificate(id: string) {
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);
     this.subscription = dialogReference
-    .afterClosed()
-    .subscribe((result: any) => {
-      if (result) {
-        this.certificateService.delete(id).then();
-      }
-    });
+      .afterClosed()
+      .subscribe((result: any) => {
+        if (result) {
+          this.certificateService.delete(id).then();
+        }
+      });
   }
 
-    ngOnDestroy(): void {
-      this.subscription.unsubscribe();
-    }
-
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

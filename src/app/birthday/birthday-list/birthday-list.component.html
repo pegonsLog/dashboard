@@ -1,0 +1,5 @@
+<mat-toolbar color="primary" class="montserrat">Aniversariantes</mat-toolbar>
+
+<div *ngFor="let birthday of birthdays$ | async">
+  <p>{{ birthday.name }} - {{ birthday.birthday }}</p>
+</div>

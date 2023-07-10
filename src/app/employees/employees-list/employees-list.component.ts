@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { EmployeesService } from '../employees.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
@@ -18,7 +18,7 @@ export class EmployeesListComponent {
   @Output() type: EventEmitter<string> = new EventEmitter<string>();
   @Output() employeeEmit: EventEmitter<any> = new EventEmitter<string>();
 
-  displayedColumns: string[] = ['registration', 'name', 'birthday', 'actions'];
+  displayedColumns: string[] = ['name', 'registration', 'birthday', 'actions'];
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
 
@@ -26,7 +26,11 @@ export class EmployeesListComponent {
     private employeeService: EmployeesService,
     public dialog: MatDialog
   ) {
-    this.dataSource$ = employeeService.list();
+    this.dataSource$ = employeeService
+      .list()
+      .pipe(
+        map((result) => result.sort((a, b) => a.name!.localeCompare(b.name!)))
+      );
   }
 
   onCreateUser() {

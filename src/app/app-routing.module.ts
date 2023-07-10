@@ -47,6 +47,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('src/app/search/search.module').then((m) => m.SearchModule),
   },
+  {
+    path: 'birthday',
+    loadChildren: () =>
+      import('src/app/birthday/birthday.module').then((m) => m.BirthdayModule),
+  }
 ];
 
 @NgModule({

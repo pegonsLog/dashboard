@@ -42,13 +42,17 @@ export class DonationListComponent implements OnDestroy {
       .list()
       .pipe(
         map((data: Certificate[]) =>
-          data.filter(
-            (result: Certificate) =>
-              this.searchListDonation[0] === result.registration &&
-              this.searchListDonation[1] ===
-                result.startDay.toString().substring(6) &&
-              this.searchListDonation[2] === result.type
-          )
+          data
+            .filter(
+              (result: Certificate) =>
+                this.searchListDonation[0] === result.registration &&
+                this.searchListDonation[1] ===
+                  result.startDay.toString().substring(6) &&
+                this.searchListDonation[2] === result.type
+            )
+            .sort((a, b) =>
+              b.startDay!.toString().localeCompare(a.startDay!.toString())
+            )
         )
       );
   }

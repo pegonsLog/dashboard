@@ -1,5 +1,11 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
+import { Observable, Subscription, map } from 'rxjs';
 import { UserService } from '../user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
@@ -31,16 +37,22 @@ export class UserListComponent implements OnDestroy {
   displayedColumns: string[] = ['username', 'name', 'password', 'actions'];
 
   constructor(private userService: UserService, public dialog: MatDialog) {
-    this.dataSource$ = this.userService.list();
+    this.dataSource$ = this.userService
+      .list()
+      .pipe(
+        map((result) => result.sort((a, b) => a.name!.localeCompare(b.name!)))
+      );
   }
 
   onCreateUser() {
     this.type.emit(this.userCreate);
   }
   onUpdateUser(id: string) {
-    this.subscription = this.userService.findOne(id).subscribe((result: User) => {this.userEmit.emit(result), this.type.emit(this.userUpdate)});
-    
-   
+    this.subscription = this.userService
+      .findOne(id)
+      .subscribe((result: User) => {
+        this.userEmit.emit(result), this.type.emit(this.userUpdate);
+      });
   }
 
   onDeleteUser(id: string) {
@@ -57,5 +69,4 @@ export class UserListComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-  
 }

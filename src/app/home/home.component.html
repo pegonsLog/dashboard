@@ -46,6 +46,12 @@
           >CONSULTA</a
         >
       </div>
+      <div id="align-list">
+        <mat-icon> cake </mat-icon>
+        <a (click)="onBirthday(birthday)" routerLinkActive="list-item-active"
+          >ANIVERSÁRIANTES</a
+        >
+      </div>
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
@@ -161,6 +167,12 @@
           (searchTypeName)="onTypeList($event)"
           style="width: 50%"
         ></app-search>
+      </div>
+      <div class="main" *ngIf="typeName === 'birthday'">
+        <app-filter
+          (birthdayTypeName)="onBirthday($event)"
+          style="width: 50%"
+        ></app-filter>
       </div>
     </div>
   </mat-drawer-content>

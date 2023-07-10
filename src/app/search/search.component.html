@@ -50,7 +50,7 @@
             <mat-option selected value="Atestado de doação">Doação</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true" *ngIf="typeSearch === 'Atestado de hora'">
           <mat-label for="modo">Modo do atestado</mat-label>
           <mat-select
             style="font-family: Montserrat"

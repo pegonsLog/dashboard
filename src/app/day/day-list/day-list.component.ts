@@ -43,13 +43,15 @@ export class DayListComponent implements OnDestroy {
       .list()
       .pipe(
         map((data: Certificate[]) =>
-          data.filter(
-            (result: Certificate) =>
-              this.searchListDay[0] === result.registration &&
-              this.searchListDay[1] ===
-                result.startDay.toString().substring(6) &&
-              this.searchListDay[2] === result.type
-          )
+          data
+            .filter(
+              (result: Certificate) =>
+                this.searchListDay[0] === result.registration &&
+                this.searchListDay[1] ===
+                  result.startDay.toString().substring(6) &&
+                this.searchListDay[2] === result.type
+            )
+            .sort((a, b) => b.startDay!.toString().localeCompare(a.startDay!.toString()))
         )
       );
   }
