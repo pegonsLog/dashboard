@@ -7,6 +7,7 @@ import { UserCreateComponent } from './user-create/user-create.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserRoutingModule } from './user-routing.module';
 import { UserUpdateComponent } from './user-update/user-update.component';
+import { ConfirmationModule } from '../shared/dialogs/confirmation/confirmation.module';
 
 @NgModule({
   declarations: [UserListComponent, UserCreateComponent, UserUpdateComponent],
@@ -15,7 +16,8 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     UserRoutingModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ConfirmationModule,
   ],
   exports: [UserListComponent, UserCreateComponent, UserUpdateComponent],
 })

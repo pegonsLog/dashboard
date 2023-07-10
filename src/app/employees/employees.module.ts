@@ -7,6 +7,8 @@ import { EmployeesUpdateComponent } from './employees-update/employees-update.co
 import { EmployeesListComponent } from './employees-list/employees-list.component';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationModule } from '../shared/dialogs/confirmation/confirmation.module';
+import { InputMaskModule } from '@ngneat/input-mask';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     EmployeesRoutingModule,
     AngularMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ConfirmationModule,
+    InputMaskModule,
   ],
   exports: [
     EmployeesCreateComponent,

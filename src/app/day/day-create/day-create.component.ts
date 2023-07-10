@@ -15,7 +15,7 @@ import { Employee } from 'src/app/shared/models/Employee';
   templateUrl: './day-create.component.html',
   styleUrls: ['./day-create.component.scss'],
 })
-export class DayCreateComponent implements OnDestroy{
+export class DayCreateComponent implements OnDestroy {
   form: FormGroup;
 
   registrations: Employee[] = [];
@@ -35,6 +35,8 @@ export class DayCreateComponent implements OnDestroy{
     },
   });
 
+  dateInput: number = 0;
+
   registration: string = '';
   year: string = '';
   type: string = '';
@@ -50,17 +52,17 @@ export class DayCreateComponent implements OnDestroy{
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: 0,
   };
 
   constructor(
     private fb: FormBuilder,
     private certificateService: CertificateService,
     private employeesService: EmployeesService,
-    public dialog: MatDialog 
+    public dialog: MatDialog
   ) {
-
-    this.subscription = this.employeesService.list().subscribe((data: Employee[]) => this.registrations = data);
+    this.subscription = this.employeesService
+      .list()
+      .subscribe((data: Employee[]) => (this.registrations = data));
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
@@ -70,7 +72,6 @@ export class DayCreateComponent implements OnDestroy{
       dayOff: ['******************'],
       type: ['Atestado de dia', Validators.required],
       mode: ['******************', Validators.required],
-      year: ['']
     });
   }
 
@@ -78,10 +79,8 @@ export class DayCreateComponent implements OnDestroy{
     this.form.reset();
   }
 
-
   certificateDayAdd() {
-    const dateInput = new Date(this.form.value.startDay);
-    const year = dateInput.getFullYear();
+    this.dateInput = new Date(this.form.value.startDay).getFullYear();
 
     this.certificateDay.registration = this.form.value.registration;
     this.certificateDay.startDay = this.form.value.startDay;
@@ -91,17 +90,17 @@ export class DayCreateComponent implements OnDestroy{
     this.certificateDay.dayOff = this.form.value.dayOff;
     this.certificateDay.type = this.form.value.type;
     this.certificateDay.mode = this.form.value.mode;
-    this.certificateDay.year = year;
     return this.certificateService
-    .certificateAdd(this.certificateDay)
-    .then(() => () => {
-      const dialogReference = this.dialog.open(DialogUpdatedComponent);
-      this.subscription = dialogReference.afterClosed().subscribe();
-      this.typeList.emit(this.main)})
+      .certificateAdd(this.certificateDay)
+      .then(() => {
+        const dialogReference = this.dialog.open(DialogUpdatedComponent);
+        this.subscription = dialogReference.afterClosed().subscribe();
+        this.typeList.emit(this.main);
+      })
       .catch(() => console.log('Deu erro'));
-    }
-
-    ngOnDestroy(): void {
-      this.subscription.unsubscribe();
-    }
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+}

@@ -1,7 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee } from 'src/app/shared/models/Employee';
 import { EmployeesService } from '../employees.service';
+import { Subscription } from 'rxjs';
+import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
+import { MatDialog } from '@angular/material/dialog';
+import { createMask } from '@ngneat/input-mask';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-employees-create',
@@ -18,9 +23,25 @@ export class EmployeesCreateComponent {
     birthday: ''
   };
 
+  dateInputMask = createMask<Date>({
+    alias: 'datetime',
+    inputFormat: 'dd/mm',
+    parser: (value: string) => {
+      const values = value.split('/');
+      const month = +values[1] - 1;
+      const date = +values[0];
+      return new Date(month, date);
+    },
+  });
+
+  subscription: Subscription = new Subscription();
+  @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
+  main: string = 'main';
+
   constructor(
     private fb: FormBuilder,
-    private employeesService: EmployeesService
+    private employeesService: EmployeesService,
+    public dialog: MatDialog
   ) {
     this.form = this.fb.group({
       registration: ['', Validators.required],
@@ -40,7 +61,11 @@ export class EmployeesCreateComponent {
 
     return this.employeesService
       .employeeAdd(this.employee)
-      .then(() => console.log('Deu Certo'))
+      .then(() => {
+        const dialogReference = this.dialog.open(DialogUpdatedComponent);
+        this.subscription = dialogReference.afterClosed().subscribe();
+        this.typeList.emit(this.main);
+      })
       .catch(() => console.log('Deu erro'));
   }
 }

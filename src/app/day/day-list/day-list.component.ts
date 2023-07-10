@@ -45,12 +45,13 @@ export class DayListComponent implements OnDestroy {
         map((data: Certificate[]) =>
           data.filter(
             (result: Certificate) =>
-              result.registration === this.searchListDay[0] &&
-              result.year === this.searchListDay[1] &&
-              result.type === this.searchListDay[2]
+              this.searchListDay[0] === result.registration &&
+              this.searchListDay[1] ===
+                result.startDay.toString().substring(6) &&
+              this.searchListDay[2] === result.type
           )
         )
-      )
+      );
   }
 
   onUpdateCertificate(id: string) {

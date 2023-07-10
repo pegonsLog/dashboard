@@ -4,9 +4,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { createMask } from '@ngneat/input-mask';
 import { Subscription } from 'rxjs';
+import { EmployeesService } from 'src/app/employees/employees.service';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
+import { Employee } from 'src/app/shared/models/Employee';
 
 @Component({
   selector: 'app-donation-create',
@@ -15,6 +17,7 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 })
 export class DonationCreateComponent {
   form: FormGroup;
+  registrations: Employee[] = [];
 
   dateInputMask = createMask<Date>({
     alias: 'datetime',
@@ -43,14 +46,17 @@ export class DonationCreateComponent {
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: 0
   };
 
   constructor(
     private fb: FormBuilder,
     private certificateService: CertificateService,
+    private employeesService: EmployeesService,
     public dialog: MatDialog
   ){
+    this.subscription = this.employeesService
+    .list()
+    .subscribe((data: Employee[]) => (this.registrations = data));
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
@@ -68,7 +74,6 @@ export class DonationCreateComponent {
   }
 
   certificateDonationAdd() {
-    const dateInput = new Date(this.form.value.startDay);
 
     this.certificateDonation.registration = this.form.value.registration;
     this.certificateDonation.startDay = this.form.value.startDay;
@@ -78,7 +83,6 @@ export class DonationCreateComponent {
     this.certificateDonation.dayOff = this.form.value.dayOff;
     this.certificateDonation.type = this.form.value.type;
     this.certificateDonation.mode = this.form.value.mode;
-    this.certificateDonation.year = dateInput.getFullYear();
     return this.certificateService
       .certificateAdd(this.certificateDonation)
       .then(() => {

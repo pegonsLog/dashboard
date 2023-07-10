@@ -69,7 +69,6 @@ export class HomeComponent {
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: 0,
   };
 
   searchList: any[] = [];
@@ -201,7 +200,7 @@ export class HomeComponent {
     this.modeSearch = typeList[3];
 
     this.searchList = [this.registrationSearch, this.yearSearch, this.typeSearch, this.modeSearch];
-    
+
   }
   onSearch(search: string) {
     this.titleName = 'CONSULTA';
@@ -215,6 +214,6 @@ export class HomeComponent {
   }
   onUpdateEmployee(event: any) {
     this.employeeUpdate = event;
-   
+
   }
 }

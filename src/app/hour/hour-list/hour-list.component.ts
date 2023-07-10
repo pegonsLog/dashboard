@@ -48,9 +48,10 @@ export class HourListComponent implements OnDestroy {
       map((data: Certificate[]) =>
         data.filter(
           (result: Certificate) =>
-            result.registration === this.searchListHour[0] &&
-            result.year === this.searchListHour[1] &&
-            result.type === this.searchListHour[2]
+    this.searchListHour[0] === result.registration &&
+    this.searchListHour[1] ===
+      result.startDay.toString().substring(6) &&
+    this.searchListHour[2] === result.type
         )
       )
     )

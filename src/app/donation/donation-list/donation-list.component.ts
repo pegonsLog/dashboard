@@ -39,15 +39,20 @@ export class DonationListComponent implements OnDestroy {
     public dialog: MatDialog
   ) {
     this.dataSource$ = this.certificateService
-    .list().pipe(map((data: Certificate[]) => 
-    data.filter((result: Certificate) => 
-      result.registration === this.searchListDonation[0] &&
-      result.year === this.searchListDonation[1] &&
-        result.type === this.searchListDonation[2]
-    ))
-    )
+      .list()
+      .pipe(
+        map((data: Certificate[]) =>
+          data.filter(
+            (result: Certificate) =>
+              this.searchListDonation[0] === result.registration &&
+              this.searchListDonation[1] ===
+                result.startDay.toString().substring(6) &&
+              this.searchListDonation[2] === result.type
+          )
+        )
+      );
   }
-  
+
   onUpdateCertificate(id: string) {
     this.subscription = this.certificateService
       .findOne(id)

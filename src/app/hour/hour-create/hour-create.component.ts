@@ -4,9 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { createMask } from '@ngneat/input-mask';
 import { Subscription } from 'rxjs';
+import { EmployeesService } from 'src/app/employees/employees.service';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
+import { Employee } from 'src/app/shared/models/Employee';
 
 @Component({
   selector: 'app-hour-create',
@@ -15,6 +17,7 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 })
 export class HourCreateComponent {
   form: FormGroup;
+  registrations: Employee[] = [];
 
   dateInputMask = createMask<Date>({
     alias: 'datetime',
@@ -53,14 +56,17 @@ export class HourCreateComponent {
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: 0,
   };
 
   constructor(
     private fb: FormBuilder,
     private certificateService: CertificateService,
+    private employeesService: EmployeesService,
     public dialog: MatDialog
   ) {
+    this.subscription = this.employeesService
+    .list()
+    .subscribe((data: Employee[]) => (this.registrations = data));
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
@@ -78,8 +84,6 @@ export class HourCreateComponent {
   }
 
   certificateHourAdd() {
-    const dateInput = new Date(this.form.value.startDay);
-    const year = dateInput.getFullYear();
 
     this.certificateHour.registration = this.form.value.registration;
     this.certificateHour.startDay = this.form.value.startDay;
@@ -89,7 +93,6 @@ export class HourCreateComponent {
     this.certificateHour.dayOff = this.form.value.dayOff;
     this.certificateHour.type = this.form.value.type;
     this.certificateHour.mode = this.form.value.mode;
-    this.certificateHour.year = year;
     console.log(this.certificateHour);
     return this.certificateService
       .certificateAdd(this.certificateHour)

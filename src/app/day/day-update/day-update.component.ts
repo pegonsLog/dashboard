@@ -29,7 +29,6 @@ export class DayUpdateComponent implements OnInit, OnDestroy {
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: 0,
   };
 
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
@@ -45,7 +44,6 @@ export class DayUpdateComponent implements OnInit, OnDestroy {
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: 0,
   };
 
   constructor(
@@ -60,8 +58,6 @@ export class DayUpdateComponent implements OnInit, OnDestroy {
   }
 
   certificateDayUpdate() {
-    const dateInput = new Date(this.form.value.startDay);
-    const year = dateInput.getFullYear();
 
     this.certificateDay.id = this.form.value.id;
     this.certificateDay.registration = this.form.value.registration;
@@ -72,7 +68,6 @@ export class DayUpdateComponent implements OnInit, OnDestroy {
     this.certificateDay.dayOff = this.form.value.dayOff;
     this.certificateDay.type = this.form.value.type;
     this.certificateDay.mode = this.form.value.mode;
-    this.certificateDay.year = year;
     return this.certificateService
       .update(this.certificateDay, this.certificateDay.id)
       .then(() => {
@@ -92,7 +87,6 @@ export class DayUpdateComponent implements OnInit, OnDestroy {
       startHour: [this.certificateUpdate.startHour, Validators.required],
       endHour: [this.certificateUpdate.endHour, Validators.required],
       dayOff: [this.certificateUpdate.dayOff, Validators.required],
-      year: [this.certificateUpdate.year, Validators.required],
       type: [this.certificateUpdate.type, Validators.required],
       mode: [this.certificateUpdate.mode, Validators.required],
     });

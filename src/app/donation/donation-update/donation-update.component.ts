@@ -29,7 +29,6 @@ export class DonationUpdateComponent implements OnInit, OnDestroy {
     dayOff: new Date(),
     type: '',
     mode: '',
-    year: 0,
   };
 
   constructor(
@@ -39,8 +38,6 @@ export class DonationUpdateComponent implements OnInit, OnDestroy {
   ) {}
 
   certificateDonationUpdate() {
-    const dateInput = new Date(this.form.value.startDay);
-    const year = dateInput.getFullYear();
 
     this.certificateUpdate.id = this.form.value.id;
     this.certificateUpdate.registration = this.form.value.registration;
@@ -51,7 +48,6 @@ export class DonationUpdateComponent implements OnInit, OnDestroy {
     this.certificateUpdate.dayOff = this.form.value.dayOff;
     this.certificateUpdate.type = this.form.value.type;
     this.certificateUpdate.mode = this.form.value.mode;
-    this.certificateUpdate.year = year;
     return this.certificateService
       .update(this.certificateUpdate, this.certificateUpdate.id)
       .then(() => {
@@ -71,12 +67,11 @@ export class DonationUpdateComponent implements OnInit, OnDestroy {
       startHour: [this.certificateUpdate.startHour, Validators.required],
       endHour: [this.certificateUpdate.endHour, Validators.required],
       dayOff: [this.certificateUpdate.dayOff, Validators.required],
-      year: [this.certificateUpdate.year, Validators.required],
       type: [this.certificateUpdate.type, Validators.required],
       mode: [this.certificateUpdate.mode, Validators.required],
     });
   }
-  
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

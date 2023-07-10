@@ -64,7 +64,7 @@
       <div class="main" *ngIf="typeName === ''"></div>
       <div class="main" *ngIf="typeName === 'main'"></div>
       <div class="main" *ngIf="typeName === 'dayCreate'">
-        <app-day-create style="width: 50%"></app-day-create>
+        <app-day-create (typeList)="onUpdateAllType($event)" style="width: 50%"></app-day-create>
       </div>
 
       <div class="main" *ngIf="typeName === 'dayUpdate'">
@@ -84,7 +84,7 @@
       </div>
 
       <div class="main" *ngIf="typeName === 'hourCreate'">
-        <app-hour-create style="width: 50%"></app-hour-create>
+        <app-hour-create (typeList)="onUpdateAllType($event)" style="width: 50%"></app-hour-create>
       </div>
       <div class="main" *ngIf="typeName === 'hourUpdate'">
         <app-hour-update
@@ -103,7 +103,7 @@
       </div>
 
       <div class="main" *ngIf="typeName === 'donationCreate'">
-        <app-donation-create style="width: 50%"></app-donation-create>
+        <app-donation-create (typeList)="onUpdateAllType($event)" style="width: 50%"></app-donation-create>
       </div>
       <div class="main" *ngIf="typeName === 'donationUpdate'">
         <app-donation-update
@@ -122,7 +122,7 @@
       </div>
 
       <div class="main" *ngIf="typeName === 'employeeCreate'">
-        <app-employees-create style="width: 50%"></app-employees-create>
+        <app-employees-create (typeList)="onUpdateAllType($event)" style="width: 50%"></app-employees-create>
       </div>
       <div class="main" *ngIf="typeName === 'employeeUpdate'">
         <app-employees-update
@@ -140,7 +140,7 @@
       </div>
 
       <div class="main" *ngIf="typeName === 'userCreate'">
-        <app-user-create style="width: 50%"></app-user-create>
+        <app-user-create (typeList)="onUpdateAllType($event)" style="width: 50%"></app-user-create>
       </div>
       <div class="main" *ngIf="typeName === 'userUpdate'">
         <app-user-update
