@@ -21,7 +21,16 @@ import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/di
 export class UserUpdateComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   subscription: Subscription = new Subscription();
+
   user: User = {
+    id: '',
+    username: '',
+    name: '',
+    password: '',
+    gender: '',
+  };
+  
+  @Input() userUpdate: User = {
     id: '',
     username: '',
     name: '',
@@ -30,16 +39,7 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
   };
 
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
-  @Output() type: EventEmitter<string> = new EventEmitter<string>();
-  userList: string = 'userList';
-
-  @Input() userUpdate: User = {
-    id: '',
-    username: '',
-    name: '',
-    password: '',
-    gender: '',
-  };
+  userList: string = 'userList'; 
 
   constructor(
     private fb: FormBuilder,
@@ -55,8 +55,6 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
     const dialogReference = this.dialog.open(DialogUpdatedComponent);
     this.subscription = dialogReference.afterClosed().subscribe();
   }
-
-  onClear() {}
 
   ngOnInit(): void {
     this.form = this.fb.group({

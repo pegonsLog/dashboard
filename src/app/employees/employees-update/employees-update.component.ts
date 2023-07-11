@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class EmployeesUpdateComponent implements OnInit{
   form!: FormGroup;
+  subscription: Subscription = new Subscription();
 
   employee: Employee = {
     id: '',
@@ -30,17 +31,12 @@ export class EmployeesUpdateComponent implements OnInit{
 
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
   employeeList: string = 'employeeList';
-  subscription: Subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
     private employeesService: EmployeesService,
     public dialog: MatDialog
   ) {}
-
-  onClear() {
-    this.form.reset();
-  }
 
   onUpdate() {
     this.employee = this.form.getRawValue();

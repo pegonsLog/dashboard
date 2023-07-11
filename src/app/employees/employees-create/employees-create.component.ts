@@ -7,6 +7,7 @@ import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/di
 import { MatDialog } from '@angular/material/dialog';
 import { createMask } from '@ngneat/input-mask';
 import { formatDate } from '@angular/common';
+import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
 
 @Component({
   selector: 'app-employees-create',
@@ -26,7 +27,7 @@ export class EmployeesCreateComponent {
   dateInputMask = createMask<Date>({
     alias: 'datetime',
     inputFormat: 'dd/mm',
-    parser: (value: string) => {
+    formatter: (value: string) => {
       const values = value.split('/');
       const month = +values[1] - 1;
       const date = +values[0];
@@ -62,7 +63,7 @@ export class EmployeesCreateComponent {
     return this.employeesService
       .employeeAdd(this.employee)
       .then(() => {
-        const dialogReference = this.dialog.open(DialogUpdatedComponent);
+        const dialogReference = this.dialog.open(DialogCreatedComponent);
         this.subscription = dialogReference.afterClosed().subscribe();
         this.typeList.emit(this.main);
       })

@@ -134,11 +134,8 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {
-            "prerender": false,
-            "ssr": false,
-            "browserTarget": "dashboard:build:production",
-            "firebaseProject": "atestados-garbo",
-            "firebaseHostingSite": "atestados-garbo"
+            "version": 2,
+            "browserTarget": "dashboard:build:production"
           }
         }
       }

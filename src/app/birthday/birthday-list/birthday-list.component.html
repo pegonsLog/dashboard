@@ -1,6 +1,6 @@
 <div id="spacing">
-  <mat-toolbar class="peso-fonte"
-    >Aniversariantes do mês de {{ nameMonthBirthday }}</mat-toolbar
+  <div class="peso-fonte"
+    >Aniversariantes do mês de {{ nameMonthBirthday }}</div
   >
   <table mat-table [dataSource]="birthdays$ | async">
     <ng-container matColumnDef="name">

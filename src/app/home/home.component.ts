@@ -218,7 +218,7 @@ export class HomeComponent {
     this.registrationSearchList.emit(registration);
   }
   onUpdate(event: any) {
-    this.certificateUpdate = event;
+    this.userUpdate = event;
   }
   onUpdateEmployee(event: any) {
     this.employeeUpdate = event;

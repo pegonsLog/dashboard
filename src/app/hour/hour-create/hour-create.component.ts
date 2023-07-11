@@ -6,6 +6,7 @@ import { createMask } from '@ngneat/input-mask';
 import { Subscription } from 'rxjs';
 import { EmployeesService } from 'src/app/employees/employees.service';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
+import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
 import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
 import { Employee } from 'src/app/shared/models/Employee';
@@ -97,7 +98,7 @@ export class HourCreateComponent {
     return this.certificateService
       .certificateAdd(this.certificateHour)
       .then(() => {
-        const dialogReference = this.dialog.open(DialogUpdatedComponent);
+        const dialogReference = this.dialog.open(DialogCreatedComponent);
         this.subscription = dialogReference.afterClosed().subscribe();
         this.typeList.emit(this.main)})
       .catch(() => console.log('Deu erro'));
