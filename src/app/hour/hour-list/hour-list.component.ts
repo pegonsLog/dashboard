@@ -50,6 +50,7 @@ export class HourListComponent implements OnDestroy {
             .filter(
               (result: Certificate) =>
                 this.searchListHour[0] === result.registration &&
+                this.searchListHour[3] === result.mode &&
                 this.searchListHour[1] ===
                   result.startDay.toString().substring(6) &&
                 this.searchListHour[2] === result.type
