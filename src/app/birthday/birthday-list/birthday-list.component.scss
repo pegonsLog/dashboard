@@ -1,0 +1,37 @@
+.peso-fonte {
+  font-size: 1.3rem;
+  font-weight: 400;
+  font-family: Montserrat;
+  letter-spacing: 0.1rem;
+  color: rgb(36, 36, 36);
+  margin-bottom: 20px;
+  background-color: rgb(210, 210, 210);
+}
+
+#spacing {
+  padding-top: 30px;
+  padding-left: 10%;
+  padding-right: 5%;
+}
+
+th,
+td {
+  font-size: 1rem;
+  font-family: Montserrat;
+}
+
+img {
+  margin-top: 200px;
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 50%;
+}
+
+#figure {
+  display: flex;
+  justify-content: center;
+}
+
+mat-toobar {
+  background-color: rgb(104, 103, 103);
+}

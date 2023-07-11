@@ -12,15 +12,23 @@ import { Employee } from 'src/app/shared/models/Employee';
 export class BirthdayListComponent {
   birthdays$!: Observable<any>;
 
+  displayedColumns: string[] = [
+    'name',
+    'birthday',
+  ];
+
+  birthdayMonth: string = ''
+  nameMonthBirthday: string = ''
+
   constructor(
     private route: ActivatedRoute,
     private employeesService: EmployeesService
   ) {
     this.route.queryParams.subscribe((params) => {
-      const birthdayMonth = params['birthday'];
+      this.birthdayMonth = params['birthday'];
 
       this.birthdays$ = this.employeesService
-        .listForMonth(birthdayMonth)
+        .listForMonth(this.birthdayMonth)
         .pipe(
           map((result: Employee[]) =>
             result.sort((a: { birthday: any }, b: { birthday: any }) =>
@@ -28,6 +36,25 @@ export class BirthdayListComponent {
             )
           )
         );
-    });
+        this.nameMonth(this.birthdayMonth);
+    }
+    );
+  }
+  nameMonth(nameMonth: string){
+    switch(nameMonth){
+      case '01': this.nameMonthBirthday ='Janeiro'; break;
+      case '02': this.nameMonthBirthday ='Fevereiro'; break;
+      case '03': this.nameMonthBirthday ='Março'; break;
+      case '04': this.nameMonthBirthday ='Abril'; break;
+      case '05': this.nameMonthBirthday ='Maio'; break;
+      case '06': this.nameMonthBirthday ='Junho'; break;
+      case '07': this.nameMonthBirthday ='Julho'; break;
+      case '08': this.nameMonthBirthday ='Agosto'; break;
+      case '09': this.nameMonthBirthday ='Setembro'; break;
+      case '10': this.nameMonthBirthday ='Outubro'; break;
+      case '11': this.nameMonthBirthday ='Novembro'; break;
+      case '12': this.nameMonthBirthday ='Dezembro'; break;
+    }
+
   }
 }
