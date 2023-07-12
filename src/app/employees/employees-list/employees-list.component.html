@@ -7,11 +7,12 @@
       ></mat-toolbar
     >
 
-    <div *ngIf="dataSource$ | async; else loading">
+    <div *ngIf="dataSource$ | async; else loading" class="table-container">
       <table
         mat-table
         [dataSource]="dataSource$ | async"
         class="mat-elevation-z8"
+
       >
         <!-- Name Column -->
         <ng-container matColumnDef="name">
@@ -44,12 +45,7 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        <!--
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">
-            Nenhum registro encontrado para esse filtro "{{ input.value }}"
-          </td>
-        </tr> -->
+
       </table>
     </div>
   </mat-card-content>

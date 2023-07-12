@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { createMask } from '@ngneat/input-mask';
-import { Subscription } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { EmployeesService } from 'src/app/employees/employees.service';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
@@ -54,10 +54,14 @@ export class DonationCreateComponent {
     private certificateService: CertificateService,
     private employeesService: EmployeesService,
     public dialog: MatDialog
-  ){
+  ) {
     this.subscription = this.employeesService
-    .list()
-    .subscribe((data: Employee[]) => (this.registrations = data));
+      .list()
+      .pipe(
+        map((result) => result.sort((a, b) => a.name!.localeCompare(b.name!)))
+      )
+      .subscribe((data: Employee[]) => (this.registrations = data));
+
     this.form = this.fb.group({
       registration: ['', Validators.required],
       startDay: ['', Validators.required],
@@ -75,7 +79,6 @@ export class DonationCreateComponent {
   }
 
   certificateDonationAdd() {
-
     this.certificateDonation.registration = this.form.value.registration;
     this.certificateDonation.startDay = this.form.value.startDay;
     this.certificateDonation.endDay = this.form.value.endDay;
@@ -89,7 +92,8 @@ export class DonationCreateComponent {
       .then(() => {
         const dialogReference = this.dialog.open(DialogCreatedComponent);
         this.subscription = dialogReference.afterClosed().subscribe();
-        this.typeList.emit(this.main)})
+        this.typeList.emit(this.main);
+      })
       .catch(() => console.log('Deu erro'));
   }
 
