@@ -61,7 +61,7 @@ export class DayListComponent implements OnDestroy {
       .findOne(id)
       .subscribe((result: Certificate) => {
         this.certificateEmit.emit(result),
-          this.type.emit(this.certificateUpdate);
+          this.type.emit(this.certificateUpdate);        
       });
   }
 

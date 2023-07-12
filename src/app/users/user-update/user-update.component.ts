@@ -49,11 +49,21 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
 
   onUpdate() {
     this.user = this.form.getRawValue();
-    this.userService.update(this.user, this.user.id).then();
-    this.typeList.emit(this.userList);
-
-    const dialogReference = this.dialog.open(DialogUpdatedComponent);
-    this.subscription = dialogReference.afterClosed().subscribe();
+    if (
+      this.user.name !== '' &&
+      this.user.username !== '' &&
+      this.user.password !== '' &&
+      this.user.gender !== ''
+    ) {
+     this.userService
+        .update(this.user, this.user.id)
+        .then(() => {
+          this.typeList.emit(this.userList);
+          const dialogReference = this.dialog.open(DialogUpdatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+        })
+        .catch(() => console.log('Deu erro'));
+    }
   }
 
   ngOnInit(): void {

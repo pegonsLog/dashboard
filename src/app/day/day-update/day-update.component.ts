@@ -68,14 +68,20 @@ export class DayUpdateComponent implements OnInit, OnDestroy {
     this.certificateDay.dayOff = this.form.value.dayOff;
     this.certificateDay.type = this.form.value.type;
     this.certificateDay.mode = this.form.value.mode;
-    return this.certificateService
-      .update(this.certificateDay, this.certificateDay.id)
-      .then(() => {
-        const dialogReference = this.dialog.open(DialogUpdatedComponent);
-        this.subscription = dialogReference.afterClosed().subscribe();
-        this.typeList.emit(this.main);
-      })
-      .catch(() => console.log('Deu erro'));
+    if (
+      this.certificateDay.registration !== '' &&
+      this.certificateDay.startDay.toString() !== '' &&
+      this.certificateDay.endDay.toString() !== ''
+    ) {
+     this.certificateService
+        .update(this.certificateDay, this.certificateDay.id)
+        .then(() => {
+          this.typeList.emit(this.main);
+          const dialogReference = this.dialog.open(DialogUpdatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+          })
+        .catch(() => console.log('Deu erro'));
+    }
   }
 
   ngOnInit(): void {

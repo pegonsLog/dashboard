@@ -87,14 +87,19 @@ export class DonationCreateComponent {
     this.certificateDonation.dayOff = this.form.value.dayOff;
     this.certificateDonation.type = this.form.value.type;
     this.certificateDonation.mode = this.form.value.mode;
-    return this.certificateService
-      .certificateAdd(this.certificateDonation)
-      .then(() => {
-        const dialogReference = this.dialog.open(DialogCreatedComponent);
-        this.subscription = dialogReference.afterClosed().subscribe();
-        this.typeList.emit(this.main);
-      })
-      .catch(() => console.log('Deu erro'));
+    if (
+      this.form.value.registration !== '' &&
+      this.form.value.startDay !== ''
+    ) {
+     this.certificateService
+        .certificateAdd(this.certificateDonation)
+        .then(() => {
+          this.typeList.emit(this.main);
+          const dialogReference = this.dialog.open(DialogCreatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+        })
+        .catch(() => console.log('Deu erro'));
+    }
   }
 
   ngOnDestroy(): void {

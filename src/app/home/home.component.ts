@@ -79,6 +79,7 @@ export class HomeComponent {
   @Output() searchListHour: EventEmitter<any> = new EventEmitter<any>();
   @Output() searchListDonation: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateUser: EventEmitter<any> = new EventEmitter<any>();
+  @Output() updateDay: EventEmitter<any> = new EventEmitter<any>();
 
   day: string = 'dayCreate';
   dayUpdate: string = 'dayUpdate';
@@ -218,7 +219,8 @@ export class HomeComponent {
     this.registrationSearchList.emit(registration);
   }
   onUpdate(event: any) {
-    this.userUpdate = event;
+    this.certificateUpdate = event;
+    this.updateDay.emit(this.userUpdate);
   }
   onUpdateEmployee(event: any) {
     this.employeeUpdate = event;

@@ -39,6 +39,7 @@ export class HourUpdateComponent implements OnInit, OnDestroy {
 
   certificateHourUpdate() {
 
+    this.certificateUpdate.id = this.form.value.id;
     this.certificateUpdate.registration = this.form.value.registration;
     this.certificateUpdate.startDay = this.form.value.startDay;
     this.certificateUpdate.endDay = this.form.value.endDay;
@@ -47,13 +48,21 @@ export class HourUpdateComponent implements OnInit, OnDestroy {
     this.certificateUpdate.dayOff = this.form.value.dayOff;
     this.certificateUpdate.type = this.form.value.type;
     this.certificateUpdate.mode = this.form.value.mode;
-    return this.certificateService
-      .update(this.certificateUpdate, this.certificateUpdate.id)
-      .then(() => {
-        const dialogReference = this.dialog.open(DialogUpdatedComponent);
-        this.subscription = dialogReference.afterClosed().subscribe();
-        this.typeList.emit(this.main)})
-      .catch(() => console.log('Deu erro'));
+    if (
+      this.certificateUpdate.registration !== '' &&
+      this.certificateUpdate.startDay.toString() !== '' &&
+      this.certificateUpdate.startHour.toString() !== '' &&
+      this.certificateUpdate.endHour.toString()
+    ) {
+     this.certificateService
+        .update(this.certificateUpdate, this.certificateUpdate.id)
+        .then(() => {
+          this.typeList.emit(this.main);
+          const dialogReference = this.dialog.open(DialogUpdatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+        })
+        .catch(() => console.log('Deu erro'));
+    }
   }
 
   ngOnInit(): void {

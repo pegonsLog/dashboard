@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { Employee } from '../shared/models/Employee';
 import { EmployeesService } from '../employees/employees.service';
 import { Subscription } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -47,14 +48,15 @@ export class SearchComponent implements OnDestroy {
         this.searchType = 'donationList';
         break;
     }
-
-    this.searchTypeName.emit([
-      this.registrationSearch,
-      this.yearSearch,
-      this.typeSearch,
-      this.modeSearch,
-      this.searchType,
-    ]);
+    if (this.registrationSearch) {
+      this.searchTypeName.emit([
+        this.registrationSearch,
+        this.yearSearch,
+        this.typeSearch,
+        this.modeSearch,
+        this.searchType,
+      ]);
+    }
   }
 
   onClear() {

@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../user.service';
-import { User } from 'src/app/shared/models/User';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
+import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
+import { User } from 'src/app/shared/models/User';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-create',
@@ -24,7 +24,7 @@ export class UserCreateComponent {
 
   subscription: Subscription = new Subscription();
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
-  main: string = 'main';
+  userList: string = 'userList'; 
 
 
   constructor(
@@ -46,15 +46,21 @@ export class UserCreateComponent {
     this.user.name = this.form.value.name;
     this.user.password = this.form.value.password;
     this.user.gender = this.form.value.gender;
-
-    return this.userService
-      .addUser(this.user)
-      .then(() => {
-        const dialogReference = this.dialog.open(DialogUpdatedComponent);
-        this.subscription = dialogReference.afterClosed().subscribe();
-        this.typeList.emit(this.main);
-      })
-      .catch(() => console.log('Deu erro'));
+    if (
+      this.form.value.username !== '' &&
+      this.form.value.name !== '' &&
+      this.form.value.password !== '' &&
+      this.form.value.gender !== ''
+    ) {
+     this.userService
+        .addUser(this.user)
+        .then(() => {
+          this.typeList.emit(this.userList);
+          const dialogReference = this.dialog.open(DialogCreatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+        })
+        .catch(() => console.log('Deu erro'));
+    }
   }
   onClear() {}
 }

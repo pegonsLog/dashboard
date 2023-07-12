@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { TitleStrategy } from '@angular/router';
 import { createMask } from '@ngneat/input-mask';
 import { Subscription, map } from 'rxjs';
 import { EmployeesService } from 'src/app/employees/employees.service';
@@ -94,14 +95,20 @@ export class DayCreateComponent implements OnDestroy {
     this.certificateDay.dayOff = this.form.value.dayOff;
     this.certificateDay.type = this.form.value.type;
     this.certificateDay.mode = this.form.value.mode;
-    return this.certificateService
-      .certificateAdd(this.certificateDay)
-      .then(() => {
-        const dialogReference = this.dialog.open(DialogCreatedComponent);
-        this.subscription = dialogReference.afterClosed().subscribe();
-        this.typeList.emit(this.main);
-      })
-      .catch(() => console.log('Deu erro'));
+    if (
+      this.form.value.registration !== '' &&
+      this.form.value.startDay !== '' &&
+      this.form.value.endDay !== ''
+    ) {
+     this.certificateService
+        .certificateAdd(this.certificateDay)
+        .then(() => {
+          this.typeList.emit(this.main);
+          const dialogReference = this.dialog.open(DialogCreatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+        })
+        .catch(() => console.log('Deu erro'));
+    }
   }
 
   ngOnDestroy(): void {

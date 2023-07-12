@@ -59,14 +59,18 @@ export class EmployeesCreateComponent {
     this.employee.registration = this.form.value.registration;
     this.employee.name = this.form.value.name;
     this.employee.birthday = this.form.value.birthday;
-
-    return this.employeesService
-      .employeeAdd(this.employee)
-      .then(() => {
-        const dialogReference = this.dialog.open(DialogCreatedComponent);
-        this.subscription = dialogReference.afterClosed().subscribe();
-        this.typeList.emit(this.main);
-      })
-      .catch(() => console.log('Deu erro'));
+    if (
+      this.form.value.registration !== '' &&
+      this.form.value.name !== ''
+    ) {
+     this.employeesService
+        .employeeAdd(this.employee)
+        .then(() => {
+          this.typeList.emit(this.main);
+          const dialogReference = this.dialog.open(DialogCreatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+        })
+        .catch(() => console.log('Deu erro'));
+    }
   }
 }

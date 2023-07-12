@@ -96,14 +96,20 @@ export class HourCreateComponent {
     this.certificateHour.dayOff = this.form.value.dayOff;
     this.certificateHour.type = this.form.value.type;
     this.certificateHour.mode = this.form.value.mode;
-    console.log(this.certificateHour);
-    return this.certificateService
-      .certificateAdd(this.certificateHour)
-      .then(() => {
-        const dialogReference = this.dialog.open(DialogCreatedComponent);
-        this.subscription = dialogReference.afterClosed().subscribe();
-        this.typeList.emit(this.main);
-      })
-      .catch(() => console.log('Deu erro'));
+    if (
+      this.form.value.registration !== '' &&
+      this.form.value.startDay !== '' &&
+      this.form.value.startHour !== '' &&
+      this.form.value.endHour !== ''
+    ) {
+     this.certificateService
+        .certificateAdd(this.certificateHour)
+        .then(() => {
+          this.typeList.emit(this.main);
+          const dialogReference = this.dialog.open(DialogCreatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+        })
+        .catch(() => console.log('Deu erro'));
+    }
   }
 }

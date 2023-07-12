@@ -39,12 +39,23 @@ export class EmployeesUpdateComponent implements OnInit{
   ) {}
 
   onUpdate() {
-    this.employee = this.form.getRawValue();
-    this.employeesService.update(this.employee, this.employee.id).then();
-    this.typeList.emit(this.employeeList);
-
-    const dialogReference = this.dialog.open(DialogUpdatedComponent);
-    this.subscription = dialogReference.afterClosed().subscribe();
+    this.employee.id = this.form.value.id;
+    this.employee.registration = this.form.value.registration;
+    this.employee.name = this.form.value.name;
+    this.employee.birthday = this.form.value.birthday;
+    if (
+      this.employee.registration !== '' &&
+      this.employee.name !== ''
+    ) {
+     this.employeesService
+        .update(this.employee, this.employee.id)
+        .then(() => {
+          this.typeList.emit(this.employeeList);
+          const dialogReference = this.dialog.open(DialogUpdatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+        })
+        .catch(() => console.log('Deu erro'));
+    }
   }
 
   ngOnInit(): void {

@@ -2,18 +2,19 @@
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Buscar</mat-toolbar>
     <div>
-      <form>
+      <form #myForm="ngForm">
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label for="registration">Matrícula</mat-label>
           <input
-          style="font-family: Montserrat"
-          id="registration"
-          matInput
-          placeholder="Matrícula"
-          type="text"
-          name="registration"
-          [(ngModel)]="registrationSearch"
-        />
+            required
+            style="font-family: Montserrat"
+            id="registration"
+            matInput
+            placeholder="Matrícula"
+            type="text"
+            name="registration"
+            [(ngModel)]="registrationSearch"
+          />
         </mat-form-field>
 
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
@@ -54,7 +55,11 @@
             <mat-option selected value="Atestado de doação">Doação</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="full-width" [hideRequiredMarker]="true" *ngIf="typeSearch === 'Atestado de hora'">
+        <mat-form-field
+          class="full-width"
+          [hideRequiredMarker]="true"
+          *ngIf="typeSearch === 'Atestado de hora'"
+        >
           <mat-label for="modo">Modo do atestado</mat-label>
           <mat-select
             style="font-family: Montserrat"
@@ -68,7 +73,9 @@
             <mat-option selected value="Comparecimento"
               >Comparecimento</mat-option
             >
-            <mat-option selected value="Acompanhamento">Acompanhamento</mat-option>
+            <mat-option selected value="Acompanhamento"
+              >Acompanhamento</mat-option
+            >
           </mat-select>
         </mat-form-field>
 

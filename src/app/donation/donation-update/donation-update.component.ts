@@ -48,14 +48,19 @@ export class DonationUpdateComponent implements OnInit, OnDestroy {
     this.certificateUpdate.dayOff = this.form.value.dayOff;
     this.certificateUpdate.type = this.form.value.type;
     this.certificateUpdate.mode = this.form.value.mode;
-    return this.certificateService
-      .update(this.certificateUpdate, this.certificateUpdate.id)
-      .then(() => {
-        const dialogReference = this.dialog.open(DialogUpdatedComponent);
-        this.subscription = dialogReference.afterClosed().subscribe();
-        this.typeList.emit(this.main);
-      })
-      .catch(() => console.log('Deu erro'));
+    if (
+      this.certificateUpdate.registration !== '' &&
+      this.certificateUpdate.startDay.toString() !== ''
+    ) {
+     this.certificateService
+        .update(this.certificateUpdate, this.certificateUpdate.id)
+        .then(() => {
+          this.typeList.emit(this.main);
+          const dialogReference = this.dialog.open(DialogUpdatedComponent);
+          this.subscription = dialogReference.afterClosed().subscribe();
+        })
+        .catch(() => console.log('Deu erro'));
+    }
   }
 
   ngOnInit(): void {
@@ -66,7 +71,7 @@ export class DonationUpdateComponent implements OnInit, OnDestroy {
       endDay: [this.certificateUpdate.endDay, Validators.required],
       startHour: [this.certificateUpdate.startHour, Validators.required],
       endHour: [this.certificateUpdate.endHour, Validators.required],
-      dayOff: [this.certificateUpdate.dayOff, Validators.required],
+      dayOff: [this.certificateUpdate.dayOff],
       type: [this.certificateUpdate.type, Validators.required],
       mode: [this.certificateUpdate.mode, Validators.required],
     });
