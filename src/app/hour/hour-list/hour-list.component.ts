@@ -1,8 +1,10 @@
+import { transition } from '@angular/animations';
 import {
   Component,
   EventEmitter,
   Input,
   OnDestroy,
+  OnInit,
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,6 +21,8 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 export class HourListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
+
+  hours: number[] = [];
 
   certificateUpdate: string = 'hourUpdate';
 
@@ -60,6 +64,7 @@ export class HourListComponent implements OnDestroy {
             )
         )
       );
+      this.teste();
   }
 
   onUpdateCertificate(id: string) {
@@ -84,5 +89,14 @@ export class HourListComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+  teste(): any {
+    this.dataSource$.pipe(
+      map((data: Certificate[]) =>
+        data.forEach((element) => {
+         return element.startHour.getHours();
+        })
+      )
+    ).subscribe();
   }
 }
