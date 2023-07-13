@@ -26,6 +26,11 @@
         <th mat-header-cell *matHeaderCellDef>Hora de término</th>
         <td mat-cell *matCellDef="let element">{{ element.endHour }}</td>
       </ng-container>
+      <!-- timing Column
+      <ng-container matColumnDef="timing">
+        <th mat-header-cell *matHeaderCellDef>Tempo</th>
+        <td mat-cell *matCellDef="let element">{{element.startHour.getHours() - element.endHour.getHours() }}</td>
+      </ng-container> -->
       <!-- mode Column -->
       <ng-container matColumnDef="mode">
         <th mat-header-cell *matHeaderCellDef>Modo</th>

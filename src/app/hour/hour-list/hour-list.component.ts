@@ -1,4 +1,3 @@
-import { transition } from '@angular/animations';
 import {
   Component,
   EventEmitter,
@@ -18,13 +17,15 @@ import { Certificate } from 'src/app/shared/models/Certificate';
   templateUrl: './hour-list.component.html',
   styleUrls: ['./hour-list.component.scss'],
 })
-export class HourListComponent implements OnDestroy {
+export class HourListComponent implements OnDestroy, OnInit {
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
 
-  hours: number[] = [];
+  certificates!: Observable<any>;
 
   certificateUpdate: string = 'hourUpdate';
+
+  teste: number = 0;
 
   @Input() searchListHour: any[] = [];
 
@@ -38,6 +39,7 @@ export class HourListComponent implements OnDestroy {
     'startDay',
     'startHour',
     'endHour',
+    // "timing",
     'mode',
     'actions',
   ];
@@ -49,7 +51,7 @@ export class HourListComponent implements OnDestroy {
     this.dataSource$ = this.certificateService
       .list()
       .pipe(
-        map((data: Certificate[]) =>
+        map((data: Certificate[]) => {
           data
             .filter(
               (result: Certificate) =>
@@ -62,9 +64,8 @@ export class HourListComponent implements OnDestroy {
             .sort((a, b) =>
               b.startDay!.toString().localeCompare(a.startDay!.toString())
             )
-        )
+            })
       );
-      this.teste();
   }
 
   onUpdateCertificate(id: string) {
@@ -90,13 +91,7 @@ export class HourListComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-  teste(): any {
-    this.dataSource$.pipe(
-      map((data: Certificate[]) =>
-        data.forEach((element) => {
-         return element.startHour.getHours();
-        })
-      )
-    ).subscribe();
+  ngOnInit(): void {
+
   }
 }
