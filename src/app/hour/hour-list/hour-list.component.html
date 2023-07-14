@@ -3,6 +3,7 @@
     <mat-toolbar id="peso-fonte"
       >Atestados de hora - mat.: {{ searchListHour[0]}}</mat-toolbar
     >
+    <button (click)="certificateFilter()">Testar filtro</button>
     <table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8">
       <!-- Registration Column -->
       <ng-container matColumnDef="registration">
@@ -51,5 +52,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    <p>{{timingFinal}}</p>
   </mat-card-content>
 </mat-card>
