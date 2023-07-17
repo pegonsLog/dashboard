@@ -7,8 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { differenceInMilliseconds } from 'date-fns';
-import { Observable, Subscription, map, of } from 'rxjs';
+import { Observable, Subscription, map, take, tap, toArray } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
@@ -20,14 +19,12 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 })
 export class HourListComponent implements OnDestroy, OnInit {
   subscription: Subscription = new Subscription();
-  dataSource$!: Observable<any>;
-
-  certificates!: Observable<any>;
+  dataSource$: Observable<any>;
+  // certificates!: Observable<any>;
 
   certificateUpdate: string = 'hourUpdate';
 
-  totalTiming: number = 0;
-  timingFinal: string = '';
+  // totalTiming: number = 0;
 
   @Input() searchListHour: any[] = [];
 
@@ -49,7 +46,7 @@ export class HourListComponent implements OnDestroy, OnInit {
     private certificateService: CertificateService,
     public dialog: MatDialog
   ) {
-    this.subscription = this.certificateService
+    this.dataSource$ = this.certificateService
       .list()
       .pipe(
         map((data: Certificate[]) =>
@@ -66,8 +63,7 @@ export class HourListComponent implements OnDestroy, OnInit {
               b.startDay!.toString().localeCompare(a.startDay!.toString())
             )
         )
-      )
-      .subscribe((result: any) => {this.certificates = of(result), this.dataSource$ = of(result)});
+      );
   }
 
   onUpdateCertificate(id: string) {
@@ -94,26 +90,54 @@ export class HourListComponent implements OnDestroy, OnInit {
     this.subscription.unsubscribe();
   }
   ngOnInit(): void {
-    // for (let certificate of this.certificates) {
-    //   this.totalTiming += this.timing(
-    //     certificate.startHour,
-    //     certificate.endHour
-    //   );
-
-    // }
-    // const seconds = Math.floor(this.totalTiming / 1000);
-    // const minutes = Math.floor(seconds / 60);
-    // const hours = Math.floor(minutes / 60);
-
-    // const minutosRestantes = minutes % 60;
-    // this.timingFinal = `${hours}h ${minutosRestantes}m`;
-
-    this.certificates.subscribe((result) => console.log(result));
+    // let totalTiming: number = 0;
+    // let initialHour: number = 0;
+    // let finalHour: number = 0;
+    // let initialMinute: number = 0;
+    // let finalMinute: number = 0;
+    // this.dataSource$.pipe(
+    //   map((result: Certificate[]) => {
+    //     for (let certificate of result) {
+    //       initialHour += new Date(
+    //         `1970-01-01T${certificate.startHour}Z`
+    //       ).getTime();
+    //       initialMinute += new Date(
+    //         `1970-01-01T${certificate.startHour}Z`
+    //       ).getMinutes();
+    //       finalHour += new Date(`1970-01-01T${certificate.endHour}Z`).getHours();
+    //       finalMinute += new Date(`1970-01-01T${certificate.endHour}Z`).getMinutes();
+    //       //totalTiming +=
+    //     }
+    //  console.log( differenceInMilliseconds(finalDate, initialDate));
+    // const seconds = Math.floor(totalTiming / 1000);
+    // this.minutes = Math.floor(seconds / 60);
+    // this.hours = Math.floor(this.minutes / 60);
+    // this.minutes = this.minutes % 60;
+    // this.hours = Math.floor(this.minutes / 60)
+    //   })
+    // )
+    // console.log(initialHour);
+    // console.log(initialMinute);
+    // console.log(finalHour);
+    // console.log(finalMinute);
   }
+  acumulate() {
+    let hours: number = 0;
+    let minutes: number = 0;
+    this.dataSource$
+      .pipe(
+        map((result: Certificate[]) => {
+          for (let t of result) {
+            const h = parseInt(t.startHour.toString().split(':')[0]);
+            hours += h;
+            const m = parseInt(t.startHour.toString().split(':')[1]);
+            minutes += m;
+          }
 
-  timing(initialHour: Date, finalHour: Date) {
-    const initialDate = new Date(`1970-01-01T${initialHour}09:00Z`);
-    const finalDate = new Date(`1970-01-01T${finalHour}10:17Z`);
-    return differenceInMilliseconds(finalDate, initialDate);
+        const totalHours = hours + minutes/60;
+          console.log(hours, ":", minutes);
+        })
+      )
+      .subscribe();
   }
 }

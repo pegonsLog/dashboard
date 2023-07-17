@@ -11,7 +11,7 @@ import {
   setDoc,
 } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, first, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Certificate } from './../shared/models/Certificate';
 

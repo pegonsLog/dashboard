@@ -51,5 +51,8 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </mat-card-content>
-  <p>{{ totalTiming }}</p>
+  <!-- <p>{{ hours }}:{{minutes}}</p> -->
+  <mat-card-actions>
+    <button mat-raised-button (click)="acumulate()" id="button-atestado">Acumulado</button>
+  </mat-card-actions>
 </mat-card>
