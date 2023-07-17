@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { differenceInMilliseconds } from 'date-fns';
-import { Observable, Subscription, map, toArray } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
@@ -22,7 +22,7 @@ export class HourListComponent implements OnDestroy, OnInit {
   subscription: Subscription = new Subscription();
   dataSource$!: Observable<any>;
 
-  certificates!: Certificate[];
+  certificates!: Observable<any>;
 
   certificateUpdate: string = 'hourUpdate';
 
@@ -41,7 +41,6 @@ export class HourListComponent implements OnDestroy, OnInit {
     'startDay',
     'startHour',
     'endHour',
-    // "timing",
     'mode',
     'actions',
   ];
@@ -50,21 +49,25 @@ export class HourListComponent implements OnDestroy, OnInit {
     private certificateService: CertificateService,
     public dialog: MatDialog
   ) {
-    // this.dataSource$ = this.certificateService.list().pipe(
-    //   map((data: Certificate[]) => {
-    //     data
-    //       .filter(
-    //         (result: Certificate) =>
-    //           this.searchListHour[0] === result.registration &&
-    //           this.searchListHour[2] === result.type &&
-    //           this.searchListHour[3] === result.mode &&
-    //           this.searchListHour[1] === result.startDay.toString().substring(6)
-    //       )
-    //       .sort((a, b) =>
-    //         b.startDay!.toString().localeCompare(a.startDay!.toString())
-    //       );
-    //   })
-    // );
+    this.subscription = this.certificateService
+      .list()
+      .pipe(
+        map((data: Certificate[]) =>
+          data
+            .filter(
+              (result: Certificate) =>
+                this.searchListHour[0] === result.registration &&
+                this.searchListHour[2] === result.type &&
+                this.searchListHour[3] === result.mode &&
+                this.searchListHour[1] ===
+                  result.startDay.toString().substring(6)
+            )
+            .sort((a, b) =>
+              b.startDay!.toString().localeCompare(a.startDay!.toString())
+            )
+        )
+      )
+      .subscribe((result: any) => {this.certificates = of(result), this.dataSource$ = of(result)});
   }
 
   onUpdateCertificate(id: string) {
@@ -91,44 +94,26 @@ export class HourListComponent implements OnDestroy, OnInit {
     this.subscription.unsubscribe();
   }
   ngOnInit(): void {
-    this.certificateFilter();
-  }
+    // for (let certificate of this.certificates) {
+    //   this.totalTiming += this.timing(
+    //     certificate.startHour,
+    //     certificate.endHour
+    //   );
 
-  certificateFilter() {
-    this.subscription = this.certificateService
-      .list()
-      .pipe(
-        map((data: Certificate[]) =>
-          data.filter(
-            (result: Certificate) =>
-              this.searchListHour[0] === result.registration &&
-              this.searchListHour[2] === result.type &&
-              this.searchListHour[3] === result.mode &&
-              this.searchListHour[1] === result.startDay.toString().substring(6)
-          ))
-        ).subscribe((data: Certificate[]) =>  this.listFor(data));
-      
-  
-  }
+    // }
+    // const seconds = Math.floor(this.totalTiming / 1000);
+    // const minutes = Math.floor(seconds / 60);
+    // const hours = Math.floor(minutes / 60);
 
-  listFor(list: Certificate[]) {
-    for (let data of list) {
-      let miliseconds = this.timing(data.startHour, data.endHour);
-      this.totalTiming += miliseconds;
-    }
-    const seconds = Math.floor(this.totalTiming / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
+    // const minutosRestantes = minutes % 60;
+    // this.timingFinal = `${hours}h ${minutosRestantes}m`;
 
-    const minutosRestantes = minutes % 60;
-    this.timingFinal = `${hours}h ${minutosRestantes}m`;
+    this.certificates.subscribe((result) => console.log(result));
   }
 
   timing(initialHour: Date, finalHour: Date) {
     const initialDate = new Date(`1970-01-01T${initialHour}09:00Z`);
     const finalDate = new Date(`1970-01-01T${finalHour}10:17Z`);
-
-    // Calcular a diferença em milissegundos
     return differenceInMilliseconds(finalDate, initialDate);
   }
 }

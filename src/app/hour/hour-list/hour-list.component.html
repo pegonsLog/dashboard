@@ -1,10 +1,13 @@
 <mat-card>
   <mat-card-content>
     <mat-toolbar id="peso-fonte"
-      >Atestados de hora - mat.: {{ searchListHour[0]}}</mat-toolbar
+      >Atestados de hora - mat.: {{ searchListHour[0] }}</mat-toolbar
     >
-    <button (click)="certificateFilter()">Testar filtro</button>
-    <table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8">
+    <table
+      mat-table
+      [dataSource]="dataSource$ | async"
+      class="mat-elevation-z8"
+    >
       <!-- Registration Column -->
       <ng-container matColumnDef="registration">
         <th mat-header-cell *matHeaderCellDef>Matrícula</th>
@@ -27,12 +30,7 @@
         <th mat-header-cell *matHeaderCellDef>Hora de término</th>
         <td mat-cell *matCellDef="let element">{{ element.endHour }}</td>
       </ng-container>
-      <!-- timing Column
-      <ng-container matColumnDef="timing">
-        <th mat-header-cell *matHeaderCellDef>Tempo</th>
-        <td mat-cell *matCellDef="let element">{{element.startHour.getHours() - element.endHour.getHours() }}</td>
-      </ng-container> -->
-      <!-- mode Column -->
+
       <ng-container matColumnDef="mode">
         <th mat-header-cell *matHeaderCellDef>Modo</th>
         <td mat-cell *matCellDef="let element">{{ element.mode }}</td>
@@ -52,6 +50,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <p>{{timingFinal}}</p>
   </mat-card-content>
+  <p>{{ totalTiming }}</p>
 </mat-card>
