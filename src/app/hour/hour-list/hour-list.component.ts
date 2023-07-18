@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription, map, take, tap, toArray } from 'rxjs';
+import { Observable, Subscription, first, map, take, tap, toArray } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
@@ -25,6 +25,7 @@ export class HourListComponent implements OnDestroy, OnInit {
   certificateUpdate: string = 'hourUpdate';
 
   totalHours: number = 0;
+  fullMinutes: number = 0;
   totalMinutes: number = 0;
 
   // totalTiming: number = 0;
@@ -63,7 +64,7 @@ export class HourListComponent implements OnDestroy, OnInit {
                   result.startDay.toString().substring(6)
             )
             .sort((a, b) =>
-              b.startDay!.toString().localeCompare(a.startDay!.toString())
+            b.startDay.toString().split('/').reverse().join('/').localeCompare(a.startDay.toString().split('/').reverse().join('/'))
             )
         )
       );
@@ -97,32 +98,23 @@ export class HourListComponent implements OnDestroy, OnInit {
   }
 
   acumulate() {
-    let hourStart: number = 0;
-    let minuteStart: number = 0;
-    let hourEnd: number = 0;
-    let minuteEnd: number = 0;
-    let teste: number = 0;
-    this.dataSource$
+this.dataSource$
       .pipe(
         map((result: Certificate[]) => {
           for (let t of result) {
+            let hour1: any = new Date(`2023-07-18T${t.startHour}Z`);
+            let hour2: any = new Date(`2023-07-18T${t.endHour}Z`);
+            this.fullMinutes += Math.floor((hour2 - hour1) / (1000 * 60)) % 60;
 
-            const startH =  parseInt(t.startHour.toString().split(':')[0]);
-            hourStart += startH;
-            const startM = parseInt(t.startHour.toString().split(':')[1]);
-            minuteStart += startM;
-            const endH =  parseInt(t.endHour.toString().split(':')[0]);
-            hourEnd += startH;
-            const endM = parseInt(t.endHour.toString().split(':')[1]);
-            minuteEnd += startM;
+            this.totalHours +=
+              Math.floor((hour2 - hour1) / (1000 * 60 * 60)) +
+              Math.floor(this.totalMinutes / 60);
           }
-
-        this.totalHours = (hourEnd + (Math.floor(minuteEnd/60))) - (hourStart + (Math.floor(minuteStart/60)));
-        this.totalMinutes = minuteEnd%60 - minuteStart%60;
-        console.log(teste);
-
+          const dec = ((this.fullMinutes / 60) % 1).toFixed(3);
+          this.totalMinutes = Math.round(parseFloat(dec) * 60);
+       
         })
-      )
-      .subscribe();
+      ).pipe(first()).subscribe();
+    
   }
 }

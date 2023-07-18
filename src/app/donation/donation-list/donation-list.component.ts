@@ -51,7 +51,7 @@ export class DonationListComponent implements OnDestroy {
                 this.searchListDonation[2] === result.type
             )
             .sort((a, b) =>
-              b.startDay!.toString().localeCompare(a.startDay!.toString())
+            b.startDay.toString().split('/').reverse().join('/').localeCompare(a.startDay.toString().split('/').reverse().join('/'))
             )
         )
       );

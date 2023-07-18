@@ -3,15 +3,13 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
-  OnInit,
   Output,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription, map } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
-import { Certificate } from 'src/app/shared/models/Certificate';
-import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
-import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
+import { Certificate } from 'src/app/shared/models/Certificate';
 
 @Component({
   selector: 'app-day-list',
@@ -51,7 +49,9 @@ export class DayListComponent implements OnDestroy {
                   result.startDay.toString().substring(6) &&
                 this.searchListDay[2] === result.type
             )
-            .sort((a, b) => b.startDay!.toString().localeCompare(a.startDay!.toString()))
+            .sort((a, b) =>
+              b.startDay.toString().split('/').reverse().join('/').localeCompare(a.startDay.toString().split('/').reverse().join('/'))
+            )
         )
       );
   }
@@ -61,7 +61,7 @@ export class DayListComponent implements OnDestroy {
       .findOne(id)
       .subscribe((result: Certificate) => {
         this.certificateEmit.emit(result),
-          this.type.emit(this.certificateUpdate);        
+          this.type.emit(this.certificateUpdate);
       });
   }
 
@@ -75,7 +75,10 @@ export class DayListComponent implements OnDestroy {
         }
       });
   }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+
 }
