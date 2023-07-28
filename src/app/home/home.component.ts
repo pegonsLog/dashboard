@@ -212,7 +212,7 @@ export class HomeComponent {
     ];
   }
   onSearch(search: string) {
-    this.titleName = 'CONSULTA';
+    this.titleName = 'ATESTADOS';
     this.onType(search);
   }
   registrationOutput(registration: any) {

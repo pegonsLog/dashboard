@@ -6,7 +6,7 @@
       </div>
       <mat-divider></mat-divider>
 
-      <h5 class="mt-4">OPÇÕES</h5>
+      <h5 class="mt-4">INCLUSÃO</h5>
       <div id="align-list">
         <mat-icon>calendar_month</mat-icon>
         <a (click)="onDay(day)" routerLinkActive="list-item-active"
@@ -26,6 +26,20 @@
           >ATESTADO DE DOAÇÃO</a
         >
       </div>
+      <h5 class="mt-4">CONSULTAS</h5>
+      <div id="align-list">
+        <mat-icon> manage_search </mat-icon>
+        <a (click)="onSearch(search)" routerLinkActive="list-item-active"
+        >ATESTADOS</a
+        >
+      </div>
+      <div id="align-list">
+        <mat-icon> cake </mat-icon>
+        <a (click)="onBirthday(birthday)" routerLinkActive="list-item-active"
+        >ANIVERSARIANTES</a
+        >
+      </div>
+      <h5 class="mt-4">MANUTENÇÃO</h5>
       <div id="align-list">
         <mat-icon>group</mat-icon>
         <a
@@ -38,18 +52,6 @@
         <mat-icon> manage_accounts </mat-icon>
         <a (click)="onListUsers(users)" routerLinkActive="list-item-active"
           >USUÁRIOS</a
-        >
-      </div>
-      <div id="align-list">
-        <mat-icon> manage_search </mat-icon>
-        <a (click)="onSearch(search)" routerLinkActive="list-item-active"
-          >CONSULTA</a
-        >
-      </div>
-      <div id="align-list">
-        <mat-icon> cake </mat-icon>
-        <a (click)="onBirthday(birthday)" routerLinkActive="list-item-active"
-          >ANIVERSARIANTES</a
         >
       </div>
     </mat-nav-list>
