@@ -7,13 +7,17 @@ import {
   deleteDoc,
   doc,
   docData,
+  getDocs,
   getFirestore,
+  query,
   setDoc,
+  where,
 } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { Observable, Subscription, first, map } from 'rxjs';
+import { Observable, Subscription, first, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Certificate } from './../shared/models/Certificate';
+import { parse } from 'date-fns';
 
 @Injectable({ providedIn: 'root' })
 export class CertificateService {
@@ -41,6 +45,30 @@ export class CertificateService {
     return collectionData($certificateRef, { idField: 'id' }) as Observable<
       Certificate[]
     >;
+  }
+  async listHour(startDay: string) {
+
+    this.list()
+      .pipe(
+        map((result: Certificate[]) => {
+          for (let r of result) {
+
+            console.log(r.startDay, new Date(startDay))
+    //  if(r.startDay != startDay){console.log(new Date(r.startDay) + 'é igual a ' + startDay)}
+
+            // this.certificates.push(r);
+          }
+        })
+      )
+      .subscribe();
+
+    return this.certificates;
+    // const date = startDay.toLocaleDateString()
+    // console.log(date)
+    // const q = query(
+    //   collection(this.firestore, 'certificates'),
+    //   where('startDay', '>=', date)
+    // );
   }
 
   findOne(id: string) {

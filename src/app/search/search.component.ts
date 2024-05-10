@@ -1,8 +1,7 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
-import { Employee } from '../shared/models/Employee';
-import { EmployeesService } from '../employees/employees.service';
 import { Subscription } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { EmployeesService } from '../employees/employees.service';
+import { Employee } from '../shared/models/Employee';
 
 @Component({
   selector: 'app-search',
@@ -26,9 +25,9 @@ export class SearchComponent implements OnDestroy {
   >();
 
   constructor(private employeesService: EmployeesService) {
-    this.registrationSearch = '';
+    this.registrationSearch = '564';
     this.yearSearch = '2023';
-    this.typeSearch = 'Atestado de dia';
+    this.typeSearch = 'Atestado de hora';
     this.modeSearch = '';
 
     this.subscription = this.employeesService

@@ -4,8 +4,8 @@
       >Atestados de hora - mat.: {{ searchListHour[0] }}
     </mat-toolbar>
     <mat-card>
-  
-        <table mat-table [dataSource]="dataSource$ | async">
+
+        <table mat-table [dataSource]="dataSource">
           <!-- Registration Column -->
           <ng-container matColumnDef="registration">
             <th mat-header-cell *matHeaderCellDef>Matrícula</th>
