@@ -7,17 +7,13 @@ import {
   deleteDoc,
   doc,
   docData,
-  getDocs,
   getFirestore,
-  query,
   setDoc,
-  where,
 } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { Observable, Subscription, first, map, of } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Certificate } from './../shared/models/Certificate';
-import { parse } from 'date-fns';
 
 @Injectable({ providedIn: 'root' })
 export class CertificateService {
@@ -29,7 +25,7 @@ export class CertificateService {
   certificate: Certificate = {
     id: '',
     registration: '',
-    startDay: new Date(),
+    startDay: new Date('dd/mm/yyyy'),
     endDay: new Date(),
     startHour: new Date(),
     endHour: new Date(),
@@ -47,19 +43,26 @@ export class CertificateService {
     >;
   }
   async listHour(startDay: string) {
-
+    const datesplitsearch = startDay.split('/');
     this.list()
       .pipe(
         map((result: Certificate[]) => {
           for (let r of result) {
+            const datesplit = r.startDay.toString().split('/');
 
-            console.log(r.startDay, new Date(startDay))
-    //  if(r.startDay != startDay){console.log(new Date(r.startDay) + 'é igual a ' + startDay)}
-
-            // this.certificates.push(r);
+            if (
+              (4 < parseInt(datesplit[1]) && parseInt(datesplit[2]) >= parseInt(datesplitsearch[2])) ||
+              (5 > parseInt(datesplit[1]) && parseInt(datesplit[2]) < parseInt(datesplitsearch[2] + 1))
+            ) {
+              console.log(parseInt(datesplit[1]));
+            }
           }
+          //  if(r.startDay != startDay){console.log(new Date(r.startDay) + 'é igual a ' + startDay)}
+
+          // this.certificates.push(r);
         })
       )
+
       .subscribe();
 
     return this.certificates;

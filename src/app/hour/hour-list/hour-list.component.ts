@@ -49,34 +49,7 @@ export class HourListComponent implements OnDestroy, OnInit {
   constructor(
     private certificateService: CertificateService,
     public dialog: MatDialog
-  ) {
-    this.certificateService
-      .listHour('10/05/2024')
-            .then((certificates: Certificate[]) => {
-        certificates
-          .filter((result: Certificate) => {
-            if (
-              result.registration === this.searchListHour[0] &&
-              result.type === this.searchListHour[2] &&
-              result.mode === this.searchListHour[3]
-            ) {
-              return result;
-            }
-            return false;
-          })
-          .sort((a, b) =>
-            b.startDay
-              .toString()
-              .split('/')
-              .reverse()
-              .join('/')
-              .localeCompare(
-                a.startDay.toString().split('/').reverse().join('/')
-              )
-          );
-        this.dataSource = certificates;
-      });
-  }
+  ) {}
 
   onUpdateCertificate(id: string) {
     this.subscription = this.certificateService
@@ -102,6 +75,32 @@ export class HourListComponent implements OnDestroy, OnInit {
     this.subscription.unsubscribe();
   }
   ngOnInit(): void {
+    this.certificateService
+      .listHour(this.searchListHour[1])
+            .then((certificates: Certificate[]) => {
+        certificates
+          .filter((result: Certificate) => {
+            if (
+              result.registration === this.searchListHour[0] &&
+              result.type === this.searchListHour[2] &&
+              result.mode === this.searchListHour[3]
+            ) {
+              return result;
+            }
+            return false;
+          })
+          .sort((a, b) =>
+            b.startDay
+              .toString()
+              .split('/')
+              .reverse()
+              .join('/')
+              .localeCompare(
+                a.startDay.toString().split('/').reverse().join('/')
+              )
+          );
+        this.dataSource = certificates;
+      });
     this.acumulate();
   }
 

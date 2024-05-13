@@ -48,7 +48,7 @@ export class SearchComponent implements OnDestroy {
         break;
     }
     if (this.registrationSearch) {
-      this.searchTypeName.emit([
+        this.searchTypeName.emit([
         this.registrationSearch,
         this.yearSearch,
         this.typeSearch,
