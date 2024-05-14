@@ -20,7 +20,7 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 export class HourListComponent implements OnDestroy, OnInit {
   subscription: Subscription = new Subscription();
   dataSource: Certificate[] = [];
-  // certificates!: Observable<any>;
+  // certificates$?: Observable<any>;
 
   certificateUpdate: string = 'hourUpdate';
 
@@ -49,7 +49,10 @@ export class HourListComponent implements OnDestroy, OnInit {
   constructor(
     private certificateService: CertificateService,
     public dialog: MatDialog
-  ) {}
+  ) {
+
+
+  }
 
   onUpdateCertificate(id: string) {
     this.subscription = this.certificateService
@@ -75,31 +78,22 @@ export class HourListComponent implements OnDestroy, OnInit {
     this.subscription.unsubscribe();
   }
   ngOnInit(): void {
+
+    const registration = this.searchListHour[0];
+    const period = this.searchListHour[1];
+    const type = this.searchListHour[2];
+    const mode = this.searchListHour[3];
     this.certificateService
-      .listHour(this.searchListHour[1])
-            .then((certificates: Certificate[]) => {
-        certificates
-          .filter((result: Certificate) => {
-            if (
-              result.registration === this.searchListHour[0] &&
-              result.type === this.searchListHour[2] &&
-              result.mode === this.searchListHour[3]
-            ) {
-              return result;
-            }
-            return false;
-          })
-          .sort((a, b) =>
-            b.startDay
-              .toString()
-              .split('/')
-              .reverse()
-              .join('/')
-              .localeCompare(
-                a.startDay.toString().split('/').reverse().join('/')
-              )
-          );
-        this.dataSource = certificates;
+      .listHour(registration, period, type, mode)
+      .then((certificates: Certificate[]) => {
+        certificates.sort((a, b) =>
+          b.startDay
+            .toString()
+            .split('/')
+            .reverse()
+            .join('/')
+            .localeCompare(a.startDay.toString().split('/').reverse().join('/'))
+        );
       });
     this.acumulate();
   }
@@ -118,28 +112,3 @@ export class HourListComponent implements OnDestroy, OnInit {
     this.totalMinutes = Math.round(parseFloat(dec) * 60);
   }
 }
-
-// this.searchListHour[0] === result.registration &&
-// this.searchListHour[2] === result.type &&
-// this.searchListHour[3] === result.mode
-//   result.startDay
-//     .toString()
-//     .includes('11/' + this.searchListHour[1].toString())
-// ) {
-// }
-//  ||
-//   '06/' + this.searchListHour[1].toString() ||
-//   '07/' + this.searchListHour[1].toString() ||
-//   '08/' + this.searchListHour[1].toString() ||
-//   '09/' + this.searchListHour[1].toString() ||
-//   '10/' + this.searchListHour[1].toString() ||
-//   '11/' + this.searchListHour[1].toString() ||
-//   '12/' + this.searchListHour[1].toString() ||
-//   '01/' + (parseInt(this.searchListHour[1]) + 1).toString() ||
-//   '02/' + (parseInt(this.searchListHour[1]) + 1).toString() ||
-//   '03/' + (parseInt(this.searchListHour[1]) + 1).toString() ||
-//   '04/' + (parseInt(this.searchListHour[1]) + 1).toString()
-// );
-
-// this.searchListHour[1] ===
-//   result.startDay.toString().substring(6);

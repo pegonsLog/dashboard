@@ -42,36 +42,53 @@ export class CertificateService {
       Certificate[]
     >;
   }
-  async listHour(startDay: string) {
-    const datesplitsearch = startDay.split('/');
+  async listHour(
+    registration: string,
+    period: string,
+    type: string,
+    mode: string
+  ) {
+    const datesplitsearch = period.split('-');
+
+    const dateIni = datesplitsearch[0].split('/');
+    const dayIni = parseInt(dateIni[0], 10);
+    const monthIni = parseInt(dateIni[1], 10) - 1;
+    const yearIni = parseInt(dateIni[2], 10);
+
+    const dateEnd = datesplitsearch[1].split('/');
+    const dayEnd = parseInt(dateEnd[0], 10);
+    const monthEnd = parseInt(dateEnd[1], 10) - 1;
+    const yearEnd = parseInt(dateEnd[2], 10);
+
+    const dateObjectIni = new Date(yearIni, monthIni, dayIni);
+    const dateObjectEnd = new Date(yearEnd, monthEnd, dayEnd);
+
     this.list()
       .pipe(
         map((result: Certificate[]) => {
           for (let r of result) {
-            const datesplit = r.startDay.toString().split('/');
+            const dateIni = r.startDay.toString().split('/');
+            const dayIni = parseInt(dateIni[0], 10);
+            const monthIni = parseInt(dateIni[1], 10) - 1;
+            const yearIni = parseInt(dateIni[2], 10);
+            const dateObjetcR = new Date(yearIni, monthIni, dayIni);
 
             if (
-              (4 < parseInt(datesplit[1]) && parseInt(datesplit[2]) >= parseInt(datesplitsearch[2])) ||
-              (5 > parseInt(datesplit[1]) && parseInt(datesplit[2]) < parseInt(datesplitsearch[2] + 1))
+              dateObjectIni <= dateObjetcR &&
+              dateObjetcR <= dateObjectEnd &&
+              r.registration === registration &&
+              r.type === type &&
+              r.mode === mode
             ) {
-              console.log(parseInt(datesplit[1]));
+              this.certificates.push(r);
             }
           }
-          //  if(r.startDay != startDay){console.log(new Date(r.startDay) + 'é igual a ' + startDay)}
-
-          // this.certificates.push(r);
         })
       )
 
       .subscribe();
 
     return this.certificates;
-    // const date = startDay.toLocaleDateString()
-    // console.log(date)
-    // const q = query(
-    //   collection(this.firestore, 'certificates'),
-    //   where('startDay', '>=', date)
-    // );
   }
 
   findOne(id: string) {
