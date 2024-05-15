@@ -11,7 +11,7 @@ import {
   setDoc,
 } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { Observable, Subscription, map } from 'rxjs';
+import { Observable, Subscription, from, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Certificate } from './../shared/models/Certificate';
 
@@ -41,54 +41,6 @@ export class CertificateService {
     return collectionData($certificateRef, { idField: 'id' }) as Observable<
       Certificate[]
     >;
-  }
-  async listHour(
-    registration: string,
-    period: string,
-    type: string,
-    mode: string
-  ) {
-    const datesplitsearch = period.split('-');
-
-    const dateIni = datesplitsearch[0].split('/');
-    const dayIni = parseInt(dateIni[0], 10);
-    const monthIni = parseInt(dateIni[1], 10) - 1;
-    const yearIni = parseInt(dateIni[2], 10);
-
-    const dateEnd = datesplitsearch[1].split('/');
-    const dayEnd = parseInt(dateEnd[0], 10);
-    const monthEnd = parseInt(dateEnd[1], 10) - 1;
-    const yearEnd = parseInt(dateEnd[2], 10);
-
-    const dateObjectIni = new Date(yearIni, monthIni, dayIni);
-    const dateObjectEnd = new Date(yearEnd, monthEnd, dayEnd);
-
-    this.list()
-      .pipe(
-        map((result: Certificate[]) => {
-          for (let r of result) {
-            const dateIni = r.startDay.toString().split('/');
-            const dayIni = parseInt(dateIni[0], 10);
-            const monthIni = parseInt(dateIni[1], 10) - 1;
-            const yearIni = parseInt(dateIni[2], 10);
-            const dateObjetcR = new Date(yearIni, monthIni, dayIni);
-
-            if (
-              dateObjectIni <= dateObjetcR &&
-              dateObjetcR <= dateObjectEnd &&
-              r.registration === registration &&
-              r.type === type &&
-              r.mode === mode
-            ) {
-              this.certificates.push(r);
-            }
-          }
-        })
-      )
-
-      .subscribe();
-
-    return this.certificates;
   }
 
   findOne(id: string) {

@@ -10,11 +10,13 @@ import { Employee } from '../shared/models/Employee';
 })
 export class SearchComponent implements OnDestroy {
   registrationSearch: string = '';
-  yearSearch: string = '';
   typeSearch: string = '';
   modeSearch: string = '';
+  yearSearch: string = '';
 
   searchType: string = '';
+
+  year: Date = new Date();
 
   registrations: Employee[] = [];
 
@@ -25,11 +27,10 @@ export class SearchComponent implements OnDestroy {
   >();
 
   constructor(private employeesService: EmployeesService) {
-    this.registrationSearch = '564';
-    this.yearSearch = '2023';
+    this.registrationSearch = '';
+    this.yearSearch = "01/05/" + this.year.getFullYear().toString() + "-30/04/" + (this.year.getFullYear() + 1).toString()
     this.typeSearch = 'Atestado de hora';
-    this.modeSearch = '';
-
+    this.modeSearch = 'Comparecimento';
     this.subscription = this.employeesService
       .list()
       .subscribe((data: Employee[]) => (this.registrations = data));

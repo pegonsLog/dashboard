@@ -3,6 +3,7 @@
     <mat-toolbar id="peso-fonte"
       >Atestados de hora - mat.: {{ searchListHour[0] }}
     </mat-toolbar>
+
     <mat-card>
 
         <table mat-table [dataSource]="dataSource">
@@ -58,5 +59,15 @@
         <span>{{ totalHours }} horas e {{ totalMinutes }} minutos</span>
       </div>
     </mat-card>
+    <button
+    mat-raised-button
+    (click)="acumulate()"
+    id="button-atestado"
+    name="calcular"
+    type="button"
+  >
+    Calcular
+  </button>
   </mat-card-content>
+
 </mat-card>
