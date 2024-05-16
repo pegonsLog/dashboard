@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription, map } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
@@ -18,7 +18,8 @@ import { Certificate } from 'src/app/shared/models/Certificate';
 })
 export class DayListComponent implements OnDestroy {
   subscription: Subscription = new Subscription();
-  dataSource$: Observable<any>;
+  dataSource: Certificate[] = [];
+  certificates: Certificate[] = [];
   certificateUpdate: string = 'dayUpdate';
 
   @Input() searchListDay: any[] = [];
@@ -37,23 +38,45 @@ export class DayListComponent implements OnDestroy {
     private certificateService: CertificateService,
     public dialog: MatDialog
   ) {
-    this.dataSource$ = this.certificateService
-      .list()
-      .pipe(
-        map((data: Certificate[]) =>
-          data
-            .filter(
-              (result: Certificate) =>
-                this.searchListDay[0] === result.registration &&
-                this.searchListDay[1] ===
-                  result.startDay.toString().substring(6) &&
-                this.searchListDay[2] === result.type
-            )
-            .sort((a, b) =>
-              b.startDay.toString().split('/').reverse().join('/').localeCompare(a.startDay.toString().split('/').reverse().join('/'))
-            )
-        )
-      );
+    this.subscription = this.certificateService
+    .list()
+    .pipe(
+      map((certificates: Certificate[]) => {
+        const datesplitsearch = this.searchListDay[1].split('-');
+
+        const dateIni = datesplitsearch[0].split('/');
+        const dayIni = parseInt(dateIni[0], 10);
+        const monthIni = parseInt(dateIni[1], 10) - 1;
+        const yearIni = parseInt(dateIni[2], 10);
+
+        const dateEnd = datesplitsearch[1].split('/');
+        const dayEnd = parseInt(dateEnd[0], 10);
+        const monthEnd = parseInt(dateEnd[1], 10) - 1;
+        const yearEnd = parseInt(dateEnd[2], 10);
+
+        const dateObjectIni = new Date(yearIni, monthIni, dayIni);
+
+        const dateObjectEnd = new Date(yearEnd, monthEnd, dayEnd);
+        for (let r of certificates) {
+          const dateIni = r.startDay.toString().split('/');
+          const dayIni = parseInt(dateIni[0], 10);
+          const monthIni = parseInt(dateIni[1], 10) - 1;
+          const yearIni = parseInt(dateIni[2], 10);
+          const dateObjetcR = new Date(yearIni, monthIni, dayIni);
+
+          if (
+            dateObjectIni <= dateObjetcR &&
+            dateObjectEnd >= dateObjetcR &&
+            r.registration === this.searchListDay[0] &&
+            r.type === this.searchListDay[2] 
+          ) {
+            this.certificates.push(r);
+          }
+        }
+      })
+    )
+    .subscribe(() => (this.dataSource = this.certificates));
+
   }
 
   onUpdateCertificate(id: string) {

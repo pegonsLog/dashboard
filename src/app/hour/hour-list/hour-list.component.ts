@@ -90,7 +90,6 @@ export class HourListComponent implements OnDestroy, OnInit {
         })
       )
       .subscribe(() => (this.dataSource = this.certificates));
-
   }
 
   onUpdateCertificate(id: string) {
@@ -117,7 +116,16 @@ export class HourListComponent implements OnDestroy, OnInit {
     this.subscription.unsubscribe();
   }
   ngOnInit(): void {
-    this.acumulate();
+    this.certificates.sort((a, b) =>
+      a
+        .startDay!.toLocaleDateString()
+        .split('/')
+        .reverse()
+        .toString()
+        .localeCompare(
+          b.startDay!.toLocaleDateString().split('/').reverse().toString()
+        )
+    );
   }
 
   acumulate() {
