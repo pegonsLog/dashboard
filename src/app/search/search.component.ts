@@ -12,6 +12,7 @@ export class SearchComponent implements OnDestroy {
   registrationSearch: string = '';
   typeSearch: string = '';
   modeSearch: string = '';
+  statusSearch: string = '';
   yearSearch: string = '';
 
   searchType: string = '';
@@ -28,9 +29,14 @@ export class SearchComponent implements OnDestroy {
 
   constructor(private employeesService: EmployeesService) {
     this.registrationSearch = '';
-    this.yearSearch = "01/05/" + this.year.getFullYear().toString() + "-30/04/" + (this.year.getFullYear() + 1).toString()
+    this.yearSearch =
+      '01/05/' +
+      this.year.getFullYear().toString() +
+      '-30/04/' +
+      (this.year.getFullYear() + 1).toString();
     this.typeSearch = 'Atestado de hora';
     this.modeSearch = 'Comparecimento';
+    this.statusSearch = 'Informe o status';
     this.subscription = this.employeesService
       .list()
       .subscribe((data: Employee[]) => (this.registrations = data));
@@ -49,11 +55,12 @@ export class SearchComponent implements OnDestroy {
         break;
     }
     if (this.registrationSearch) {
-        this.searchTypeName.emit([
+      this.searchTypeName.emit([
         this.registrationSearch,
         this.yearSearch,
         this.typeSearch,
         this.modeSearch,
+        this.statusSearch,
         this.searchType,
       ]);
     }
@@ -64,6 +71,7 @@ export class SearchComponent implements OnDestroy {
     this.yearSearch = '';
     this.typeSearch = '';
     this.modeSearch = '';
+    this.statusSearch = '';
   }
 
   ngOnDestroy(): void {

@@ -8,4 +8,5 @@ export interface Certificate {
   dayOff: Date;
   type: string;
   mode: string;
+  status?: string;
 }

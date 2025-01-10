@@ -29,6 +29,7 @@ export class HourUpdateComponent implements OnInit, OnDestroy {
     dayOff: new Date(),
     type: '',
     mode: '',
+    status: '',
   };
 
   constructor(

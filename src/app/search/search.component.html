@@ -79,6 +79,30 @@
           </mat-select>
         </mat-form-field>
 
+        <mat-form-field
+        class="full-width"
+        [hideRequiredMarker]="true"
+        *ngIf="typeSearch === 'Atestado de hora'"
+      >
+        <mat-label for="status">Status do atestado</mat-label>
+        <mat-select
+          style="font-family: Montserrat"
+          id="status"
+          class="select"
+          aria-label="Status do atestado"
+          placeholder="Status"
+          name="status"
+          [(ngModel)]="statusSearch"
+        >
+          <mat-option selected value="Confirmado"
+            >Confirmado</mat-option
+          >
+          <mat-option selected value="Pendente"
+            >Pendente</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
         <!-- <mat-card-actions> -->
         <div class="container">
           <button

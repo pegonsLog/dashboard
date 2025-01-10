@@ -70,6 +70,7 @@ export class HomeComponent {
     dayOff: new Date(),
     type: '',
     mode: '',
+    status: '',
   };
 
   searchList: any[] = [];

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -38,7 +45,6 @@ export class DonationUpdateComponent implements OnInit, OnDestroy {
   ) {}
 
   certificateDonationUpdate() {
-
     this.certificateUpdate.id = this.form.value.id;
     this.certificateUpdate.registration = this.form.value.registration;
     this.certificateUpdate.startDay = this.form.value.startDay;
@@ -52,7 +58,7 @@ export class DonationUpdateComponent implements OnInit, OnDestroy {
       this.certificateUpdate.registration !== '' &&
       this.certificateUpdate.startDay.toString() !== ''
     ) {
-     this.certificateService
+      this.certificateService
         .update(this.certificateUpdate, this.certificateUpdate.id)
         .then(() => {
           this.typeList.emit(this.main);

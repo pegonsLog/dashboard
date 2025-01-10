@@ -60,10 +60,22 @@
             placeholder="Modo"
             formControlName="mode"
           >
-            <mat-option selected value="Comparecimento"
-              >Comparecimento</mat-option
-            >
+            <mat-option value="Comparecimento">Comparecimento</mat-option>
             <mat-option value="Acompanhamento">Acompanhamento</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Status do atestado</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="status"
+            class="select"
+            aria-label="Status do atestado"
+            placeholder="Status"
+            formControlName="mode"
+          >
+            <mat-option selected value="Confirmado">Confirmado</mat-option>
+            <mat-option value="Pendente">Pendente</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-card-actions>

@@ -7,7 +7,6 @@ import { Subscription, map } from 'rxjs';
 import { EmployeesService } from 'src/app/employees/employees.service';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
-import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
 import { Certificate } from 'src/app/shared/models/Certificate';
 import { Employee } from 'src/app/shared/models/Employee';
 
@@ -57,6 +56,7 @@ export class HourCreateComponent {
     dayOff: new Date(),
     type: '',
     mode: '',
+    status: '',
   };
 
   constructor(
@@ -80,6 +80,7 @@ export class HourCreateComponent {
       dayOff: ['******************', Validators.required],
       type: ['Atestado de hora', Validators.required],
       mode: ['', Validators.required],
+      status: ['', Validators.required],
     });
   }
 
@@ -96,6 +97,7 @@ export class HourCreateComponent {
     this.certificateHour.dayOff = this.form.value.dayOff;
     this.certificateHour.type = this.form.value.type;
     this.certificateHour.mode = this.form.value.mode;
+    this.certificateHour.status = this.form.value.status;
     if (
       this.form.value.registration !== '' &&
       this.form.value.startDay !== '' &&

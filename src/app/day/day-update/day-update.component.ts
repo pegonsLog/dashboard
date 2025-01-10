@@ -44,6 +44,7 @@ export class DayUpdateComponent implements OnInit, OnDestroy {
     dayOff: new Date(),
     type: '',
     mode: '',
+    status: '',
   };
 
   constructor(
