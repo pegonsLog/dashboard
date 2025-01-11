@@ -49,6 +49,7 @@ export class HourUpdateComponent implements OnInit, OnDestroy {
     this.certificateUpdate.dayOff = this.form.value.dayOff;
     this.certificateUpdate.type = this.form.value.type;
     this.certificateUpdate.mode = this.form.value.mode;
+    this.certificateUpdate.status = this.form.value.status;
     if (
       this.certificateUpdate.registration !== '' &&
       this.certificateUpdate.startDay.toString() !== '' &&
@@ -77,6 +78,7 @@ export class HourUpdateComponent implements OnInit, OnDestroy {
       dayOff: [this.certificateUpdate.dayOff, Validators.required],
       type: [this.certificateUpdate.type, Validators.required],
       mode: [this.certificateUpdate.mode, Validators.required],
+      status: [this.certificateUpdate.status, Validators.required],
     });
   }
   ngOnDestroy(): void {

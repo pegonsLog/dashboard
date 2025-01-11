@@ -83,8 +83,7 @@ export class HourListComponent implements OnDestroy, OnInit {
               dateObjectEnd >= dateObjetcR &&
               r.registration === this.searchListHour[0] &&
               r.type === this.searchListHour[2] &&
-              r.mode === this.searchListHour[3] &&
-              r.status === this.searchListHour[4]
+              r.mode === this.searchListHour[3]
             ) {
               this.certificates.push(r);
             }

@@ -36,11 +36,14 @@
             <th mat-header-cell *matHeaderCellDef>Modo</th>
             <td mat-cell *matCellDef="let element">{{ element.mode }}</td>
           </ng-container>
-          
+
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'status-pendente': element.status === 'Pendente'}">
+              {{ element.status }}
+            </td>
           </ng-container>
+
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Ações</th>
             <td mat-cell *matCellDef="let element">
