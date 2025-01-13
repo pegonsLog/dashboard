@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Subscription, map } from 'rxjs';
 import { CertificateService } from 'src/app/service-certificate/certificate.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
@@ -22,6 +23,8 @@ export class HourListComponent implements OnDestroy, OnInit {
   certificates: Certificate[] = [];
   dataSource: Certificate[] = [];
   // certificates$?: Observable<any>;
+
+  temSaldo: boolean = false;
 
   certificateUpdate: string = 'hourUpdate';
 
@@ -50,47 +53,10 @@ export class HourListComponent implements OnDestroy, OnInit {
 
   constructor(
     private certificateService: CertificateService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public router: Router
   ) {
-    this.subscription = this.certificateService
-      .list()
-      .pipe(
-        map((certificates: Certificate[]) => {
-          const datesplitsearch = this.searchListHour[1].split('-');
-
-          const dateIni = datesplitsearch[0].split('/');
-          const dayIni = parseInt(dateIni[0], 10);
-          const monthIni = parseInt(dateIni[1], 10) - 1;
-          const yearIni = parseInt(dateIni[2], 10);
-
-          const dateEnd = datesplitsearch[1].split('/');
-          const dayEnd = parseInt(dateEnd[0], 10);
-          const monthEnd = parseInt(dateEnd[1], 10) - 1;
-          const yearEnd = parseInt(dateEnd[2], 10);
-
-          const dateObjectIni = new Date(yearIni, monthIni, dayIni);
-
-          const dateObjectEnd = new Date(yearEnd, monthEnd, dayEnd);
-          for (let r of certificates) {
-            const dateIni = r.startDay.toString().split('/');
-            const dayIni = parseInt(dateIni[0], 10);
-            const monthIni = parseInt(dateIni[1], 10) - 1;
-            const yearIni = parseInt(dateIni[2], 10);
-            const dateObjetcR = new Date(yearIni, monthIni, dayIni);
-
-            if (
-              dateObjectIni <= dateObjetcR &&
-              dateObjectEnd >= dateObjetcR &&
-              r.registration === this.searchListHour[0] &&
-              r.type === this.searchListHour[2] &&
-              r.mode === this.searchListHour[3]
-            ) {
-              this.certificates.push(r);
-            }
-          }
-        })
-      )
-      .subscribe(() => (this.dataSource = this.certificates));
+    this.loadCertificates()
   }
 
   onUpdateCertificate(id: string) {
@@ -102,13 +68,58 @@ export class HourListComponent implements OnDestroy, OnInit {
       });
   }
 
+  loadCertificates() {
+    this.subscription = this.certificateService
+    .list()
+    .pipe(
+      map((certificates: Certificate[]) => {
+        const datesplitsearch = this.searchListHour[1].split('-');
+
+        const dateIni = datesplitsearch[0].split('/');
+        const dayIni = parseInt(dateIni[0], 10);
+        const monthIni = parseInt(dateIni[1], 10) - 1;
+        const yearIni = parseInt(dateIni[2], 10);
+
+        const dateEnd = datesplitsearch[1].split('/');
+        const dayEnd = parseInt(dateEnd[0], 10);
+        const monthEnd = parseInt(dateEnd[1], 10) - 1;
+        const yearEnd = parseInt(dateEnd[2], 10);
+
+        const dateObjectIni = new Date(yearIni, monthIni, dayIni);
+
+        const dateObjectEnd = new Date(yearEnd, monthEnd, dayEnd);
+        for (let r of certificates) {
+          const dateIni = r.startDay.toString().split('/');
+          const dayIni = parseInt(dateIni[0], 10);
+          const monthIni = parseInt(dateIni[1], 10) - 1;
+          const yearIni = parseInt(dateIni[2], 10);
+          const dateObjetcR = new Date(yearIni, monthIni, dayIni);
+
+          if (
+            dateObjectIni <= dateObjetcR &&
+            dateObjectEnd >= dateObjetcR &&
+            r.registration === this.searchListHour[0] &&
+            r.type === this.searchListHour[2] &&
+            r.mode === this.searchListHour[3]
+          ) {
+            this.certificates.push(r);
+          }
+        }
+      })
+    )
+    .subscribe(() => (this.dataSource = this.certificates));
+
+  }
+
   onDeleteCertificate(id: string) {
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);
     this.subscription = dialogReference
       .afterClosed()
       .subscribe((result: any) => {
         if (result) {
-          this.certificateService.delete(id).then();
+          this.certificateService.delete(id).then(() => {
+            location.reload()
+          });
         }
       });
   }
@@ -141,5 +152,6 @@ export class HourListComponent implements OnDestroy, OnInit {
     }
     const dec = ((this.fullMinutes / 60) % 1).toFixed(3);
     this.totalMinutes = Math.round(parseFloat(dec) * 60);
+    this.temSaldo = true;
   }
 }

@@ -64,7 +64,10 @@
     <mat-card style="margin-top: 5px">
       <div id="acumulater">
         <strong>Saldo de horas:</strong>
-        <span>{{ totalHours }} horas e {{ totalMinutes }} minutos</span>
+        <span *ngIf="totalHours === 0 && totalMinutes === 0">Clique no botão "Calcular"</span>
+        <span *ngIf="totalHours !== 0 && totalMinutes !== 0">{{ totalHours }} horas e {{ totalMinutes }} minutos</span>
+
+         <!-- <span>{{ totalHours }} horas e {{ totalMinutes }} minutos</span> -->
       </div>
     </mat-card>
     <button
