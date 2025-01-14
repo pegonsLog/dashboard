@@ -21,6 +21,7 @@
             [inputMask]="dateInputMask"
             type="text"
             formControlName="startDay"
+            required="required"
           />
         </mat-form-field>
 
@@ -33,6 +34,7 @@
             [inputMask]="hourInputMask"
             type="text"
             formControlName="startHour"
+            required="required"
           />
         </mat-form-field>
 
@@ -45,6 +47,7 @@
             [inputMask]="hourInputMask"
             type="text"
             formControlName="endHour"
+            required="required"
           />
         </mat-form-field>
 
@@ -57,6 +60,7 @@
             aria-label="Modo do atestado"
             placeholder="Modo"
             formControlName="mode"
+            required="required"
           >
             <mat-option selected value="Comparecimento"
               >Comparecimento</mat-option
@@ -73,6 +77,7 @@
             aria-label="Status do atestado"
             placeholder="Status"
             formControlName="status"
+            required="required"
           >
             <mat-option selected value="Confirmado"
               >Confirmado</mat-option

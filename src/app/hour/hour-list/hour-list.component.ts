@@ -56,7 +56,7 @@ export class HourListComponent implements OnDestroy, OnInit {
     public dialog: MatDialog,
     public router: Router
   ) {
-    this.loadCertificates()
+    this.loadCertificates();
   }
 
   onUpdateCertificate(id: string) {
@@ -68,47 +68,57 @@ export class HourListComponent implements OnDestroy, OnInit {
       });
   }
 
+
   loadCertificates() {
     this.subscription = this.certificateService
-    .list()
-    .pipe(
-      map((certificates: Certificate[]) => {
-        const datesplitsearch = this.searchListHour[1].split('-');
+      .list()
+      .pipe(
+        map((certificates: Certificate[]) => {
+          const datesplitsearch = this.searchListHour[1].split('-');
 
-        const dateIni = datesplitsearch[0].split('/');
-        const dayIni = parseInt(dateIni[0], 10);
-        const monthIni = parseInt(dateIni[1], 10) - 1;
-        const yearIni = parseInt(dateIni[2], 10);
-
-        const dateEnd = datesplitsearch[1].split('/');
-        const dayEnd = parseInt(dateEnd[0], 10);
-        const monthEnd = parseInt(dateEnd[1], 10) - 1;
-        const yearEnd = parseInt(dateEnd[2], 10);
-
-        const dateObjectIni = new Date(yearIni, monthIni, dayIni);
-
-        const dateObjectEnd = new Date(yearEnd, monthEnd, dayEnd);
-        for (let r of certificates) {
-          const dateIni = r.startDay.toString().split('/');
+          const dateIni = datesplitsearch[0].split('/');
           const dayIni = parseInt(dateIni[0], 10);
           const monthIni = parseInt(dateIni[1], 10) - 1;
           const yearIni = parseInt(dateIni[2], 10);
-          const dateObjetcR = new Date(yearIni, monthIni, dayIni);
 
-          if (
-            dateObjectIni <= dateObjetcR &&
-            dateObjectEnd >= dateObjetcR &&
-            r.registration === this.searchListHour[0] &&
-            r.type === this.searchListHour[2] &&
-            r.mode === this.searchListHour[3]
-          ) {
-            this.certificates.push(r);
-          }
-        }
-      })
-    )
-    .subscribe(() => (this.dataSource = this.certificates));
+          const dateEnd = datesplitsearch[1].split('/');
+          const dayEnd = parseInt(dateEnd[0], 10);
+          const monthEnd = parseInt(dateEnd[1], 10) - 1;
+          const yearEnd = parseInt(dateEnd[2], 10);
 
+          const dateObjectIni = new Date(yearIni, monthIni, dayIni);
+          const dateObjectEnd = new Date(yearEnd, monthEnd, dayEnd);
+
+          const filteredCertificates = certificates.filter(r => {
+            const dateIni = r.startDay.toString().split('/');
+            const dayIni = parseInt(dateIni[0], 10);
+            const monthIni = parseInt(dateIni[1], 10) - 1;
+            const yearIni = parseInt(dateIni[2], 10);
+            const dateObjetcR = new Date(yearIni, monthIni, dayIni);
+
+            return (
+              dateObjectIni <= dateObjetcR &&
+              dateObjectEnd >= dateObjetcR &&
+              r.registration === this.searchListHour[0] &&
+              r.type === this.searchListHour[2] &&
+              r.mode === this.searchListHour[3]
+            );
+          });
+
+          // Ordena os certificados por startDay em ordem decrescente
+          filteredCertificates.sort((a, b) => {
+            const dateA = new Date(a.startDay.toString().split('/').reverse().join('-'));
+            const dateB = new Date(b.startDay.toString().split('/').reverse().join('-'));
+            return dateB.getTime() - dateA.getTime();
+          });
+
+          return filteredCertificates;
+        })
+      )
+      .subscribe((sortedCertificates: Certificate[]) => {
+        this.certificates = sortedCertificates;
+        this.dataSource = this.certificates;
+      });
   }
 
   onDeleteCertificate(id: string) {
@@ -118,7 +128,7 @@ export class HourListComponent implements OnDestroy, OnInit {
       .subscribe((result: any) => {
         if (result) {
           this.certificateService.delete(id).then(() => {
-            location.reload()
+            location.reload();
           });
         }
       });

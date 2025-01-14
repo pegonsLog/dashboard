@@ -13,6 +13,7 @@ export class SearchComponent implements OnDestroy {
   typeSearch: string = '';
   modeSearch: string = '';
   yearSearch: string = '';
+  all: string = 'all';
 
   searchType: string = '';
 
@@ -53,16 +54,19 @@ export class SearchComponent implements OnDestroy {
         break;
     }
     if (this.registrationSearch) {
+      this.all = '';
       this.searchTypeName.emit([
         this.registrationSearch,
         this.yearSearch,
         this.typeSearch,
         this.modeSearch,
         this.searchType,
+        this.all,
       ]);
     }
   }
 
+  
   onClear() {
     this.registrationSearch = '';
     this.yearSearch = '';
