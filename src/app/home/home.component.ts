@@ -28,7 +28,8 @@ export class HomeComponent {
     'userList',
     'search',
     'main',
-    'birthday'
+    'birthday',
+    'abseenteism',
   ];
 
   typeName: string = '';
@@ -96,6 +97,7 @@ export class HomeComponent {
   search: string = 'search';
   main: string = 'main';
   birthday: string = 'birthday';
+  abseenteism: string = 'abseenteism';
 
   dataSource$: Observable<any> | undefined;
 
@@ -158,6 +160,9 @@ export class HomeComponent {
     }
     if (this.menuName[17] === type) {
       this.typeName = 'birthday';
+    }
+    if (this.menuName[18] === type) {
+      this.typeName = 'abseenteism';
     }
   }
 
@@ -229,5 +234,9 @@ export class HomeComponent {
   onBirthday(birthday: any) {
     this.titleName = 'ANIVERSARIANTES';
     this.onType(birthday);
+  }
+  onAbsenteeism(abseenteism: string) {
+    this.titleName = 'ABSENTEÍSMO';
+    this.onType(abseenteism);
   }
 }
