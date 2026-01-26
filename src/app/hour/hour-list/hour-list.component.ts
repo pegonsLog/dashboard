@@ -29,7 +29,6 @@ export class HourListComponent implements OnDestroy, OnInit {
   certificateUpdate: string = 'hourUpdate';
 
   totalHours: number = 0;
-  fullMinutes: number = 0;
   totalMinutes: number = 0;
 
   // totalTiming: number = 0;
@@ -118,6 +117,7 @@ export class HourListComponent implements OnDestroy, OnInit {
       .subscribe((sortedCertificates: Certificate[]) => {
         this.certificates = sortedCertificates;
         this.dataSource = this.certificates;
+        this.acumulate(); // Calcular saldo automaticamente
       });
   }
 
@@ -151,17 +151,23 @@ export class HourListComponent implements OnDestroy, OnInit {
   }
 
   acumulate() {
-    for (let t of this.dataSource) {
-      let hour1: any = new Date(`2023-07-18T${t.startHour}Z`);
-      let hour2: any = new Date(`2023-07-18T${t.endHour}Z`);
-      this.fullMinutes += Math.floor((hour2 - hour1) / (1000 * 60)) % 60;
+    // Resetar valores antes de calcular
+    this.totalHours = 0;
+    this.totalMinutes = 0;
+    let totalMinutesAccumulated = 0;
 
-      this.totalHours +=
-        Math.floor((hour2 - hour1) / (1000 * 60 * 60)) +
-        Math.floor(this.totalMinutes / 60);
+    for (let t of this.dataSource) {
+      const hour1: any = new Date(`2023-07-18T${t.startHour}:00Z`);
+      const hour2: any = new Date(`2023-07-18T${t.endHour}:00Z`);
+      
+      // Calcular diferença em minutos
+      const diffMinutes = Math.floor((hour2 - hour1) / (1000 * 60));
+      totalMinutesAccumulated += diffMinutes;
     }
-    const dec = ((this.fullMinutes / 60) % 1).toFixed(3);
-    this.totalMinutes = Math.round(parseFloat(dec) * 60);
+
+    // Converter minutos totais em horas e minutos
+    this.totalHours = Math.floor(totalMinutesAccumulated / 60);
+    this.totalMinutes = totalMinutesAccumulated % 60;
     this.temSaldo = true;
   }
 }
