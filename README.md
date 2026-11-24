@@ -16,7 +16,6 @@ Sistema web para registrar e consultar atestados de funcionários (de dia, de ho
 - **Aniversariantes** por mês, com versão para impressão.
 - **Funcionários**: busca, inclusão, alteração e exclusão. Ao alterar a matrícula, os atestados vinculados acompanham a nova matrícula.
 - **Usuários**: inclusão, alteração e exclusão. As senhas ficam ocultas na lista. Não é possível excluir o próprio usuário nem o último usuário.
-- **Absenteísmo**: item de menu mantido; o relatório ainda não foi implementado.
 
 ## Tecnologias
 
@@ -46,7 +45,7 @@ src/app/
   core/       autenticação, acesso a dados, modelos, conversão do formato do Firestore, services e utilitários
   layout/     estrutura com menu lateral e barra superior
   shared/     componentes reutilizáveis (confirmação, busca de funcionário, validadores, pipes)
-  features/   telas: login, início, atestados, aniversariantes, funcionários, usuários, absenteísmo
+  features/   telas: login, início, atestados, aniversariantes, funcionários, usuários
 ```
 
 O acesso a dados passa pela classe `DataStore` (`core/data/data-store.ts`). Em produção ela usa o Firestore (`firestore-data-store.ts`, com o SDK carregado sob demanda). No modo demonstração, o `angular.json` troca o provider por um banco em memória (`memory-data-store.ts`).

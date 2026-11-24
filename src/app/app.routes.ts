@@ -43,12 +43,6 @@ export const routes: Routes = [
         title: 'Usuários',
         loadComponent: () => import('./features/users/users.page').then((m) => m.UsersPage),
       },
-      {
-        path: 'absenteismo',
-        title: 'Absenteísmo',
-        loadComponent: () =>
-          import('./features/absenteeism/absenteeism.page').then((m) => m.AbsenteeismPage),
-      },
       // Endereço usado pela versão anterior do sistema.
       { path: 'home', redirectTo: 'inicio' },
     ],

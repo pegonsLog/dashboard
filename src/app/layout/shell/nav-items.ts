@@ -40,7 +40,6 @@ export const NAV_SECTIONS: readonly NavSection[] = [
     items: [
       { label: 'Funcionários', icon: 'group', route: '/funcionarios' },
       { label: 'Usuários', icon: 'manage_accounts', route: '/usuarios' },
-      { label: 'Absenteísmo', icon: 'medical_information', route: '/absenteismo' },
     ],
   },
 ];
