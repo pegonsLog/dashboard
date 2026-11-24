@@ -1,3 +1,7 @@
+/**
+ * Configuração pública do app Web no Firebase.
+ * A apiKey de apps Web não é segredo: o acesso aos dados é controlado pelas regras do Firestore.
+ */
 export const environment = {
   firebase: {
     projectId: 'atestados-garbo',
@@ -8,5 +12,4 @@ export const environment = {
     messagingSenderId: '1038659431082',
     measurementId: 'G-EGBGZJKGKZ',
   },
-  production: true,
 };

@@ -1,4 +1,487 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Montserrat, "Helvetica Neue", sans-serif; }
+/* ------------------------------------------------------------------ */
+/* Tema                                                                */
+/* ------------------------------------------------------------------ */
+
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+        theme-type: light,
+      ),
+      typography: (
+        plain-family: 'Inter, Roboto, "Helvetica Neue", sans-serif',
+        brand-family: 'Inter, Roboto, "Helvetica Neue", sans-serif',
+      ),
+      density: 0,
+    )
+  );
+
+  // Superfícies brancas e neutras (o padrão do M3 é levemente azulado).
+  @include mat.theme-overrides(
+    (
+      surface: #ffffff,
+      surface-container-lowest: #ffffff,
+      surface-container-low: #ffffff,
+      surface-container: #ffffff,
+      surface-container-high: #ffffff,
+    )
+  );
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: 20px,
+    )
+  );
+  @include mat.table-overrides(
+    (
+      header-headline-color: #475569,
+      header-headline-size: 12px,
+      header-headline-weight: 600,
+      row-item-outline-color: #e2e8f0,
+      background-color: transparent,
+    )
+  );
+  @include mat.paginator-overrides(
+    (
+      container-background-color: transparent,
+    )
+  );
+  @include mat.form-field-overrides(
+    (
+      outlined-container-shape: 10px,
+    )
+  );
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 10px,
+      outlined-container-shape: 10px,
+      text-container-shape: 10px,
+      tonal-container-shape: 10px,
+    )
+  );
+
+  --app-bg: #f1f5f9;
+  --app-surface: #ffffff;
+  --app-border: #e2e8f0;
+  --app-text: #0f172a;
+  --app-muted: #64748b;
+  --app-sidebar: #0f172a;
+  --app-sidebar-soft: #1e293b;
+  --app-sidebar-text: #94a3b8;
+  --app-danger: #dc2626;
+  --app-danger-soft: #fef2f2;
+  --app-warning: #b45309;
+  --app-warning-soft: #fffbeb;
+  --app-success: #15803d;
+  --app-success-soft: #f0fdf4;
+  --app-radius: 16px;
+  --app-shadow: 0 1px 2px rgb(15 23 42 / 0.06), 0 1px 3px rgb(15 23 42 / 0.08);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--app-bg);
+  color: var(--app-text);
+  font: var(--mat-sys-body-medium);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--mat-sys-primary);
+}
+
+.material-symbols-rounded {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.icon-filled {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout das páginas                                                  */
+/* ------------------------------------------------------------------ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 32px 40px;
+
+  @media (max-width: 720px) {
+    padding: 20px 16px 32px;
+  }
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+
+  h1 {
+    font:
+      600 1.6rem/1.2 Inter,
+      sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    margin-top: 4px;
+    color: var(--app-muted);
+  }
+}
+
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font:
+    600 1rem/1.4 Inter,
+    sans-serif;
+}
+
+.muted {
+  color: var(--app-muted);
+}
+
+.w-full {
+  width: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+
+  .span-2 {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 560px) {
+    grid-template-columns: minmax(0, 1fr);
+
+    .span-2 {
+      grid-column: auto;
+    }
+  }
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--app-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tabelas                                                             */
+/* ------------------------------------------------------------------ */
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table.data-table {
+  width: 100%;
+
+  th.mat-mdc-header-cell {
+    background: #f8fafc;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  tr.mat-mdc-row:hover td {
+    background: #f8fafc;
+  }
+
+  td.cell-actions,
+  th.cell-actions {
+    width: 1%;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  td.cell-nowrap {
+    white-space: nowrap;
+  }
+}
+
+.cell-primary {
+  font-weight: 500;
+}
+
+.cell-secondary {
+  display: block;
+  color: var(--app-muted);
+  font-size: 0.78rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Badges, estados vazios e avisos                                     */
+/* ------------------------------------------------------------------ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  .mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+  }
+
+  &.badge-success {
+    background: var(--app-success-soft);
+    color: var(--app-success);
+  }
+
+  &.badge-danger {
+    background: var(--app-danger-soft);
+    color: var(--app-danger);
+  }
+
+  &.badge-warning {
+    background: var(--app-warning-soft);
+    color: var(--app-warning);
+  }
+
+  &.badge-info {
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--app-warning-soft);
+  color: var(--app-warning);
+  font-size: 0.875rem;
+
+  &.notice-info {
+    background: #eff6ff;
+    color: #1e40af;
+  }
+
+  &.notice-danger {
+    background: var(--app-danger-soft);
+    color: var(--app-danger);
+  }
+}
+
+.loading-bar {
+  border-radius: var(--app-radius) var(--app-radius) 0 0;
+  overflow: hidden;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 40px 16px;
+  color: var(--app-muted);
+  text-align: center;
+
+  .mat-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 4px;
+    border-radius: 14px;
+    background: #f1f5f9;
+    color: #94a3b8;
+    font-size: 26px;
+    line-height: 44px;
+  }
+
+  strong {
+    color: var(--app-text);
+    font-size: 0.95rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Botões e notificações                                               */
+/* ------------------------------------------------------------------ */
+
+.mat-mdc-button-base.btn-danger {
+  --mat-button-filled-container-color: var(--app-danger);
+  --mat-button-filled-label-text-color: #ffffff;
+}
+
+.mat-mdc-icon-button.icon-danger:hover {
+  color: var(--app-danger);
+}
+
+.mat-mdc-snack-bar-container {
+  &.snack-success {
+    --mat-snack-bar-container-color: #14532d;
+    --mat-snack-bar-supporting-text-color: #ffffff;
+    --mat-snack-bar-button-color: #bbf7d0;
+  }
+
+  &.snack-error {
+    --mat-snack-bar-container-color: #7f1d1d;
+    --mat-snack-bar-supporting-text-color: #ffffff;
+    --mat-snack-bar-button-color: #fecaca;
+  }
+}
+
+/* Espaço entre linhas de campos para a mensagem de erro não encostar no campo de baixo. */
+.mat-mdc-dialog-content .mat-mdc-form-field {
+  margin-bottom: 6px;
+}
+
+/* Lista do campo de funcionário: nome à esquerda e matrícula à direita. */
+.employee-panel .mat-mdc-option .mdc-list-item__primary-text {
+  width: 100%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Diálogos                                                            */
+/* ------------------------------------------------------------------ */
+
+.dialog-title {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+
+  .dialog-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+    flex: none;
+
+    &.danger {
+      background: var(--app-danger-soft);
+      color: var(--app-danger);
+    }
+  }
+}
+
+.dialog-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #334155;
+  font-size: 0.875rem;
+
+  &.invalid {
+    background: var(--app-danger-soft);
+    color: var(--app-danger);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Impressão (lista de aniversariantes)                                */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  body {
+    background: #ffffff;
+  }
+
+  .no-print,
+  .mat-drawer,
+  .mat-toolbar {
+    display: none !important;
+  }
+
+  .mat-drawer-content {
+    margin: 0 !important;
+  }
+
+  .mat-drawer-container,
+  .mat-drawer-content {
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  .card {
+    border: none;
+    box-shadow: none;
+  }
+}

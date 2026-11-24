@@ -1,0 +1,93 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    class="sidebar"
+    [mode]="compact() ? 'over' : 'side'"
+    [opened]="menuOpen()"
+    (openedChange)="menuOpen.set($event)"
+  >
+    <div class="brand">
+      <span class="brand-mark"><mat-icon class="icon-filled">medical_services</mat-icon></span>
+      <span>
+        <strong>GARBO</strong>
+        <small>Controle de atestados</small>
+      </span>
+    </div>
+
+    <nav class="nav" aria-label="Menu principal">
+      @for (section of sections; track section.title) {
+        @if (section.title) {
+          <h2 class="nav-title">{{ section.title }}</h2>
+        }
+        @for (item of section.items; track item.label) {
+          @if (item.route) {
+            <a
+              class="nav-item"
+              [routerLink]="item.route"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <mat-icon>{{ item.icon }}</mat-icon>
+              <span>{{ item.label }}</span>
+            </a>
+          } @else {
+            <button type="button" class="nav-item" (click)="run(item)">
+              <mat-icon>{{ item.icon }}</mat-icon>
+              <span>{{ item.label }}</span>
+              <mat-icon class="nav-add">add</mat-icon>
+            </button>
+          }
+        }
+      }
+    </nav>
+
+    @if (demoMode) {
+      <div class="demo-badge">
+        <mat-icon>science</mat-icon>
+        <span>Modo demonstração: dados fictícios, nada é gravado no Firestore.</span>
+      </div>
+    }
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <mat-toolbar class="topbar">
+      <button
+        matIconButton
+        type="button"
+        [attr.aria-label]="menuOpen() ? 'Recolher menu' : 'Abrir menu'"
+        (click)="menuOpen.set(!menuOpen())"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="topbar-title">Controle de Atestados</span>
+      <span class="spacer"></span>
+      <span class="greeting">{{ greeting() }}</span>
+      <button
+        type="button"
+        class="avatar"
+        matTooltip="Conta"
+        aria-label="Menu da conta"
+        [matMenuTriggerFor]="accountMenu"
+      >
+        {{ initials() }}
+      </button>
+      <mat-menu #accountMenu="matMenu" xPosition="before">
+        <div class="account" mat-menu-item disabled>
+          <mat-icon>account_circle</mat-icon>
+          <span>
+            {{ session()?.name }}
+            <small>Usuário {{ session()?.username }}</small>
+          </span>
+        </div>
+        <mat-divider />
+        <button mat-menu-item type="button" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Sair</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <main class="main">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

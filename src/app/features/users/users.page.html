@@ -1,0 +1,117 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>Usuários</h1>
+      <p>{{ totalText() }}</p>
+    </div>
+    <div class="page-actions">
+      <button matButton="filled" type="button" (click)="create()">
+        <mat-icon>person_add</mat-icon>
+        Novo usuário
+      </button>
+    </div>
+  </header>
+
+  @if (failed()) {
+    <div class="notice notice-danger" role="alert">
+      <mat-icon>cloud_off</mat-icon>
+      <span class="spacer">Não foi possível carregar os usuários. Verifique sua conexão.</span>
+      <button matButton type="button" (click)="retry()">Tentar novamente</button>
+    </div>
+  }
+
+  <div class="card">
+    @if (loading()) {
+      <mat-progress-bar class="loading-bar" mode="indeterminate" />
+    }
+    <div class="table-wrapper">
+      <table mat-table class="data-table" [dataSource]="users()">
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef>Usuário</th>
+          <td mat-cell *matCellDef="let user">
+            <span class="cell-primary">{{ user.username }}</span>
+            @if (user.id === currentUserId()) {
+              <span class="badge badge-info">Você</span>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nome</th>
+          <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef>Sexo</th>
+          <td mat-cell *matCellDef="let user">
+            @if (user.gender) {
+              {{ user.gender }}
+            } @else {
+              <span class="muted">Não informado</span>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="password">
+          <th mat-header-cell *matHeaderCellDef>Senha</th>
+          <td mat-cell *matCellDef="let user">
+            <span class="password">
+              {{ revealed().has(user.id) ? user.password : '••••••' }}
+              <button
+                matIconButton
+                type="button"
+                [matTooltip]="revealed().has(user.id) ? 'Ocultar senha' : 'Mostrar senha'"
+                [attr.aria-label]="revealed().has(user.id) ? 'Ocultar senha' : 'Mostrar senha'"
+                (click)="toggleReveal(user)"
+              >
+                <mat-icon>{{ revealed().has(user.id) ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="cell-actions">
+            <span class="cdk-visually-hidden">Ações</span>
+          </th>
+          <td mat-cell *matCellDef="let user" class="cell-actions">
+            <button
+              matIconButton
+              type="button"
+              matTooltip="Alterar"
+              aria-label="Alterar usuário"
+              (click)="edit(user)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <span [matTooltip]="deleteBlockedReason(user) ?? 'Excluir'">
+              <button
+                matIconButton
+                type="button"
+                class="icon-danger"
+                aria-label="Excluir usuário"
+                [disabled]="!!deleteBlockedReason(user)"
+                (click)="remove(user)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        <tr class="mat-mdc-row" *matNoDataRow>
+          <td class="mat-mdc-cell" [attr.colspan]="columns.length">
+            @if (!loading()) {
+              <div class="empty-state">
+                <mat-icon>manage_accounts</mat-icon>
+                <strong>Nenhum usuário cadastrado</strong>
+              </div>
+            }
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>

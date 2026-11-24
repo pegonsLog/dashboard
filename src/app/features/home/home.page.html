@@ -1,0 +1,117 @@
+<section class="page">
+  <header class="welcome card">
+    <div>
+      <p class="date">{{ today }}</p>
+      <h1>{{ greeting() }}!</h1>
+      <p class="subtitle">
+        Período atual de consulta: <strong>{{ period.label }}</strong>
+      </p>
+    </div>
+    <div class="quick-actions">
+      @for (kind of kinds; track kind.kind) {
+        <button matButton="tonal" type="button" (click)="actions.create(kind.kind)">
+          <mat-icon>{{ kind.icon }}</mat-icon>
+          {{ kind.label }}
+        </button>
+      }
+    </div>
+  </header>
+
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate" />
+  }
+
+  <div class="stats">
+    @for (stat of stats(); track stat.kind) {
+      <a
+        class="card stat"
+        [routerLink]="['/atestados']"
+        [queryParams]="{ tipo: stat.param, modo: 'todos' }"
+      >
+        <span class="stat-icon" [attr.data-kind]="stat.kind"
+          ><mat-icon>{{ stat.info.icon }}</mat-icon></span
+        >
+        <span class="stat-text">
+          <span class="stat-label">{{ stat.info.pluralLabel }}</span>
+          <strong>{{ stat.value }}</strong>
+          <span class="muted">{{ stat.detail }}</span>
+        </span>
+      </a>
+    }
+    <a
+      class="card stat"
+      [class.attention]="pendingCount()"
+      [routerLink]="['/atestados']"
+      [queryParams]="{ tipo: 'hora', modo: 'todos', status: 'pendente' }"
+    >
+      <span class="stat-icon" data-kind="pending"><mat-icon>pending_actions</mat-icon></span>
+      <span class="stat-text">
+        <span class="stat-label">Atestados pendentes</span>
+        <strong>{{ pendingCount() }}</strong>
+        <span class="muted">atestados de hora aguardando confirmação</span>
+      </span>
+    </a>
+  </div>
+
+  <div class="columns">
+    <article class="card">
+      <header class="card-header">
+        <h2 class="card-title"><mat-icon>history</mat-icon> Atestados mais recentes</h2>
+        <a matButton routerLink="/atestados">Ver todos</a>
+      </header>
+      <ul class="list">
+        @for (item of recent(); track item.certificate.id) {
+          <li>
+            <span class="list-icon" [attr.data-kind]="item.certificate.kind">
+              <mat-icon>{{ item.info.icon }}</mat-icon>
+            </span>
+            <span class="list-text">
+              <span class="cell-primary">{{ item.employeeName }}</span>
+              <span class="cell-secondary">{{ item.info.label }} · {{ item.description }}</span>
+            </span>
+            <button
+              matIconButton
+              type="button"
+              aria-label="Alterar atestado"
+              (click)="edit(item.certificate)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </li>
+        } @empty {
+          <li class="empty-state">
+            <mat-icon>inbox</mat-icon>
+            <span>Nenhum atestado registrado.</span>
+          </li>
+        }
+      </ul>
+    </article>
+
+    <article class="card">
+      <header class="card-header">
+        <h2 class="card-title"><mat-icon>cake</mat-icon> Aniversariantes de {{ monthName }}</h2>
+        <a matButton routerLink="/aniversariantes">Ver lista</a>
+      </header>
+      <ul class="list">
+        @for (person of birthdays(); track person.id) {
+          <li [class.today]="person.isToday" [class.past]="person.isPast">
+            <span class="day">{{ person.day }}</span>
+            <span class="list-text">
+              <span class="cell-primary">{{ person.name }}</span>
+              <span class="cell-secondary">
+                {{
+                  person.isToday ? 'Faz aniversário hoje! 🎉' : 'Matrícula ' + person.registration
+                }}
+              </span>
+            </span>
+          </li>
+        } @empty {
+          <li class="empty-state">
+            <mat-icon>cake</mat-icon>
+            <span>Nenhum aniversariante neste mês.</span>
+          </li>
+        }
+      </ul>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+.subtitle {
+  display: block;
+  color: var(--app-muted);
+  font: var(--mat-sys-body-medium);
+}
+
+.choice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-bottom: 16px;
+}
+
+.choice {
+  display: flex;
+  flex-direction: column;
+}
+
+.choice-error {
+  margin-top: 4px;
+  color: var(--mat-sys-error);
+  font-size: 0.75rem;
+}
+
+.mat-button-toggle-checked.pending {
+  --mat-button-toggle-selected-state-background-color: var(--app-danger-soft);
+  --mat-button-toggle-selected-state-text-color: var(--app-danger);
+}
+
+mat-spinner {
+  display: inline-block;
+  margin-right: 4px;
+}

@@ -1,0 +1,151 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>Funcionários</h1>
+      <p>{{ totalText() }}</p>
+    </div>
+    <div class="page-actions">
+      <button matButton="filled" type="button" (click)="create()">
+        <mat-icon>person_add</mat-icon>
+        Novo funcionário
+      </button>
+    </div>
+  </header>
+
+  @if (failed()) {
+    <div class="notice notice-danger" role="alert">
+      <mat-icon>cloud_off</mat-icon>
+      <span class="spacer">Não foi possível carregar os funcionários. Verifique sua conexão.</span>
+      <button matButton type="button" (click)="retry()">Tentar novamente</button>
+    </div>
+  }
+
+  <div class="card">
+    @if (loading()) {
+      <mat-progress-bar class="loading-bar" mode="indeterminate" />
+    }
+    <div class="toolbar">
+      <mat-form-field subscriptSizing="dynamic" class="search">
+        <mat-label>Buscar</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          #searchInput
+          matInput
+          placeholder="Nome ou matrícula"
+          autocomplete="off"
+          [value]="search()"
+          (input)="onSearch(searchInput.value)"
+        />
+        @if (search()) {
+          <button
+            matIconButton
+            matSuffix
+            type="button"
+            aria-label="Limpar busca"
+            (click)="onSearch('')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="table-wrapper">
+      <table
+        mat-table
+        class="data-table"
+        matSort
+        [dataSource]="pageRows()"
+        [matSortActive]="sort().active"
+        [matSortDirection]="sort().direction"
+        (matSortChange)="sort.set($event)"
+      >
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+          <td mat-cell *matCellDef="let employee" class="cell-primary">{{ employee.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="registration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Matrícula</th>
+          <td mat-cell *matCellDef="let employee">{{ employee.registration }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="birthday">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Aniversário</th>
+          <td mat-cell *matCellDef="let employee">
+            @if (employee.birthday) {
+              {{ employee.birthday }}
+            } @else {
+              <span class="muted">Não informado</span>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="cell-actions">
+            <span class="cdk-visually-hidden">Ações</span>
+          </th>
+          <td mat-cell *matCellDef="let employee" class="cell-actions">
+            <a
+              matIconButton
+              matTooltip="Ver atestados"
+              aria-label="Ver atestados do funcionário"
+              routerLink="/atestados"
+              [queryParams]="{ matricula: employee.registration, modo: 'todos' }"
+            >
+              <mat-icon>manage_search</mat-icon>
+            </a>
+            <button
+              matIconButton
+              type="button"
+              matTooltip="Alterar"
+              aria-label="Alterar funcionário"
+              (click)="edit(employee)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              matIconButton
+              type="button"
+              class="icon-danger"
+              matTooltip="Excluir"
+              aria-label="Excluir funcionário"
+              (click)="remove(employee)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        <tr class="mat-mdc-row" *matNoDataRow>
+          <td class="mat-mdc-cell" [attr.colspan]="columns.length">
+            @if (!loading()) {
+              <div class="empty-state">
+                <mat-icon>group</mat-icon>
+                <strong>Nenhum funcionário encontrado</strong>
+                <span>
+                  {{
+                    search()
+                      ? 'Tente buscar por outro nome ou matrícula.'
+                      : 'Inclua o primeiro funcionário.'
+                  }}
+                </span>
+              </div>
+            }
+          </td>
+        </tr>
+      </table>
+    </div>
+    @if (total() > 10) {
+      <mat-paginator
+        [length]="total()"
+        [pageIndex]="pageIndex()"
+        [pageSize]="pageSize()"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        (page)="onPage($event)"
+      />
+    }
+  </div>
+</section>

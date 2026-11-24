@@ -1,0 +1,82 @@
+<h2 mat-dialog-title class="dialog-title">
+  <span class="dialog-icon"
+    ><mat-icon>{{ user ? 'manage_accounts' : 'person_add' }}</mat-icon></span
+  >
+  {{ user ? 'Alterar usuário' : 'Novo usuário' }}
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <mat-dialog-content>
+    <div class="form-grid">
+      <mat-form-field>
+        <mat-label>Usuário (matrícula)</mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+        <input matInput formControlName="username" autocomplete="off" inputmode="numeric" />
+        <mat-error>
+          @if (form.controls.username.hasError('taken')) {
+            Este usuário já existe
+          } @else {
+            Informe o usuário
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Senha</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input
+          matInput
+          formControlName="password"
+          autocomplete="new-password"
+          [type]="showPassword() ? 'text' : 'password'"
+        />
+        <button
+          matIconButton
+          matSuffix
+          type="button"
+          [attr.aria-label]="showPassword() ? 'Ocultar senha' : 'Mostrar senha'"
+          (click)="showPassword.set(!showPassword())"
+        >
+          <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error>Informe a senha</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="span-2">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" autocomplete="off" />
+        <mat-error>Informe o nome</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="gender">
+      <span class="field-label" id="gender-label"
+        >Sexo (usado na saudação "Bem-vindo/Bem-vinda")</span
+      >
+      <mat-button-toggle-group
+        formControlName="gender"
+        aria-labelledby="gender-label"
+        [hideSingleSelectionIndicator]="true"
+      >
+        @for (gender of genders; track gender) {
+          <mat-button-toggle [value]="gender">{{ gender }}</mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+      @if (form.controls.gender.invalid && form.controls.gender.touched) {
+        <span class="gender-error">Escolha uma opção</span>
+      }
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button matButton type="button" mat-dialog-close [disabled]="saving()">Cancelar</button>
+    <button matButton="filled" type="submit" [disabled]="saving()">
+      @if (saving()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <mat-icon>check</mat-icon>
+      }
+      {{ user ? 'Salvar alterações' : 'Incluir usuário' }}
+    </button>
+  </mat-dialog-actions>
+</form>

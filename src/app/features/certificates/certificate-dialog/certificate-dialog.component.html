@@ -1,0 +1,227 @@
+<h2 mat-dialog-title class="dialog-title">
+  <span class="dialog-icon"
+    ><mat-icon>{{ info.icon }}</mat-icon></span
+  >
+  <span>
+    {{ editing ? 'Alterar' : 'Incluir' }} {{ info.label.toLowerCase() }}
+    <small class="subtitle">
+      {{ editing ? 'Corrija os dados e salve.' : 'Preencha os dados do atestado.' }}
+    </small>
+  </span>
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <mat-dialog-content>
+    <app-employee-autocomplete [control]="form.controls.registration" />
+
+    @switch (kind) {
+      @case ('day') {
+        <div class="form-grid">
+          <mat-form-field>
+            <mat-label>Data de início</mat-label>
+            <input
+              matInput
+              formControlName="date"
+              placeholder="dd/mm/aaaa"
+              [matDatepicker]="startPicker"
+              [min]="minDate"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="startPicker" />
+            <mat-datepicker #startPicker />
+            <mat-error>
+              @if (form.controls.date.hasError('required')) {
+                Informe a data de início
+              } @else {
+                Data inválida
+              }
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Data de término</mat-label>
+            <input
+              matInput
+              formControlName="endDate"
+              placeholder="dd/mm/aaaa"
+              [matDatepicker]="endPicker"
+              [min]="form.controls.date.value ?? minDate"
+              [errorStateMatcher]="dateRangeMatcher"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="endPicker" />
+            <mat-datepicker #endPicker [startAt]="form.controls.date.value" />
+            <mat-error>
+              @if (form.controls.endDate.hasError('required')) {
+                Informe a data de término
+              } @else if (
+                form.hasError('dateRange') || form.controls.endDate.hasError('matDatepickerMin')
+              ) {
+                Não pode ser antes do início
+              } @else {
+                Data inválida
+              }
+            </mat-error>
+          </mat-form-field>
+        </div>
+      }
+
+      @case ('hour') {
+        <mat-form-field class="w-full">
+          <mat-label>Data do atestado</mat-label>
+          <input
+            matInput
+            formControlName="date"
+            placeholder="dd/mm/aaaa"
+            [matDatepicker]="datePicker"
+            [min]="minDate"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="datePicker" />
+          <mat-datepicker #datePicker />
+          <mat-error>
+            @if (form.controls.date.hasError('required')) {
+              Informe a data do atestado
+            } @else {
+              Data inválida
+            }
+          </mat-error>
+        </mat-form-field>
+
+        <div class="form-grid">
+          <mat-form-field>
+            <mat-label>Hora de início</mat-label>
+            <input
+              matInput
+              formControlName="startTime"
+              placeholder="hh:mm"
+              [matTimepicker]="startTimePicker"
+            />
+            <mat-timepicker-toggle matIconSuffix [for]="startTimePicker" />
+            <mat-timepicker #startTimePicker interval="30m" />
+            <mat-error>
+              @if (form.controls.startTime.hasError('required')) {
+                Informe a hora de início
+              } @else {
+                Horário inválido (use hh:mm)
+              }
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Hora de término</mat-label>
+            <input
+              matInput
+              formControlName="endTime"
+              placeholder="hh:mm"
+              [matTimepicker]="endTimePicker"
+              [errorStateMatcher]="timeRangeMatcher"
+            />
+            <mat-timepicker-toggle matIconSuffix [for]="endTimePicker" />
+            <mat-timepicker #endTimePicker interval="30m" />
+            <mat-error>
+              @if (form.controls.endTime.hasError('required')) {
+                Informe a hora de término
+              } @else if (form.hasError('timeRange')) {
+                Deve ser depois do início
+              } @else {
+                Horário inválido (use hh:mm)
+              }
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="choice-row">
+          <div class="choice">
+            <span class="field-label" id="mode-label">Modo do atestado</span>
+            <mat-button-toggle-group
+              formControlName="mode"
+              aria-labelledby="mode-label"
+              [hideSingleSelectionIndicator]="true"
+            >
+              @for (mode of modes; track mode) {
+                <mat-button-toggle [value]="mode">{{ mode }}</mat-button-toggle>
+              }
+            </mat-button-toggle-group>
+            @if (form.controls.mode.invalid && form.controls.mode.touched) {
+              <span class="choice-error">Escolha o modo</span>
+            }
+          </div>
+
+          <div class="choice">
+            <span class="field-label" id="status-label">Status</span>
+            <mat-button-toggle-group
+              formControlName="status"
+              aria-labelledby="status-label"
+              [hideSingleSelectionIndicator]="true"
+            >
+              @for (status of statuses; track status) {
+                <mat-button-toggle [value]="status" [class.pending]="status === 'Pendente'">
+                  {{ status }}
+                </mat-button-toggle>
+              }
+            </mat-button-toggle-group>
+            @if (form.controls.status.invalid && form.controls.status.touched) {
+              <span class="choice-error">Escolha o status</span>
+            }
+          </div>
+        </div>
+      }
+
+      @case ('donation') {
+        <div class="form-grid">
+          <mat-form-field>
+            <mat-label>Data da doação</mat-label>
+            <input
+              matInput
+              formControlName="date"
+              placeholder="dd/mm/aaaa"
+              [matDatepicker]="donationPicker"
+              [min]="minDate"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="donationPicker" />
+            <mat-datepicker #donationPicker />
+            <mat-error>
+              @if (form.controls.date.hasError('required')) {
+                Informe a data da doação
+              } @else {
+                Data inválida
+              }
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Data da folga</mat-label>
+            <input
+              matInput
+              formControlName="dayOff"
+              placeholder="dd/mm/aaaa"
+              [matDatepicker]="dayOffPicker"
+              [min]="minDate"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="dayOffPicker" />
+            <mat-datepicker #dayOffPicker [startAt]="form.controls.date.value" />
+            <mat-hint>Opcional</mat-hint>
+            <mat-error>Data inválida</mat-error>
+          </mat-form-field>
+        </div>
+      }
+    }
+
+    @if (summary(); as summary) {
+      <div class="dialog-summary" [class.invalid]="summary.invalid">
+        <mat-icon>{{ summary.icon }}</mat-icon>
+        {{ summary.text }}
+      </div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button matButton type="button" mat-dialog-close [disabled]="saving()">Cancelar</button>
+    <button matButton="filled" type="submit" [disabled]="saving()">
+      @if (saving()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <mat-icon>check</mat-icon>
+      }
+      {{ editing ? 'Salvar alterações' : 'Incluir atestado' }}
+    </button>
+  </mat-dialog-actions>
+</form>

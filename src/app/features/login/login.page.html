@@ -1,0 +1,83 @@
+<main class="login">
+  <section class="hero" aria-hidden="true">
+    <div class="hero-content">
+      <span class="brand-mark"><mat-icon class="icon-filled">medical_services</mat-icon></span>
+      <h2>GARBO</h2>
+      <p>Controle de atestados, doações de sangue e aniversariantes em um só lugar.</p>
+      <ul>
+        <li><mat-icon>calendar_month</mat-icon> Atestados de dia, de hora e de doação</li>
+        <li><mat-icon>hourglass_bottom</mat-icon> Saldo de horas por período</li>
+        <li><mat-icon>cake</mat-icon> Aniversariantes do mês</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel">
+    <form class="card login-card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <header>
+        <h1>Entrar</h1>
+        <p class="muted">Use seu usuário e senha do controle de atestados.</p>
+      </header>
+
+      @if (demoMode) {
+        <div class="notice notice-info">
+          <mat-icon>science</mat-icon>
+          <span>
+            Modo demonstração. Usuário <strong>{{ demoCredentials.username }}</strong> e senha
+            <strong>{{ demoCredentials.password }}</strong>.
+          </span>
+        </div>
+      }
+
+      <mat-form-field>
+        <mat-label>Usuário</mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+        <input
+          matInput
+          formControlName="username"
+          autocomplete="username"
+          inputmode="numeric"
+          autofocus
+        />
+        <mat-error>Informe o usuário</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Senha</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input
+          matInput
+          formControlName="password"
+          autocomplete="current-password"
+          [type]="showPassword() ? 'text' : 'password'"
+        />
+        <button
+          matIconButton
+          matSuffix
+          type="button"
+          [attr.aria-label]="showPassword() ? 'Ocultar senha' : 'Mostrar senha'"
+          (click)="showPassword.set(!showPassword())"
+        >
+          <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error>Informe a senha</mat-error>
+      </mat-form-field>
+
+      @if (error(); as message) {
+        <div class="notice notice-danger" role="alert">
+          <mat-icon>error</mat-icon>
+          <span>{{ message }}</span>
+        </div>
+      }
+
+      <button matButton="filled" type="submit" class="submit" [disabled]="loading()">
+        @if (loading()) {
+          <mat-spinner diameter="20" />
+        } @else {
+          <mat-icon>login</mat-icon>
+        }
+        Entrar
+      </button>
+    </form>
+  </section>
+</main>

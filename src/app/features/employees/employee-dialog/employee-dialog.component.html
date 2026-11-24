@@ -1,0 +1,56 @@
+<h2 mat-dialog-title class="dialog-title">
+  <span class="dialog-icon"
+    ><mat-icon>{{ employee ? 'edit' : 'person_add' }}</mat-icon></span
+  >
+  {{ employee ? 'Alterar funcionário' : 'Novo funcionário' }}
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <mat-dialog-content>
+    <div class="form-grid">
+      <mat-form-field>
+        <mat-label>Matrícula</mat-label>
+        <input matInput formControlName="registration" autocomplete="off" />
+        <mat-error>
+          @if (form.controls.registration.hasError('taken')) {
+            Matrícula já cadastrada
+          } @else {
+            Informe a matrícula
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Aniversário</mat-label>
+        <mat-icon matPrefix>cake</mat-icon>
+        <input
+          matInput
+          formControlName="birthday"
+          appDigitMask="00/00"
+          placeholder="dd/mm"
+          autocomplete="off"
+        />
+        <mat-hint>Opcional. Dia e mês, ex.: 05/03</mat-hint>
+        <mat-error>Data inválida (use dd/mm)</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="span-2">
+        <mat-label>Nome completo</mat-label>
+        <input matInput formControlName="name" autocomplete="off" />
+        <mat-error>Informe o nome</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button matButton type="button" mat-dialog-close [disabled]="saving()">Cancelar</button>
+    <button matButton="filled" type="submit" [disabled]="saving()">
+      @if (saving()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <mat-icon>check</mat-icon>
+      }
+      {{ employee ? 'Salvar alterações' : 'Incluir funcionário' }}
+    </button>
+  </mat-dialog-actions>
+</form>

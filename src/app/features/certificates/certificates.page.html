@@ -1,0 +1,304 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>Atestados</h1>
+      <p>Consulte, inclua, altere e exclua atestados por funcionário e período.</p>
+    </div>
+    <div class="page-actions">
+      <button matButton="filled" type="button" (click)="create()">
+        <mat-icon>add</mat-icon>
+        Novo {{ kindInfo().label.toLowerCase() }}
+      </button>
+    </div>
+  </header>
+
+  <mat-button-toggle-group
+    class="kind-tabs"
+    aria-label="Tipo de atestado"
+    [value]="kind()"
+    [hideSingleSelectionIndicator]="true"
+    (change)="selectKind($event.value)"
+  >
+    @for (item of kinds; track item.kind) {
+      <mat-button-toggle [value]="item.kind">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        {{ item.label }}
+      </mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+
+  <div class="card filters">
+    <app-employee-autocomplete
+      class="filter-employee"
+      [control]="employeeControl"
+      [allowAll]="true"
+      subscriptSizing="dynamic"
+    />
+
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Período</mat-label>
+      <mat-select
+        [value]="period().startYear"
+        (selectionChange)="selectPeriod($event.value)"
+        panelWidth=""
+      >
+        @for (item of periods(); track item.startYear) {
+          <mat-option [value]="item.startYear">{{ item.label }}</mat-option>
+        }
+      </mat-select>
+      <mat-hint>{{ period().start | brDate }} a {{ period().end | brDate }}</mat-hint>
+    </mat-form-field>
+
+    @if (kind() === 'hour') {
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Modo</mat-label>
+        <mat-select [value]="mode()" (selectionChange)="selectMode($event.value)">
+          <mat-option value="all">Todos os modos</mat-option>
+          @for (item of modes; track item) {
+            <mat-option [value]="item">{{ item }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Status</mat-label>
+        <mat-select [value]="status()" (selectionChange)="selectStatus($event.value)">
+          <mat-option value="all">Todos os status</mat-option>
+          @for (item of statuses; track item) {
+            <mat-option [value]="item">{{ item }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
+    <button
+      matIconButton
+      type="button"
+      class="clear-button"
+      matTooltip="Limpar filtros"
+      aria-label="Limpar filtros"
+      (click)="clearFilters()"
+    >
+      <mat-icon>filter_alt_off</mat-icon>
+    </button>
+  </div>
+
+  @if (failed()) {
+    <div class="notice notice-danger" role="alert">
+      <mat-icon>cloud_off</mat-icon>
+      <span class="spacer">Não foi possível carregar os atestados. Verifique sua conexão.</span>
+      <button matButton type="button" (click)="retry()">Tentar novamente</button>
+    </div>
+  }
+
+  @if (invalidCount()) {
+    <div class="notice" role="status">
+      <mat-icon>warning</mat-icon>
+      <span>
+        {{
+          invalidCount() === 1
+            ? 'Um registro antigo tem'
+            : invalidCount() + ' registros antigos têm'
+        }}
+        tipo ou data ilegível e não aparece{{ invalidCount() === 1 ? '' : 'm' }} nas consultas.
+      </span>
+    </div>
+  }
+
+  <div class="summary-grid">
+    @switch (kind()) {
+      @case ('hour') {
+        <div class="card stat stat-main">
+          <span class="stat-label"><mat-icon>hourglass_bottom</mat-icon> Saldo de horas</span>
+          <strong class="stat-value">{{ totalText() }}</strong>
+          <span class="muted">
+            {{ countText() }} no período {{ period().label }}
+            @if (mode() !== 'all') {
+              · {{ mode() }}
+            }
+          </span>
+        </div>
+        <div class="card stat">
+          <span class="stat-label"><mat-icon>pending_actions</mat-icon> Pendentes</span>
+          <strong class="stat-value" [class.danger]="summary().pendingCount">
+            {{ summary().pendingCount }}
+          </strong>
+          <span class="muted">{{ summary().pendingMinutes | duration: 'long' }}</span>
+        </div>
+      }
+      @case ('day') {
+        <div class="card stat stat-main">
+          <span class="stat-label"><mat-icon>event_busy</mat-icon> Dias de afastamento</span>
+          <strong class="stat-value">{{ summary().totalDays }}</strong>
+          <span class="muted">{{ countText() }} no período {{ period().label }}</span>
+        </div>
+      }
+      @case ('donation') {
+        <div class="card stat stat-main">
+          <span class="stat-label"><mat-icon>volunteer_activism</mat-icon> Doações</span>
+          <strong class="stat-value">{{ summary().count }}</strong>
+          <span class="muted">no período {{ period().label }}</span>
+        </div>
+      }
+    }
+  </div>
+
+  @if (summary().invalidTimeCount) {
+    <div class="notice" role="status">
+      <mat-icon>schedule</mat-icon>
+      <span>{{ invalidTimeText() }}</span>
+    </div>
+  }
+
+  <div class="card">
+    @if (loading()) {
+      <mat-progress-bar class="loading-bar" mode="indeterminate" />
+    }
+    <div class="table-wrapper">
+      <table
+        mat-table
+        class="data-table"
+        matSort
+        [dataSource]="pageRows()"
+        [matSortActive]="sort().active"
+        [matSortDirection]="sort().direction"
+        (matSortChange)="sort.set($event)"
+      >
+        <ng-container matColumnDef="employee">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Funcionário</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="cell-primary">{{ row.employeeName }}</span>
+            <span class="cell-secondary">Matrícula {{ row.certificate.registration }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ kind() === 'day' ? 'Início' : kind() === 'donation' ? 'Data da doação' : 'Data' }}
+          </th>
+          <td mat-cell *matCellDef="let row" class="cell-nowrap">
+            {{ row.certificate.date | brDate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Término</th>
+          <td mat-cell *matCellDef="let row" class="cell-nowrap">
+            {{ row.certificate.endDate | brDate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="days">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Dias</th>
+          <td mat-cell *matCellDef="let row">{{ row.days }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="startTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Início</th>
+          <td mat-cell *matCellDef="let row">{{ row.certificate.startTime ?? '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Término</th>
+          <td mat-cell *matCellDef="let row">{{ row.certificate.endTime ?? '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="duration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Duração</th>
+          <td mat-cell *matCellDef="let row" class="cell-nowrap">
+            @if (row.minutes === null) {
+              <span class="badge badge-warning" matTooltip="Horário inválido. Edite o registro.">
+                <mat-icon>warning</mat-icon> Inválido
+              </span>
+            } @else {
+              {{ row.minutes | duration }}
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Modo</th>
+          <td mat-cell *matCellDef="let row">{{ row.certificate.mode ?? '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let row">
+            @switch (row.certificate.status) {
+              @case ('Pendente') {
+                <span class="badge badge-danger"><mat-icon>pending</mat-icon> Pendente</span>
+              }
+              @case ('Confirmado') {
+                <span class="badge badge-success"
+                  ><mat-icon>check_circle</mat-icon> Confirmado</span
+                >
+              }
+              @default {
+                <span class="badge">Não informado</span>
+              }
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dayOff">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Data da folga</th>
+          <td mat-cell *matCellDef="let row" class="cell-nowrap">
+            {{ row.certificate.dayOff | brDate: 'Não informada' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="cell-actions">
+            <span class="cdk-visually-hidden">Ações</span>
+          </th>
+          <td mat-cell *matCellDef="let row" class="cell-actions">
+            <button
+              matIconButton
+              type="button"
+              matTooltip="Alterar"
+              aria-label="Alterar atestado"
+              (click)="actions.edit(row.certificate)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              matIconButton
+              type="button"
+              class="icon-danger"
+              matTooltip="Excluir"
+              aria-label="Excluir atestado"
+              (click)="actions.remove(row.certificate)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns()"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns()"></tr>
+        <tr class="mat-mdc-row" *matNoDataRow>
+          <td class="mat-mdc-cell" [attr.colspan]="columns().length">
+            @if (!loading()) {
+              <div class="empty-state">
+                <mat-icon>{{ kindInfo().icon }}</mat-icon>
+                <strong>Nenhum atestado encontrado</strong>
+                <span
+                  >Altere os filtros ou inclua um novo {{ kindInfo().label.toLowerCase() }}.</span
+                >
+              </div>
+            }
+          </td>
+        </tr>
+      </table>
+    </div>
+    @if (total() > 10) {
+      <mat-paginator
+        [length]="total()"
+        [pageIndex]="pageIndex()"
+        [pageSize]="pageSize()"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        (page)="onPage($event)"
+      />
+    }
+  </div>
+</section>

@@ -1,0 +1,56 @@
+<mat-form-field class="w-full" [subscriptSizing]="subscriptSizing()">
+  <mat-label>{{ label() }}</mat-label>
+  <mat-icon matPrefix>person_search</mat-icon>
+  <input
+    #field
+    matInput
+    type="text"
+    autocomplete="off"
+    [formControl]="query"
+    [matAutocomplete]="auto"
+    [errorStateMatcher]="matcher"
+    [placeholder]="allowAll() ? allLabel() : 'Digite o nome ou a matrícula'"
+    (input)="onTyping(field.value)"
+    (blur)="onBlur()"
+  />
+  @if (hasValue()) {
+    <button matIconButton matSuffix type="button" aria-label="Limpar" (click)="clear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    class="employee-panel"
+    [displayWith]="display"
+    [hideSingleSelectionIndicator]="true"
+    (optionSelected)="onSelected($event.option.value)"
+    (closed)="onClosed()"
+  >
+    @if (allowAll()) {
+      <mat-option [value]="null">
+        <span class="option all">
+          <mat-icon>groups</mat-icon>
+          {{ allLabel() }}
+        </span>
+      </mat-option>
+    }
+    @if (loading()) {
+      <mat-option disabled>Carregando funcionários…</mat-option>
+    } @else {
+      @for (employee of options(); track employee.id) {
+        <mat-option [value]="employee">
+          <span class="option">
+            <span class="name">{{ employee.name }}</span>
+            <span class="registration">{{ employee.registration }}</span>
+          </span>
+        </mat-option>
+      } @empty {
+        <mat-option disabled>Nenhum funcionário encontrado</mat-option>
+      }
+    }
+  </mat-autocomplete>
+  @if (unknownRegistration()) {
+    <mat-hint>Matrícula sem funcionário cadastrado</mat-hint>
+  }
+  <mat-error>Selecione um funcionário da lista</mat-error>
+</mat-form-field>

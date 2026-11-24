@@ -1,0 +1,59 @@
+<section class="page">
+  <header class="page-header no-print">
+    <div>
+      <h1>Aniversariantes</h1>
+      <p>Funcionários que fazem aniversário no mês escolhido.</p>
+    </div>
+    <div class="page-actions">
+      <mat-form-field subscriptSizing="dynamic" class="month-field">
+        <mat-label>Mês</mat-label>
+        <mat-select [value]="month()" (selectionChange)="selectMonth($event.value)">
+          @for (item of months; track item.value) {
+            <mat-option [value]="item.value">{{ item.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button matButton="outlined" type="button" (click)="print()" [disabled]="!people().length">
+        <mat-icon>print</mat-icon>
+        Imprimir
+      </button>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <mat-progress-bar class="no-print" mode="indeterminate" />
+  }
+
+  <article class="card poster">
+    <div class="poster-header">
+      <img src="images/aniversario.png" alt="Balões coloridos com a frase Feliz Aniversário" />
+      <div>
+        <p class="poster-kicker">Aniversariantes do mês de</p>
+        <h2>{{ monthName() }}</h2>
+        <p class="muted no-print">{{ countText() }}</p>
+      </div>
+    </div>
+
+    <ol class="people">
+      @for (person of people(); track person.id) {
+        <li [class.today]="person.isToday">
+          <span class="day">{{ person.day < 10 ? '0' + person.day : person.day }}</span>
+          <span class="name">{{ person.name }}</span>
+          @if (person.isToday) {
+            <span class="badge badge-warning"><mat-icon>celebration</mat-icon> Hoje</span>
+          }
+        </li>
+      } @empty {
+        @if (!loading()) {
+          <li class="empty-state">
+            <mat-icon>cake</mat-icon>
+            <strong>Nenhum aniversariante em {{ monthName() }}</strong>
+            <span
+              >Confira se a data de aniversário está preenchida no cadastro de funcionários.</span
+            >
+          </li>
+        }
+      }
+    </ol>
+  </article>
+</section>

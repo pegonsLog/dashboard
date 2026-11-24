@@ -1,0 +1,105 @@
+.month-field {
+  width: 200px;
+}
+
+.page-actions {
+  align-items: center;
+}
+
+.poster {
+  padding: 32px;
+}
+
+.poster-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed var(--app-border);
+  text-align: center;
+
+  img {
+    width: min(280px, 70%);
+    height: auto;
+  }
+
+  h2 {
+    color: #0f172a;
+    font:
+      700 2.4rem/1.1 Montserrat,
+      Inter,
+      sans-serif;
+  }
+}
+
+.poster-kicker {
+  color: #e11d48;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px 24px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #f8fafc;
+    break-inside: avoid;
+
+    &.today {
+      background: #fff7ed;
+      box-shadow: inset 0 0 0 1px #fdba74;
+    }
+
+    &.empty-state {
+      grid-column: 1 / -1;
+      background: transparent;
+    }
+  }
+}
+
+.day {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fb7185, #e11d48);
+  color: #ffffff;
+  font:
+    700 1rem/1 Inter,
+    sans-serif;
+}
+
+.name {
+  flex: 1;
+  font-weight: 500;
+}
+
+@media print {
+  .page {
+    padding: 0;
+  }
+
+  .poster {
+    padding: 0;
+  }
+
+  .people li {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+  }
+}
